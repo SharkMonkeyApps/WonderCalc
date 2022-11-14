@@ -13,44 +13,49 @@ enum Operand: String {
     case multiply = "X"
     case divide = "/"
     case equal = "="
+    case negative = "+/-"
+    case percent = "%"
+    case squared = "^2"
+    case clear = "C"
 }
 
 class Calculator: ObservableObject {
-    @Published var publishedValue: Int = 0
+    @Published var publishedValue: String = "0"
     
-    func numberTapped(_ number: Int) {
-        if currentValue == 0 {
+    func numberTapped(_ number: String) {
+        if currentValue == "0" {
             currentValue = number
         } else {
-            let stringValue = "\(currentValue)\(number)"
-            currentValue = Int(stringValue) ?? 0
+            currentValue.append(number)
         }
         
-        publish()
+        publish(currentValue)
     }
     
-    func operandPressed(_ mathOperator: Operand) {
-        let calculation: Calculation = (currentValue, mathOperator)
+    func operandPressed(_ operand: Operand) {
+        guard operand != .clear else { clear(); return }
+        
+        let calculation: Calculation = (doubleValue, operand)
         calculations.append(calculation)
-        calculate()
-    }
-    
-    func clear() {
-        calculations = []
-        currentValue = 0
-        publish()
+        do {
+            try calculate()
+        } catch {
+            handle(error)
+        }
     }
     
     // MARK: - Private
     
-    private var currentValue = 0
+    private var currentValue: String = "0"
     
-    private typealias Calculation = (num: Int, oper: Operand)
+    private var doubleValue: Double { Double(currentValue) ?? 0 }
+    
+    private typealias Calculation = (num: Double, oper: Operand)
     
     private var calculations: [Calculation] = []
-
-    private func calculate() {
-        var value = 0
+    
+    private func calculate() throws {
+        var value: Double = 0
         var operand: Operand = .plus
         
         for calc in calculations {
@@ -58,17 +63,17 @@ class Calculator: ObservableObject {
                 value = calc.num
                 operand = calc.oper
             } else {
-                let result = perform(initialValue: value, operand: operand, newValue: calc.num)
+                let result = try perform(initialValue: value, operand: operand, newValue: calc.num)
                 value = result
                 operand = calc.oper
             }
         }
-        
-        publishedValue = value
-        currentValue = 0
+        print("calculated")
+        publish(value, rounded: true)
+        currentValue = "0"
     }
     
-    private func perform(initialValue: Int, operand: Operand, newValue: Int) -> Int {
+    private func perform(initialValue: Double, operand: Operand, newValue: Double) throws -> Double {
         switch operand {
         case .plus:
             return initialValue + newValue
@@ -80,15 +85,55 @@ class Calculator: ObservableObject {
             if newValue != 0 {
                 return initialValue / newValue
             } else {
-                return 0
+                throw CalculatorError.divByZero
             }
         case .equal:
             return initialValue
+        case .negative:
+            return initialValue * -1
+        case .percent:
+            return initialValue / 100
+        case .squared:
+            return initialValue * initialValue
+        case .clear:
+            return 0
         }
     }
     
-    private func publish() {
-        publishedValue = currentValue
+    private func publish(_ value: Double, rounded: Bool = false) {
+        let stringValue = NumberFormatter.calculatorDisplay.string(from: value) ?? ""
+        if rounded && stringValue.suffix(2) == ".0" {
+            publish(String(stringValue.dropLast(2)))
+            print("rounding")
+        } else {
+            publish(stringValue)
+        }
+    }
+    
+    private func publish(_ value: String) {
+        print(value)
+        publishedValue = value
+    }
+    
+    private func handle(_ error: Error) {
+        guard let calcError = error as? CalculatorError else {
+            publish("Error")
+            return
+        }
+        
+        switch calcError {
+        case .divByZero:
+            publish("Can't divide by zero")
+        }
+    }
+    
+    private func clear() {
+        calculations = []
+        currentValue = "0"
+        publish(currentValue)
     }
 }
 
+enum CalculatorError: Error {
+    case divByZero
+}

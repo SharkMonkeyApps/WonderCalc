@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct NumberButton: View {
-    let value: Int
-    let callback: (Int) -> ()
+    let value: String
+    let callback: (String) -> ()
     
     func returnValue() {
         callback(value)

@@ -16,6 +16,12 @@ struct CalcView: View {
             Text("\(calculator.publishedValue)")
             
             LazyVGrid(columns: layout, spacing: 10) {
+                operatorButton(.clear)
+                operatorButton(.negative)
+                operatorButton(.percent)
+                operatorButton(.squared)
+            }
+            LazyVGrid(columns: layout, spacing: 10) {
                 numberButton(7)
                 numberButton(8)
                 numberButton(9)
@@ -35,9 +41,9 @@ struct CalcView: View {
             }
             LazyVGrid(columns: layout, spacing: 10) {
                 numberButton(0)
-                operatorButton(.divide)
+                numberButton(".")
                 operatorButton(.equal)
-                Button("C", action: { calculator.clear() })
+                operatorButton(.divide)
             }
         }
         .padding()
@@ -53,7 +59,11 @@ struct CalcView: View {
     ]
     
     private func numberButton(_ number: Int) -> NumberButton {
-        NumberButton(value: number, callback: calculator.numberTapped)
+        numberButton("\(number)")
+    }
+    
+    private func numberButton(_ char: String) -> NumberButton {
+        NumberButton(value: char, callback: calculator.numberTapped)
     }
     
     private func operatorButton(_ operand: Operand) -> OperandButton {
