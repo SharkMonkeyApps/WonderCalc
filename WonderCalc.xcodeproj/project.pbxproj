@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		4187DBF52922AB7D0026ABB2 /* WonderCalcApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DBF42922AB7D0026ABB2 /* WonderCalcApp.swift */; };
-		4187DBF72922AB7D0026ABB2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DBF62922AB7D0026ABB2 /* ContentView.swift */; };
+		4187DBF72922AB7D0026ABB2 /* CalcView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DBF62922AB7D0026ABB2 /* CalcView.swift */; };
 		4187DBF92922AB800026ABB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4187DBF82922AB800026ABB2 /* Assets.xcassets */; };
 		4187DBFC2922AB800026ABB2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4187DBFB2922AB800026ABB2 /* Preview Assets.xcassets */; };
-		4187DC062922AB800026ABB2 /* WonderCalcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC052922AB800026ABB2 /* WonderCalcTests.swift */; };
 		4187DC102922AB800026ABB2 /* WonderCalcUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC0F2922AB800026ABB2 /* WonderCalcUITests.swift */; };
 		4187DC122922AB800026ABB2 /* WonderCalcUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC112922AB800026ABB2 /* WonderCalcUITestsLaunchTests.swift */; };
+		4187DC212922BE810026ABB2 /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC202922BE810026ABB2 /* Calculator.swift */; };
+		4187DC232922BEF30026ABB2 /* NumberButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC222922BEF30026ABB2 /* NumberButton.swift */; };
+		4187DC252922BF160026ABB2 /* OperandButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC242922BF160026ABB2 /* OperandButton.swift */; };
+		4187DC272922D10F0026ABB2 /* CalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC262922D10F0026ABB2 /* CalculatorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,14 +39,17 @@
 /* Begin PBXFileReference section */
 		4187DBF12922AB7D0026ABB2 /* WonderCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WonderCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4187DBF42922AB7D0026ABB2 /* WonderCalcApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WonderCalcApp.swift; sourceTree = "<group>"; };
-		4187DBF62922AB7D0026ABB2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4187DBF62922AB7D0026ABB2 /* CalcView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcView.swift; sourceTree = "<group>"; };
 		4187DBF82922AB800026ABB2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4187DBFB2922AB800026ABB2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4187DC012922AB800026ABB2 /* WonderCalcTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WonderCalcTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4187DC052922AB800026ABB2 /* WonderCalcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WonderCalcTests.swift; sourceTree = "<group>"; };
 		4187DC0B2922AB800026ABB2 /* WonderCalcUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WonderCalcUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4187DC0F2922AB800026ABB2 /* WonderCalcUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WonderCalcUITests.swift; sourceTree = "<group>"; };
 		4187DC112922AB800026ABB2 /* WonderCalcUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WonderCalcUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		4187DC202922BE810026ABB2 /* Calculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
+		4187DC222922BEF30026ABB2 /* NumberButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberButton.swift; sourceTree = "<group>"; };
+		4187DC242922BF160026ABB2 /* OperandButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperandButton.swift; sourceTree = "<group>"; };
+		4187DC262922D10F0026ABB2 /* CalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +100,9 @@
 		4187DBF32922AB7D0026ABB2 /* WonderCalc */ = {
 			isa = PBXGroup;
 			children = (
+				4187DC1F2922BE740026ABB2 /* Models */,
+				4187DC1E2922ABE30026ABB2 /* Views */,
 				4187DBF42922AB7D0026ABB2 /* WonderCalcApp.swift */,
-				4187DBF62922AB7D0026ABB2 /* ContentView.swift */,
 				4187DBF82922AB800026ABB2 /* Assets.xcassets */,
 				4187DBFA2922AB800026ABB2 /* Preview Content */,
 			);
@@ -113,7 +120,7 @@
 		4187DC042922AB800026ABB2 /* WonderCalcTests */ = {
 			isa = PBXGroup;
 			children = (
-				4187DC052922AB800026ABB2 /* WonderCalcTests.swift */,
+				4187DC262922D10F0026ABB2 /* CalculatorTests.swift */,
 			);
 			path = WonderCalcTests;
 			sourceTree = "<group>";
@@ -125,6 +132,24 @@
 				4187DC112922AB800026ABB2 /* WonderCalcUITestsLaunchTests.swift */,
 			);
 			path = WonderCalcUITests;
+			sourceTree = "<group>";
+		};
+		4187DC1E2922ABE30026ABB2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4187DBF62922AB7D0026ABB2 /* CalcView.swift */,
+				4187DC222922BEF30026ABB2 /* NumberButton.swift */,
+				4187DC242922BF160026ABB2 /* OperandButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4187DC1F2922BE740026ABB2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4187DC202922BE810026ABB2 /* Calculator.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +282,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4187DBF72922AB7D0026ABB2 /* ContentView.swift in Sources */,
+				4187DBF72922AB7D0026ABB2 /* CalcView.swift in Sources */,
 				4187DBF52922AB7D0026ABB2 /* WonderCalcApp.swift in Sources */,
+				4187DC232922BEF30026ABB2 /* NumberButton.swift in Sources */,
+				4187DC212922BE810026ABB2 /* Calculator.swift in Sources */,
+				4187DC252922BF160026ABB2 /* OperandButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,7 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4187DC062922AB800026ABB2 /* WonderCalcTests.swift in Sources */,
+				4187DC272922D10F0026ABB2 /* CalculatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

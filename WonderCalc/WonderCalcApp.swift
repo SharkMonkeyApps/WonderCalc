@@ -11,7 +11,13 @@ import SwiftUI
 struct WonderCalcApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabView{
+                CalcView(calculator: Calculator())
+                    .tabItem {
+                        Image(systemName: "centsign.circle")
+                        Text("Calc")
+                    }
+            }
         }
     }
 }
