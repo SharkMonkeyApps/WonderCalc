@@ -16,6 +16,7 @@
 		4187DC252922BF160026ABB2 /* OperandButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC242922BF160026ABB2 /* OperandButton.swift */; };
 		4187DC272922D10F0026ABB2 /* CalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC262922D10F0026ABB2 /* CalculatorTests.swift */; };
 		4187DC2A2922E5420026ABB2 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC292922E5420026ABB2 /* NumberFormatter.swift */; };
+		41E698042922FAA20024C00F /* CalculationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E698032922FAA20024C00F /* CalculationsListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		4187DC242922BF160026ABB2 /* OperandButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperandButton.swift; sourceTree = "<group>"; };
 		4187DC262922D10F0026ABB2 /* CalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorTests.swift; sourceTree = "<group>"; };
 		4187DC292922E5420026ABB2 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
+		41E698032922FAA20024C00F /* CalculationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationsListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				4187DBF62922AB7D0026ABB2 /* CalcView.swift */,
 				4187DC222922BEF30026ABB2 /* NumberButton.swift */,
 				4187DC242922BF160026ABB2 /* OperandButton.swift */,
+				41E698032922FAA20024C00F /* CalculationsListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 				4187DC232922BEF30026ABB2 /* NumberButton.swift in Sources */,
 				4187DC212922BE810026ABB2 /* Calculator.swift in Sources */,
 				4187DC252922BF160026ABB2 /* OperandButton.swift in Sources */,
+				41E698042922FAA20024C00F /* CalculationsListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,11 +18,13 @@ struct OperandButton: View {
     var body: some View {
         Button(action: returnOperand) {
             Text(operand.rawValue)
+                .font(.system(size: 22, weight: .semibold))
+                .foregroundColor(.white)
                 .padding()
                 .frame(maxWidth: .infinity)
                 .background(Capsule()
                     .fill(Color.green)
-                    .frame(height: 50))
+                    .frame(height: 56))
         }
     }
 }

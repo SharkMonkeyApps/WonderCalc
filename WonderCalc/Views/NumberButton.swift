@@ -18,11 +18,13 @@ struct NumberButton: View {
     var body: some View {
         Button(action: returnValue) {
             Text("\(value)")
+                .font(.system(size: 22, weight: .semibold))
+                .foregroundColor(.white)
                 .padding()
                 .frame(maxWidth: .infinity)
                 .background(Capsule()
-                    .fill(Color.orange)
-                    .frame(height: 50))
+                    .fill(.orange)
+                    .frame(height: 56))
         }
     }
 }

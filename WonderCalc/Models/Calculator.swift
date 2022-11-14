@@ -19,6 +19,13 @@ enum Operand: String {
     case clear = "C"
 }
 
+struct Calculation: Identifiable {
+    var id: String
+    let number: Double
+    let operand: Operand
+}
+
+
 class Calculator: ObservableObject {
     @Published var publishedValue: String = "0"
     
@@ -35,7 +42,7 @@ class Calculator: ObservableObject {
     func operandPressed(_ operand: Operand) {
         guard operand != .clear else { clear(); return }
         
-        let calculation: Calculation = (doubleValue, operand)
+        let calculation = Calculation(id: UUID().uuidString, number: doubleValue, operand: operand) // = (doubleValue, operand)
         calculations.append(calculation)
         do {
             try calculate()
@@ -43,6 +50,8 @@ class Calculator: ObservableObject {
             handle(error)
         }
     }
+
+    var calculations: [Calculation] = []
     
     // MARK: - Private
     
@@ -50,9 +59,6 @@ class Calculator: ObservableObject {
     
     private var doubleValue: Double { Double(currentValue) ?? 0 }
     
-    private typealias Calculation = (num: Double, oper: Operand)
-    
-    private var calculations: [Calculation] = []
     
     private func calculate() throws {
         var value: Double = 0
@@ -60,12 +66,12 @@ class Calculator: ObservableObject {
         
         for calc in calculations {
             if value == 0 {
-                value = calc.num
-                operand = calc.oper
+                value = calc.number
+                operand = calc.operand
             } else {
-                let result = try perform(initialValue: value, operand: operand, newValue: calc.num)
+                let result = try perform(initialValue: value, operand: operand, newValue: calc.number)
                 value = result
-                operand = calc.oper
+                operand = calc.operand
             }
         }
         print("calculated")

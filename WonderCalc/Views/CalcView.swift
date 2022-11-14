@@ -12,41 +12,52 @@ struct CalcView: View {
     @ObservedObject var calculator: Calculator
     
     var body: some View {
-        VStack {
-            Text("\(calculator.publishedValue)")
-            
-            LazyVGrid(columns: layout, spacing: 10) {
-                operatorButton(.clear)
-                operatorButton(.negative)
-                operatorButton(.percent)
-                operatorButton(.squared)
+        NavigationView {
+            VStack {
+                Text("\(calculator.publishedValue)")
+                    .font(.system(size: 28, weight: .semibold))
+                
+                LazyVGrid(columns: layout) {
+                    operatorButton(.clear)
+                    operatorButton(.negative)
+                    operatorButton(.percent)
+                    operatorButton(.squared)
+                }
+                LazyVGrid(columns: layout) {
+                    numberButton(7)
+                    numberButton(8)
+                    numberButton(9)
+                    operatorButton(.plus)
+                }
+                LazyVGrid(columns: layout) {
+                    numberButton(4)
+                    numberButton(5)
+                    numberButton(6)
+                    operatorButton(.minus)
+                }
+                LazyVGrid(columns: layout) {
+                    numberButton(1)
+                    numberButton(2)
+                    numberButton(3)
+                    operatorButton(.multiply)
+                }
+                LazyVGrid(columns: layout) {
+                    numberButton(0)
+                    numberButton(".")
+                    operatorButton(.equal)
+                    operatorButton(.divide)
+                }
             }
-            LazyVGrid(columns: layout, spacing: 10) {
-                numberButton(7)
-                numberButton(8)
-                numberButton(9)
-                operatorButton(.plus)
-            }
-            LazyVGrid(columns: layout, spacing: 10) {
-                numberButton(4)
-                numberButton(5)
-                numberButton(6)
-                operatorButton(.minus)
-            }
-            LazyVGrid(columns: layout, spacing: 10) {
-                numberButton(1)
-                numberButton(2)
-                numberButton(3)
-                operatorButton(.multiply)
-            }
-            LazyVGrid(columns: layout, spacing: 10) {
-                numberButton(0)
-                numberButton(".")
-                operatorButton(.equal)
-                operatorButton(.divide)
+            .padding()
+            .navigationTitle("WonderCalc")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink("Calculations") {
+                        CalculationsListView(calculator: calculator)
+                    }
+                }
             }
         }
-        .padding()
     }
     
     // MARK: - Private
