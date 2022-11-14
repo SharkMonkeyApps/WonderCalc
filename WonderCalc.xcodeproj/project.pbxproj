@@ -1,0 +1,588 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4187DBF52922AB7D0026ABB2 /* WonderCalcApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DBF42922AB7D0026ABB2 /* WonderCalcApp.swift */; };
+		4187DBF72922AB7D0026ABB2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DBF62922AB7D0026ABB2 /* ContentView.swift */; };
+		4187DBF92922AB800026ABB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4187DBF82922AB800026ABB2 /* Assets.xcassets */; };
+		4187DBFC2922AB800026ABB2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4187DBFB2922AB800026ABB2 /* Preview Assets.xcassets */; };
+		4187DC062922AB800026ABB2 /* WonderCalcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC052922AB800026ABB2 /* WonderCalcTests.swift */; };
+		4187DC102922AB800026ABB2 /* WonderCalcUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC0F2922AB800026ABB2 /* WonderCalcUITests.swift */; };
+		4187DC122922AB800026ABB2 /* WonderCalcUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC112922AB800026ABB2 /* WonderCalcUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4187DC022922AB800026ABB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4187DBE92922AB7D0026ABB2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4187DBF02922AB7D0026ABB2;
+			remoteInfo = WonderCalc;
+		};
+		4187DC0C2922AB800026ABB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4187DBE92922AB7D0026ABB2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4187DBF02922AB7D0026ABB2;
+			remoteInfo = WonderCalc;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4187DBF12922AB7D0026ABB2 /* WonderCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WonderCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4187DBF42922AB7D0026ABB2 /* WonderCalcApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WonderCalcApp.swift; sourceTree = "<group>"; };
+		4187DBF62922AB7D0026ABB2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4187DBF82922AB800026ABB2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4187DBFB2922AB800026ABB2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4187DC012922AB800026ABB2 /* WonderCalcTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WonderCalcTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4187DC052922AB800026ABB2 /* WonderCalcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WonderCalcTests.swift; sourceTree = "<group>"; };
+		4187DC0B2922AB800026ABB2 /* WonderCalcUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WonderCalcUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4187DC0F2922AB800026ABB2 /* WonderCalcUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WonderCalcUITests.swift; sourceTree = "<group>"; };
+		4187DC112922AB800026ABB2 /* WonderCalcUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WonderCalcUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4187DBEE2922AB7D0026ABB2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4187DBFE2922AB800026ABB2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4187DC082922AB800026ABB2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4187DBE82922AB7D0026ABB2 = {
+			isa = PBXGroup;
+			children = (
+				4187DBF32922AB7D0026ABB2 /* WonderCalc */,
+				4187DC042922AB800026ABB2 /* WonderCalcTests */,
+				4187DC0E2922AB800026ABB2 /* WonderCalcUITests */,
+				4187DBF22922AB7D0026ABB2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4187DBF22922AB7D0026ABB2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4187DBF12922AB7D0026ABB2 /* WonderCalc.app */,
+				4187DC012922AB800026ABB2 /* WonderCalcTests.xctest */,
+				4187DC0B2922AB800026ABB2 /* WonderCalcUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4187DBF32922AB7D0026ABB2 /* WonderCalc */ = {
+			isa = PBXGroup;
+			children = (
+				4187DBF42922AB7D0026ABB2 /* WonderCalcApp.swift */,
+				4187DBF62922AB7D0026ABB2 /* ContentView.swift */,
+				4187DBF82922AB800026ABB2 /* Assets.xcassets */,
+				4187DBFA2922AB800026ABB2 /* Preview Content */,
+			);
+			path = WonderCalc;
+			sourceTree = "<group>";
+		};
+		4187DBFA2922AB800026ABB2 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				4187DBFB2922AB800026ABB2 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4187DC042922AB800026ABB2 /* WonderCalcTests */ = {
+			isa = PBXGroup;
+			children = (
+				4187DC052922AB800026ABB2 /* WonderCalcTests.swift */,
+			);
+			path = WonderCalcTests;
+			sourceTree = "<group>";
+		};
+		4187DC0E2922AB800026ABB2 /* WonderCalcUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4187DC0F2922AB800026ABB2 /* WonderCalcUITests.swift */,
+				4187DC112922AB800026ABB2 /* WonderCalcUITestsLaunchTests.swift */,
+			);
+			path = WonderCalcUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4187DBF02922AB7D0026ABB2 /* WonderCalc */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4187DC152922AB800026ABB2 /* Build configuration list for PBXNativeTarget "WonderCalc" */;
+			buildPhases = (
+				4187DBED2922AB7D0026ABB2 /* Sources */,
+				4187DBEE2922AB7D0026ABB2 /* Frameworks */,
+				4187DBEF2922AB7D0026ABB2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WonderCalc;
+			productName = WonderCalc;
+			productReference = 4187DBF12922AB7D0026ABB2 /* WonderCalc.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4187DC002922AB800026ABB2 /* WonderCalcTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4187DC182922AB800026ABB2 /* Build configuration list for PBXNativeTarget "WonderCalcTests" */;
+			buildPhases = (
+				4187DBFD2922AB800026ABB2 /* Sources */,
+				4187DBFE2922AB800026ABB2 /* Frameworks */,
+				4187DBFF2922AB800026ABB2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4187DC032922AB800026ABB2 /* PBXTargetDependency */,
+			);
+			name = WonderCalcTests;
+			productName = WonderCalcTests;
+			productReference = 4187DC012922AB800026ABB2 /* WonderCalcTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4187DC0A2922AB800026ABB2 /* WonderCalcUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4187DC1B2922AB800026ABB2 /* Build configuration list for PBXNativeTarget "WonderCalcUITests" */;
+			buildPhases = (
+				4187DC072922AB800026ABB2 /* Sources */,
+				4187DC082922AB800026ABB2 /* Frameworks */,
+				4187DC092922AB800026ABB2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4187DC0D2922AB800026ABB2 /* PBXTargetDependency */,
+			);
+			name = WonderCalcUITests;
+			productName = WonderCalcUITests;
+			productReference = 4187DC0B2922AB800026ABB2 /* WonderCalcUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4187DBE92922AB7D0026ABB2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1400;
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					4187DBF02922AB7D0026ABB2 = {
+						CreatedOnToolsVersion = 14.0.1;
+					};
+					4187DC002922AB800026ABB2 = {
+						CreatedOnToolsVersion = 14.0.1;
+						TestTargetID = 4187DBF02922AB7D0026ABB2;
+					};
+					4187DC0A2922AB800026ABB2 = {
+						CreatedOnToolsVersion = 14.0.1;
+						TestTargetID = 4187DBF02922AB7D0026ABB2;
+					};
+				};
+			};
+			buildConfigurationList = 4187DBEC2922AB7D0026ABB2 /* Build configuration list for PBXProject "WonderCalc" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4187DBE82922AB7D0026ABB2;
+			productRefGroup = 4187DBF22922AB7D0026ABB2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4187DBF02922AB7D0026ABB2 /* WonderCalc */,
+				4187DC002922AB800026ABB2 /* WonderCalcTests */,
+				4187DC0A2922AB800026ABB2 /* WonderCalcUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4187DBEF2922AB7D0026ABB2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4187DBFC2922AB800026ABB2 /* Preview Assets.xcassets in Resources */,
+				4187DBF92922AB800026ABB2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4187DBFF2922AB800026ABB2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4187DC092922AB800026ABB2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4187DBED2922AB7D0026ABB2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4187DBF72922AB7D0026ABB2 /* ContentView.swift in Sources */,
+				4187DBF52922AB7D0026ABB2 /* WonderCalcApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4187DBFD2922AB800026ABB2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4187DC062922AB800026ABB2 /* WonderCalcTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4187DC072922AB800026ABB2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4187DC122922AB800026ABB2 /* WonderCalcUITestsLaunchTests.swift in Sources */,
+				4187DC102922AB800026ABB2 /* WonderCalcUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4187DC032922AB800026ABB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4187DBF02922AB7D0026ABB2 /* WonderCalc */;
+			targetProxy = 4187DC022922AB800026ABB2 /* PBXContainerItemProxy */;
+		};
+		4187DC0D2922AB800026ABB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4187DBF02922AB7D0026ABB2 /* WonderCalc */;
+			targetProxy = 4187DC0C2922AB800026ABB2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		4187DC132922AB800026ABB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4187DC142922AB800026ABB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4187DC162922AB800026ABB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WonderCalc/Preview Content\"";
+				DEVELOPMENT_TEAM = E9HGW794JX;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stevenschwedt.WonderCalc;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4187DC172922AB800026ABB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WonderCalc/Preview Content\"";
+				DEVELOPMENT_TEAM = E9HGW794JX;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stevenschwedt.WonderCalc;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4187DC192922AB800026ABB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = E9HGW794JX;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stevenschwedt.WonderCalcTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WonderCalc.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WonderCalc";
+			};
+			name = Debug;
+		};
+		4187DC1A2922AB800026ABB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = E9HGW794JX;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stevenschwedt.WonderCalcTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WonderCalc.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WonderCalc";
+			};
+			name = Release;
+		};
+		4187DC1C2922AB800026ABB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = E9HGW794JX;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stevenschwedt.WonderCalcUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = WonderCalc;
+			};
+			name = Debug;
+		};
+		4187DC1D2922AB800026ABB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = E9HGW794JX;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stevenschwedt.WonderCalcUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = WonderCalc;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4187DBEC2922AB7D0026ABB2 /* Build configuration list for PBXProject "WonderCalc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4187DC132922AB800026ABB2 /* Debug */,
+				4187DC142922AB800026ABB2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4187DC152922AB800026ABB2 /* Build configuration list for PBXNativeTarget "WonderCalc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4187DC162922AB800026ABB2 /* Debug */,
+				4187DC172922AB800026ABB2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4187DC182922AB800026ABB2 /* Build configuration list for PBXNativeTarget "WonderCalcTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4187DC192922AB800026ABB2 /* Debug */,
+				4187DC1A2922AB800026ABB2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4187DC1B2922AB800026ABB2 /* Build configuration list for PBXNativeTarget "WonderCalcUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4187DC1C2922AB800026ABB2 /* Debug */,
+				4187DC1D2922AB800026ABB2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4187DBE92922AB7D0026ABB2 /* Project object */;
+}
