@@ -7,46 +7,13 @@
 
 import Foundation
 
-enum Operand: String {
-    case plus = "+"
-    case minus = "-"
-    case multiply = "X"
-    case divide = "/"
-    case equal = "="
-    case negative = "+/-"
-    case percent = "%"
-    case squared = "^2"
-    case clear = "C"
-    
-    static let all: [Operand] = [
-        .plus, .minus, .multiply, .divide
-    ]
-}
-
-class Calculation: Identifiable, ObservableObject {
-    var id: UUID
-    @Published var number: Double
-    @Published var operand: Operand
-    
-    init(number: Double, operand: Operand) {
-        self.id = UUID()
-        self.number = number
-        self.operand = operand
-    }
-    
-    var stringValue: String {
-        get {
-            String(number)
-        }
-        set {
-            number = Double(newValue) ?? 0
-        }
-    }
-}
-
+/** Recieves user input to create or update calculations, and performs those calculations to publish a result */
 class Calculator: ObservableObject {
+    
+    /** Result value displayed on the calculator's output */
     @Published var publishedValue: String = "0"
     
+    /** Received user input from button tapped for 0-9 or decimal point to construct a number value */
     func numberTapped(_ number: String) {
         if currentValue == "0" {
             currentValue = number
@@ -57,8 +24,12 @@ class Calculator: ObservableObject {
         publish(currentValue)
     }
     
-    func operandPressed(_ operand: Operand) {
-        guard operand != .clear else { clear(); return }
+    /** Received user input requesting to perform an operand on the numerical values */
+    func operandTapped(_ operand: Operand) {
+        guard operand.generateCalculation else {
+            performNonCalculatedOperand(operand)
+            return
+        }
         
         let calculation = Calculation(number: doubleValue, operand: operand)
         calculations.append(calculation)
@@ -69,14 +40,31 @@ class Calculator: ObservableObject {
         }
     }
 
+    /** The numerical values and operands entered or updated by the user which can be iterated to produce result */
     var calculations: [Calculation] = []
     
     // MARK: - Private
     
+    /** Value the user is currently entering which has not been entered into a calculation */
     private var currentValue: String = "0"
     
     private var doubleValue: Double { Double(currentValue) ?? 0 }
     
+    private func performNonCalculatedOperand(_ operand: Operand) {
+        switch operand {
+        case .clear:
+            clear()
+        case .negative:
+            if currentValue.hasPrefix("-") {
+                currentValue.removeFirst()
+            } else {
+                currentValue = "-" + currentValue
+            }
+            publish(currentValue)
+        default:
+            break
+        }
+    }
     
     private func calculate() throws {
         var value: Double = 0
@@ -112,14 +100,13 @@ class Calculator: ObservableObject {
             }
         case .equal:
             return initialValue
-        case .negative:
-            return initialValue * -1
         case .percent:
             return initialValue / 100
         case .squared:
             return initialValue * initialValue
-        case .clear:
-            return 0
+        case .clear, .negative:
+            // Handled by nonCalculatingOperand
+            throw CalculatorError.invalidOperation
         }
     }
     
@@ -133,7 +120,6 @@ class Calculator: ObservableObject {
     }
     
     private func publish(_ value: String) {
-        print(value)
         publishedValue = value
     }
     
@@ -146,6 +132,8 @@ class Calculator: ObservableObject {
         switch calcError {
         case .divByZero:
             publish("Can't divide by zero")
+        case .invalidOperation:
+            publish("Error")
         }
     }
     
@@ -158,4 +146,5 @@ class Calculator: ObservableObject {
 
 enum CalculatorError: Error {
     case divByZero
+    case invalidOperation
 }

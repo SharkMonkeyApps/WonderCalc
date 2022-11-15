@@ -78,7 +78,7 @@ struct CalcView: View {
     }
     
     private func operatorButton(_ operand: Operand) -> OperandButton {
-        OperandButton(operand: operand, callback: calculator.operandPressed)
+        OperandButton(operand: operand, callback: calculator.operandTapped)
     }
 }
 
