@@ -14,8 +14,22 @@ struct CalculationsListView: View {
         
         NavigationView {
             List(calculator.calculations) { calc in
-                Text("\(calc.number) \(calc.operand.rawValue)")
+                CalculationCell(calculation: calc)
             }
+        }
+    }
+}
+
+struct CalculationCell: View {
+    @StateObject var calculation: Calculation
+    
+    var body: some View {
+        
+        HStack {
+            TextField("", text: $calculation.stringValue)
+                .keyboardType(.decimalPad)
+            Spacer()
+            Picker(calculation.operand.rawValue, selection: $calculation.operand, content: { ForEach(Operand.all, id: \.self) { Text($0.rawValue) } })
         }
     }
 }

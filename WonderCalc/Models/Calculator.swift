@@ -17,14 +17,32 @@ enum Operand: String {
     case percent = "%"
     case squared = "^2"
     case clear = "C"
+    
+    static let all: [Operand] = [
+        .plus, .minus, .multiply, .divide
+    ]
 }
 
-struct Calculation: Identifiable {
-    var id: String
-    let number: Double
-    let operand: Operand
+class Calculation: Identifiable, ObservableObject {
+    var id: UUID
+    @Published var number: Double
+    @Published var operand: Operand
+    
+    init(number: Double, operand: Operand) {
+        self.id = UUID()
+        self.number = number
+        self.operand = operand
+    }
+    
+    var stringValue: String {
+        get {
+            String(number)
+        }
+        set {
+            number = Double(newValue) ?? 0
+        }
+    }
 }
-
 
 class Calculator: ObservableObject {
     @Published var publishedValue: String = "0"
@@ -42,7 +60,7 @@ class Calculator: ObservableObject {
     func operandPressed(_ operand: Operand) {
         guard operand != .clear else { clear(); return }
         
-        let calculation = Calculation(id: UUID().uuidString, number: doubleValue, operand: operand) // = (doubleValue, operand)
+        let calculation = Calculation(number: doubleValue, operand: operand)
         calculations.append(calculation)
         do {
             try calculate()
@@ -74,7 +92,6 @@ class Calculator: ObservableObject {
                 operand = calc.operand
             }
         }
-        print("calculated")
         publish(value, rounded: true)
         currentValue = "0"
     }
@@ -110,7 +127,6 @@ class Calculator: ObservableObject {
         let stringValue = NumberFormatter.calculatorDisplay.string(from: value) ?? ""
         if rounded && stringValue.suffix(2) == ".0" {
             publish(String(stringValue.dropLast(2)))
-            print("rounding")
         } else {
             publish(stringValue)
         }
