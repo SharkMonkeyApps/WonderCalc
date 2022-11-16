@@ -2,7 +2,7 @@
 
 A calculator that is wondrous
 
-This iOS app is built in SwiftUI. It has a calculator that allows you to view previous calculations to prevent typos.
+This iOS app is built in SwiftUI. It has a calculator that allows you to view previous calculations and make updates to eliminate typos.
 
 ## Setup
 
