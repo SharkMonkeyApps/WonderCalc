@@ -132,4 +132,15 @@ final class CalculatorTests: XCTestCase {
         
         XCTAssertEqual(calculator.publishedValue, "2")
     }
+    
+    func test_itCanSquareANumber() {
+        calculator.numberTapped("5")
+        calculator.operandTapped(.squared)
+        
+        XCTAssertEqual(calculator.publishedValue, "25")
+        
+        calculator.operandTapped(.squared)
+        
+        XCTAssertEqual(calculator.publishedValue, "625")
+    }
 }

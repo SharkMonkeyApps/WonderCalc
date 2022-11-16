@@ -9,16 +9,19 @@ import Foundation
 
 extension NumberFormatter {
     
-    func string(from number: Double) -> String? {
-        string(from: NSNumber(floatLiteral: number))
+    static func calculatorDecimalAndZerosString(_ number: Double, hasDecimal: Bool, zeros: Int = 0) -> String {
+        let numberString = String(number)
+        if numberString.suffix(2) == ".0" && hasDecimal == false {
+            return String(numberString.dropLast(2))
+        } else if numberString.last == "0" {
+            let zerosToAddOrRemove = zeros - 1
+            if zerosToAddOrRemove < 0 {
+                return String(numberString.dropLast(-zerosToAddOrRemove))
+            } else if zerosToAddOrRemove > 0 {
+                let addedZeros = String(repeating: "0", count: zerosToAddOrRemove)
+                return numberString + addedZeros
+            }
+        }
+        return numberString
     }
-    
-    static let calculatorDisplay: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 8
-        
-        return formatter
-    }()
 }

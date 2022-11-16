@@ -15,115 +15,115 @@ class Calculator: ObservableObject {
     
     /** Received user input from button tapped for 0-9 or decimal point to construct a number value */
     func numberTapped(_ number: String) {
-        if currentValue == "0" {
-            currentValue = number
-        } else {
-            currentValue.append(number)
-        }
-        
-        publish(currentValue)
+        currentCalculation.addDigit(number)
+        publish(currentCalculation.stringValue)
     }
     
     /** Received user input requesting to perform an operand on the numerical values */
     func operandTapped(_ operand: Operand) {
         guard operand.generateCalculation else {
-            performNonCalculatedOperand(operand)
+            performNonCalculationOperand(operand)
             return
         }
-        
-        let calculation = Calculation(number: doubleValue, operand: operand)
-        calculations.append(calculation)
-        do {
-            try calculate()
-        } catch {
-            handle(error)
-        }
+        print("Will append: \(currentCalculation.operand) \(currentCalculation.number)")
+        calculations.append(currentCalculation)
+        currentCalculation = Calculation(operand: operand)
+        tryCalculations(finalOperand: operand)
     }
-
+    
     /** The numerical values and operands entered or updated by the user which can be iterated to produce result */
     var calculations: [Calculation] = []
     
     // MARK: - Private
     
-    /** Value the user is currently entering which has not been entered into a calculation */
-    private var currentValue: String = "0"
+    /** Calculation holding the value the user has entered which has not been entered into the stored calculations */
+    private var currentCalculation = Calculation()
     
-    private var doubleValue: Double { Double(currentValue) ?? 0 }
-    
-    private func performNonCalculatedOperand(_ operand: Operand) {
+    private func performNonCalculationOperand(_ operand: Operand) {
         switch operand {
         case .clear:
             clear()
         case .negative:
-            if currentValue.hasPrefix("-") {
-                currentValue.removeFirst()
-            } else {
-                currentValue = "-" + currentValue
-            }
-            publish(currentValue)
+            currentCalculation.toggleNegative()
+            publish(currentCalculation.stringValue)
+        case .equal:
+            tryCalculations(includeCurrentValue: true)
         default:
             break
         }
     }
     
-    private func calculate() throws {
-        var value: Double = 0
-        var operand: Operand = .plus
-        
-        for calc in calculations {
-            if value == 0 {
-                value = calc.number
-                operand = calc.operand
+    private func tryCalculations(includeCurrentValue: Bool = false, finalOperand: Operand? = nil) {
+        do {
+            let result = try calculate(includeCurrentValue: includeCurrentValue)
+            if let finalOperand = finalOperand, finalOperand.performCalculationImmediately {
+                let newResult = try perform(initialValue: result, operand: finalOperand, newValue: nil)
+                publish(newResult)
             } else {
-                let result = try perform(initialValue: value, operand: operand, newValue: calc.number)
-                value = result
-                operand = calc.operand
+                publish(result)
             }
+        } catch {
+            handle(error)
         }
-        publish(value, rounded: true)
-        currentValue = "0"
     }
     
-    private func perform(initialValue: Double, operand: Operand, newValue: Double) throws -> Double {
+    private func calculate(includeCurrentValue: Bool) throws -> Double {
+        print("Calculating")
+        let calculationsToPerform = includeCurrentValue ? calculations + [currentCalculation] : calculations
+        var value: Double = 0 // result from previous calculation
+        
+        for calc in calculationsToPerform {
+            if calc.operand == .none {
+                value = calc.number
+                print("Initial value: \(value)")
+                continue
+            }
+            
+            print("Calc: \(value) \(calc.operand) \(calc.number)")
+            let result = try perform(initialValue: value, operand: calc.operand, newValue: calc.number)
+            value = result
+        }
+        
+        return value
+    }
+    
+    private func perform(initialValue: Double, operand: Operand, newValue: Double?) throws -> Double {
+        print("Performing \(initialValue) \(operand) \(String(describing: newValue))")
+
         switch operand {
         case .plus:
-            return initialValue + newValue
+            return initialValue + (newValue ?? 0)
         case .minus:
-            return initialValue - newValue
+            return initialValue - (newValue ?? 0)
         case .multiply:
-            return initialValue * newValue
+            return initialValue * (newValue ?? 1)
         case .divide:
             if newValue != 0 {
-                return initialValue / newValue
+                return initialValue / (newValue ?? 1)
             } else {
                 throw CalculatorError.divByZero
             }
-        case .equal:
-            return initialValue
         case .percent:
             return initialValue / 100
         case .squared:
             return initialValue * initialValue
-        case .clear, .negative:
+        case .clear, .negative, .equal, .none:
             // Handled by nonCalculatingOperand
             throw CalculatorError.invalidOperation
         }
     }
     
-    private func publish(_ value: Double, rounded: Bool = false) {
-        let stringValue = NumberFormatter.calculatorDisplay.string(from: value) ?? ""
-        if rounded && stringValue.suffix(2) == ".0" {
-            publish(String(stringValue.dropLast(2)))
-        } else {
-            publish(stringValue)
-        }
+    private func publish(_ number: Double) {
+        publish(NumberFormatter.calculatorDecimalAndZerosString(number, hasDecimal: false))
     }
     
     private func publish(_ value: String) {
         publishedValue = value
+        print("Published: \(publishedValue)")
     }
     
     private func handle(_ error: Error) {
+        print("Error: \(error)")
         guard let calcError = error as? CalculatorError else {
             publish("Error")
             return
@@ -132,19 +132,20 @@ class Calculator: ObservableObject {
         switch calcError {
         case .divByZero:
             publish("Can't divide by zero")
-        case .invalidOperation:
+        case .invalidOperation, .missingArgument:
             publish("Error")
         }
     }
     
     private func clear() {
         calculations = []
-        currentValue = "0"
-        publish(currentValue)
+        currentCalculation = Calculation()
+        publish(currentCalculation.stringValue)
     }
 }
 
 enum CalculatorError: Error {
     case divByZero
     case invalidOperation
+    case missingArgument
 }
