@@ -27,6 +27,11 @@ struct WonderCalcApp: App {
                         Image(systemName: "percent")
                         Text("Loans")
                     }
+                SettingsView()
+                    .tabItem {
+                        Image(systemName: "gear")
+                        Text("Settings")
+                    }
             }
         }
     }
