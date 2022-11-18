@@ -15,12 +15,17 @@ struct WonderCalcApp: App {
                 CalculatorView(calculator: Calculator())
                     .tabItem {
                         Image(systemName: "circle.grid.3x3")
-                        Text("Calc")
+                        Text("Calculator")
                     }
                 UnitsView(unitProvider: UnitProvider())
                     .tabItem {
                         Image(systemName: "ruler")
                         Text("Units")
+                    }
+                LoanView(loanCalc: LoanCalculator())
+                    .tabItem {
+                        Image(systemName: "percent")
+                        Text("Loans")
                     }
             }
         }

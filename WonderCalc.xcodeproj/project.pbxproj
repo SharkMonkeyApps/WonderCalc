@@ -16,6 +16,8 @@
 		4187DC252922BF160026ABB2 /* OperandButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC242922BF160026ABB2 /* OperandButton.swift */; };
 		4187DC272922D10F0026ABB2 /* CalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC262922D10F0026ABB2 /* CalculatorTests.swift */; };
 		4187DC2A2922E5420026ABB2 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC292922E5420026ABB2 /* NumberFormatter.swift */; };
+		41C5F24729273CB40079BD12 /* LoanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C5F24629273CB40079BD12 /* LoanView.swift */; };
+		41C5F24929273CEB0079BD12 /* LoanCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C5F24829273CEB0079BD12 /* LoanCalculator.swift */; };
 		41E698042922FAA20024C00F /* CalculationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E698032922FAA20024C00F /* CalculationsListView.swift */; };
 		41E698062923ED140024C00F /* Calculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E698052923ED140024C00F /* Calculation.swift */; };
 		41E698082923ED430024C00F /* Operand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E698072923ED430024C00F /* Operand.swift */; };
@@ -45,6 +47,8 @@
 		4187DC242922BF160026ABB2 /* OperandButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperandButton.swift; sourceTree = "<group>"; };
 		4187DC262922D10F0026ABB2 /* CalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorTests.swift; sourceTree = "<group>"; };
 		4187DC292922E5420026ABB2 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
+		41C5F24629273CB40079BD12 /* LoanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanView.swift; sourceTree = "<group>"; };
+		41C5F24829273CEB0079BD12 /* LoanCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanCalculator.swift; sourceTree = "<group>"; };
 		41E698032922FAA20024C00F /* CalculationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationsListView.swift; sourceTree = "<group>"; };
 		41E698052923ED140024C00F /* Calculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculation.swift; sourceTree = "<group>"; };
 		41E698072923ED430024C00F /* Operand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operand.swift; sourceTree = "<group>"; };
@@ -125,6 +129,7 @@
 				4187DC242922BF160026ABB2 /* OperandButton.swift */,
 				41E698032922FAA20024C00F /* CalculationsListView.swift */,
 				41E69809292582F50024C00F /* UnitsView.swift */,
+				41C5F24629273CB40079BD12 /* LoanView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -136,6 +141,7 @@
 				41E698052923ED140024C00F /* Calculation.swift */,
 				41E698072923ED430024C00F /* Operand.swift */,
 				41E6980B292583860024C00F /* Unit.swift */,
+				41C5F24829273CEB0079BD12 /* LoanCalculator.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -250,9 +256,11 @@
 			files = (
 				41E698082923ED430024C00F /* Operand.swift in Sources */,
 				4187DBF72922AB7D0026ABB2 /* CalculatorView.swift in Sources */,
+				41C5F24729273CB40079BD12 /* LoanView.swift in Sources */,
 				4187DC2A2922E5420026ABB2 /* NumberFormatter.swift in Sources */,
 				4187DBF52922AB7D0026ABB2 /* WonderCalcApp.swift in Sources */,
 				41E698062923ED140024C00F /* Calculation.swift in Sources */,
+				41C5F24929273CEB0079BD12 /* LoanCalculator.swift in Sources */,
 				41E6980A292582F50024C00F /* UnitsView.swift in Sources */,
 				41E6980C292583860024C00F /* Unit.swift in Sources */,
 				4187DC232922BEF30026ABB2 /* NumberButton.swift in Sources */,
