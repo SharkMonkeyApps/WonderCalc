@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CalcView: View {
+struct CalculatorView: View {
     
     @ObservedObject var calculator: Calculator
     
@@ -84,6 +84,6 @@ struct CalcView: View {
 
 struct CalcView_Previews: PreviewProvider {
     static var previews: some View {
-        CalcView(calculator: Calculator())
+        CalculatorView(calculator: Calculator())
     }
 }

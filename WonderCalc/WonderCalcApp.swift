@@ -12,10 +12,15 @@ struct WonderCalcApp: App {
     var body: some Scene {
         WindowGroup {
             TabView{
-                CalcView(calculator: Calculator())
+                CalculatorView(calculator: Calculator())
                     .tabItem {
-                        Image(systemName: "centsign.circle")
+                        Image(systemName: "circle.grid.3x3")
                         Text("Calc")
+                    }
+                UnitsView(unitProvider: UnitProvider())
+                    .tabItem {
+                        Image(systemName: "ruler")
+                        Text("Units")
                     }
             }
         }
