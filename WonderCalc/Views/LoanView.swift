@@ -17,18 +17,15 @@ struct LoanView: View {
                 Text("Amount")
                 TextField("", text: $loanCalc.amount)
                     .keyboardType(.decimalPad)
-                    .padding()
-                    .border(.foreground)
+                    .textFieldStyle(.roundedBorder)
                 Text("Term (years)")
                 TextField("", text: $loanCalc.years)
                     .keyboardType(.numberPad)
-                    .padding()
-                    .border(.foreground)
+                    .textFieldStyle(.roundedBorder)
                 Text("Interest rate (%)")
                 TextField("", text: $loanCalc.rate)
                     .keyboardType(.decimalPad)
-                    .padding()
-                    .border(.foreground)
+                    .textFieldStyle(.roundedBorder)
                 Text("Monthly Payment")
                 Text(loanCalc.payments.monthly)
                 Text("Total Paid")
@@ -37,5 +34,6 @@ struct LoanView: View {
             .padding()
             .navigationTitle("Loan Calculator")
         }
+        .dismissKeyboardOnTap()
     }
 }

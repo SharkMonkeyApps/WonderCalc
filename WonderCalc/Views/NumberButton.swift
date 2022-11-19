@@ -18,7 +18,7 @@ struct NumberButton: View {
     var body: some View {
         Button(action: returnValue) {
             Text("\(value)")
-                .font(.system(size: 22, weight: .semibold))
+                .font(.subHeading)
                 .foregroundColor(.white)
                 .padding()
                 .frame(maxWidth: .infinity)

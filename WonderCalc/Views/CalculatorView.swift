@@ -15,7 +15,7 @@ struct CalculatorView: View {
         NavigationView {
             VStack {
                 Text("\(calculator.publishedValue)")
-                    .font(.system(size: 28, weight: .semibold))
+                    .font(.heading)
                 
                 LazyVGrid(columns: layout) {
                     operatorButton(.clear)
