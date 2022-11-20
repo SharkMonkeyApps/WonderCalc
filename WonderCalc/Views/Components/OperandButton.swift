@@ -1,5 +1,5 @@
 //
-//  NumberButton.swift
+//  OperandButton.swift
 //  WonderCalc
 //
 //  Created by Steven Schwedt on 11/14/22.
@@ -7,23 +7,23 @@
 
 import SwiftUI
 
-struct NumberButton: View {
-    let value: String
-    let callback: (String) -> ()
+struct OperandButton: View {
+    let operand: Operand
+    let callback: (Operand) -> ()
     
-    func returnValue() {
-        callback(value)
+    func returnOperand() {
+        callback(operand)
     }
     
     var body: some View {
-        Button(action: returnValue) {
-            Text("\(value)")
-                .font(.system(size: 22, weight: .semibold))
+        Button(action: returnOperand) {
+            Text(operand.rawValue)
+                .font(.subHeading)
                 .foregroundColor(.white)
                 .padding()
                 .frame(maxWidth: .infinity)
                 .background(Capsule()
-                    .fill(.orange)
+                    .fill(Color.green)
                     .frame(height: 56))
         }
     }

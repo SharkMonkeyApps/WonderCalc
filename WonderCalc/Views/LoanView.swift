@@ -14,28 +14,24 @@ struct LoanView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Amount")
-                TextField("", text: $loanCalc.amount)
-                    .keyboardType(.decimalPad)
-                    .padding()
-                    .border(.foreground)
-                Text("Term (years)")
-                TextField("", text: $loanCalc.years)
-                    .keyboardType(.numberPad)
-                    .padding()
-                    .border(.foreground)
-                Text("Interest rate (%)")
-                TextField("", text: $loanCalc.rate)
-                    .keyboardType(.decimalPad)
-                    .padding()
-                    .border(.foreground)
-                Text("Monthly Payment")
-                Text(loanCalc.payments.monthly)
-                Text("Total Paid")
-                Text(loanCalc.payments.total)
+                TextFieldRow(input: $loanCalc.amount, title: "Amount", placeHolder: "0", keyboardType: .decimalPad)
+                
+                TextFieldRow(input: $loanCalc.years, title: "Term (years)", placeHolder: "0", keyboardType: .decimalPad)
+                
+                TextFieldRow(input: $loanCalc.rate, title: "Interest Rate (%)", placeHolder: "0", keyboardType: .decimalPad)
+                
+                Spacer()
+                
+                Text("Monthly Payment: \(loanCalc.payments.monthly)")
+                    .font(.subHeading)
+                Text("Total Paid: \(loanCalc.payments.total)")
+                    .font(.subHeading)
+                
+                Spacer()
             }
             .padding()
             .navigationTitle("Loan Calculator")
         }
+        .dismissKeyboardOnTap()
     }
 }
