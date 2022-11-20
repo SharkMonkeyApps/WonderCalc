@@ -11,9 +11,9 @@ import Combine
 class LoanCalculator: ObservableObject {
     typealias Payments = (monthly: String, total: String)
     
-    @Published var amount: String = "0"
-    @Published var years: String = "0"
-    @Published var rate: String = "0"
+    @Published var amount: String = ""
+    @Published var years: String = ""
+    @Published var rate: String = ""
     
     @Published var payments: Payments = ("0", "0")
     
@@ -34,9 +34,11 @@ class LoanCalculator: ObservableObject {
         let topPartOfformula = monthlyRate * (pow((monthlyRate + 1), numberOfMonths))
         let bottomPartOfFormula = pow((monthlyRate + 1), numberOfMonths) - 1
         
-        let monthlyPayment: Double = amount * topPartOfformula / bottomPartOfFormula
-        let totalPayment = monthlyPayment * numberOfMonths
+        let monthlyPaymentValue: Double = amount * topPartOfformula / bottomPartOfFormula
+        let totalPaymentValue = monthlyPaymentValue * numberOfMonths
+        let monthlyPayment = NumberFormatter.currencyString(monthlyPaymentValue)
+        let totalPayment = NumberFormatter.currencyString(totalPaymentValue)
         
-        return (String(monthlyPayment), String(totalPayment))
+        return (monthlyPayment, totalPayment)
     }
 }
