@@ -9,9 +9,13 @@ import Foundation
 import Combine
 
 class UnitProvider: ObservableObject {
-    @Published var selectedType: UnitType = .length {
+    fileprivate typealias InputValues = (fromValue: String, fromUnit: Unit, toUnit: Unit)
+    
+    @Published var category: UnitType = .length {
         didSet {
-            units = selectedType.units
+            units = category.units
+            fromUnit = category.firstOption
+            toUnit = category.secondOption
         }
     }
     
@@ -25,38 +29,41 @@ class UnitProvider: ObservableObject {
     @Published var result: String = ""
     
     init() {
-        Publishers.CombineLatest3($fromUnit, $toUnit, $fromValue)
-            .map { _ in self.calculatedResult }
+        Publishers.CombineLatest3($fromValue, $fromUnit, $toUnit)
+            .map { values in self.calculatedResult(values) }
             .assign(to: &$result)
     }
     
-    private var calculatedResult: String {
-        guard let fromQuantity = Double(fromValue) else { return "" }
+    private func calculatedResult(_ values: InputValues) -> String {
+        guard let fromQuantity = Double(values.fromValue) else { return "" }
         
-        let standardQuantity: Double = fromUnit.toStandardUnit(fromQuantity)
-        let resultQuantity: Double = toUnit.fromStandardUnit(standardQuantity)
+        let standardQuantity: Double = values.fromUnit.toStandardUnit(fromQuantity)
+        let resultQuantity: Double = values.toUnit.fromStandardUnit(standardQuantity)
         
-        return NumberFormatter.calculatorDecimalAndZerosString(resultQuantity, hasDecimal: false) + " \(toUnit.name)"
+        return NumberFormatter.calculatorDecimalAndZerosString(resultQuantity, hasDecimal: false) + " \(values.toUnit.name)"
     }
 }
 
 enum UnitType: String, Pickable, CaseIterable {
-    
     case length
     case temperature
     case weight
     case volume
     
-    var units: [Unit] {
+    var units: [Unit] { type.allUnits }
+    var firstOption: Unit { type.firstOption.unit }
+    var secondOption: Unit { type.secondOption.unit }
+    
+    private var type: any Unitable.Type {
         switch self {
         case .length:
-            return LengthUnit.allUnits
+            return LengthUnit.self
         case .temperature:
-            return TemperatureUnit.allUnits
+            return TemperatureUnit.self
         case .weight:
-            return WeightUnit.allUnits
+            return WeightUnit.self
         case .volume:
-            return VolumeUnit.allUnits
+            return VolumeUnit.self
         }
     }
 }
@@ -94,6 +101,9 @@ enum VolumeUnit: String, Unitable {
     
     var adder: Double { 0 }
     
+    static var firstOption: VolumeUnit { .liters }
+    static var secondOption: VolumeUnit { .gallons }
+    
     private var literToGallon: Double { 1 / 3.78541 }
 }
 
@@ -121,6 +131,9 @@ enum WeightUnit: String, Unitable {
     }
     
     var adder: Double { 0 }
+    
+    static var firstOption: WeightUnit { .grams }
+    static var secondOption: WeightUnit { .pounds }
     
     private var gramToPounds: Double { 1 / 453.592 }
 }
@@ -155,6 +168,9 @@ enum LengthUnit: String, Unitable {
     
     var adder: Double { 0 }
     
+    static var firstOption: LengthUnit { .meters }
+    static var secondOption: LengthUnit { .feet }
+    
     private var metersToFeet: Double { 3.28 }
 }
 
@@ -184,6 +200,9 @@ enum TemperatureUnit: String, Unitable {
             return -273.15
         }
     }
+    
+    static var firstOption: TemperatureUnit { .celcius }
+    static var secondOption: TemperatureUnit { .fahrenheight }
 }
 
 protocol Unitable: CaseIterable {
@@ -194,6 +213,8 @@ protocol Unitable: CaseIterable {
     func fromStandardUnit(_ value: Double) -> Double
     var multiplier: Double { get }
     var adder: Double { get }
+    static var firstOption: Self { get }
+    static var secondOption: Self { get }
 }
 
 extension Unitable {
@@ -213,7 +234,6 @@ extension Unitable {
 }
 
 struct Unit: Pickable {
-    
     let unit: any Unitable
     var name: String { unit.rawValue }
     

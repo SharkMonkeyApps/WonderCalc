@@ -14,7 +14,7 @@ struct UnitsView: View {
     var body: some View {
         NavigationView {
             VStack {
-                PickerRow(title: "Category", options: UnitType.allCases, selection: $unitProvider.selectedType)
+                PickerRow(title: "Category", options: UnitType.allCases, selection: $unitProvider.category)
                 
                 HStack {
                     TextField("", text: $unitProvider.fromValue)
