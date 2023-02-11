@@ -14,12 +14,15 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             VStack {
+                Spacer()
                 Text("This app was created by")
                 if let url = url {
                     Link("SharkMonkey Apps", destination: url)
                 } else {
                     Text("SkarkMonkey Apps")
                 }
+                Spacer()
+                Text("Copyright 2023 SharkMonkey Apps LLC")
             }
             .padding()
             .navigationTitle("Settings")

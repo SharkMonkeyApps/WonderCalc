@@ -8,7 +8,7 @@
 import XCTest
 @testable import WonderCalc
 
-final class UnitTests: XCTestCase {
+final class UnitConversionTests: XCTestCase {
     
     var unitProvider: UnitProvider!
     
