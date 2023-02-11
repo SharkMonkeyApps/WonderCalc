@@ -171,7 +171,7 @@ enum LengthUnit: String, Unitable {
     static var firstOption: LengthUnit { .meters }
     static var secondOption: LengthUnit { .feet }
     
-    private var metersToFeet: Double { 3.28 }
+    private var metersToFeet: Double { 3.28084 }
 }
 
 enum TemperatureUnit: String, Unitable {
@@ -197,7 +197,7 @@ enum TemperatureUnit: String, Unitable {
         case .fahrenheight:
             return 32
         case .kelvin:
-            return -273.15
+            return 273.15
         }
     }
     
