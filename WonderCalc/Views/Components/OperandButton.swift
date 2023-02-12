@@ -17,14 +17,32 @@ struct OperandButton: View {
     
     var body: some View {
         Button(action: returnOperand) {
-            Text(operand.rawValue)
+            text
                 .font(.subHeading)
                 .foregroundColor(.white)
                 .padding()
                 .frame(maxWidth: .infinity)
                 .background(Capsule()
-                    .fill(Color.green)
+                    .fill(color)
                     .frame(height: 56))
+        }
+    }
+
+    private var text: Text {
+        switch operand {
+        case .squared, .clear:
+            return Text(operand.rawValue)
+        default:
+            return Text(Image(systemName: operand.rawValue))
+        }
+    }
+
+    private var color: Color {
+        switch operand {
+        case .clear:
+            return .red
+        default:
+            return .green
         }
     }
 }

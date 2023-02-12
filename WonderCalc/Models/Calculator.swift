@@ -35,6 +35,9 @@ class Calculator: ObservableObject {
 
     func pasteboardTapped(_ option: PasteboardOption) {
         switch option {
+        case .cut:
+            UIPasteboard.general.string = publishedValue
+            clear()
         case .copy:
             UIPasteboard.general.string = publishedValue
         case .paste:
@@ -122,6 +125,8 @@ class Calculator: ObservableObject {
             return initialValue / 100
         case .squared:
             return initialValue * initialValue
+        case .squareRoot:
+            return sqrt(initialValue)
         case .clear, .negative, .equal, .none:
             // Handled by nonCalculatingOperand
             throw CalculatorError.invalidOperation

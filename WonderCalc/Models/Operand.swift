@@ -8,14 +8,15 @@
 import Foundation
 
 enum Operand: String {
-    case plus = "+"
-    case minus = "-"
-    case multiply = "X"
-    case divide = "/"
-    case equal = "="
-    case negative = "+/-"
-    case percent = "%"
+    case plus
+    case minus
+    case multiply
+    case divide
+    case equal
+    case negative = "plus.forwardslash.minus"
+    case percent
     case squared = "^2"
+    case squareRoot = "x.squareroot"
     case clear = "C"
     case none
     
@@ -36,7 +37,7 @@ enum Operand: String {
     /** Operands that act on previous values only */
     var performCalculationImmediately: Bool {
         switch self {
-        case .squared, .percent:
+        case .squared, .percent, .squareRoot:
             return true
         default:
             return false
