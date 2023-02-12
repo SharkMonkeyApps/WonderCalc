@@ -15,6 +15,7 @@ struct UnitsView: View {
         NavigationView {
             VStack {
                 PickerRow(title: "Category", options: UnitType.allCases, selection: $unitProvider.category)
+                    .padding(.bottom)
                 
                 HStack {
                     TextField("", text: $unitProvider.fromValue)
@@ -31,8 +32,10 @@ struct UnitsView: View {
                         }
                     }).pickerStyle(.menu)
                 }
+                .padding(.bottom)
                 
                 PickerRow(title: "To", options: unitProvider.units, selection: $unitProvider.toUnit)
+                    .padding(.bottom)
                 
                 Spacer()
                 

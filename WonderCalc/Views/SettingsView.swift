@@ -16,6 +16,7 @@ struct SettingsView: View {
         NavigationView {
             VStack {
                 Spacer()
+                Image("smLogo")
                 Text("This app was created by")
                 if let url = url {
                     Link("SharkMonkey Apps", destination: url)
@@ -27,6 +28,7 @@ struct SettingsView: View {
 
                 Text("Please visit our website to provide feedback, or discuss your software development needs")
                     .padding(.bottom)
+                    .multilineTextAlignment(.center)
 
                 Text("Please visit the App Store to")
                 if let url = appStoreURL {
@@ -36,7 +38,7 @@ struct SettingsView: View {
                 }
                 
                 Spacer()
-                Text("Copyright 2023 SharkMonkey Apps LLC")
+                Text("© 2023 SharkMonkey Apps LLC")
             }
             .padding()
             .navigationTitle("About")

@@ -65,6 +65,7 @@ struct CalculatorView: View {
             }
             .padding()
             .navigationTitle("WonderCalc")
+            // TODO: - Support history + editing
 //            .toolbar {
 //                ToolbarItem(placement: .navigationBarTrailing) {
 //                    NavigationLink("History") {
