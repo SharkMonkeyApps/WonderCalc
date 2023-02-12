@@ -2,7 +2,7 @@
 
 A calculator that is wondrous
 
-This iOS app is built in SwiftUI. It has a calculator that allows you to view previous calculations and make updates to eliminate typos.
+This iOS app is built in SwiftUI and uses Combine. It has a standard calculator with copy and paste buttons, does unit conversions, and calculates payment and interest for loans.
 
 ## Setup
 
