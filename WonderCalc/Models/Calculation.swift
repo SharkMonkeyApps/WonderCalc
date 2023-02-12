@@ -23,7 +23,6 @@ class Calculation: Identifiable, ObservableObject {
     }
     
     func addDigit(_ digit: String) {
-        print("Recieved digit: \(digit) current: \(stringValue) \(number)")
         // Handle decimals and zeros
         if digit == "." && hasDecimal {
             return
@@ -40,7 +39,6 @@ class Calculation: Identifiable, ObservableObject {
         } else {
             stringValue.append(digit)
         }
-        print("Adding Digit: \(stringValue) \(number) \(operand)")
     }
     
     func toggleNegative() {

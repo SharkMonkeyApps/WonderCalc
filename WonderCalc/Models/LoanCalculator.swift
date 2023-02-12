@@ -40,7 +40,6 @@ class LoanCalculator: ObservableObject {
         let monthlyPayment = NumberFormatter.currencyString(monthlyPaymentValue)
         let totalPayment = NumberFormatter.currencyString(totalPaymentValue)
         let interest = NumberFormatter.currencyString(totalPaymentValue - amount)
-        print(monthlyPayment + totalPayment)
         
         return (monthlyPayment, totalPayment, interest)
     }

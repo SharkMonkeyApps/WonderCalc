@@ -27,7 +27,6 @@ class Calculator: ObservableObject {
             performNonCalculationOperand(operand)
             return
         }
-        print("Will append: \(currentCalculation.operand) \(currentCalculation.number)")
         calculations.append(currentCalculation)
         currentCalculation = Calculation(operand: operand)
         tryCalculations(finalOperand: operand)
@@ -86,18 +85,15 @@ class Calculator: ObservableObject {
     }
     
     private func calculate(includeCurrentValue: Bool) throws -> Double {
-        print("Calculating")
         let calculationsToPerform = includeCurrentValue ? calculations + [currentCalculation] : calculations
         var value: Double = 0 // result from previous calculation
         
         for calc in calculationsToPerform {
             if calc.operand == .none {
                 value = calc.number
-                print("Initial value: \(value)")
                 continue
             }
-            
-            print("Calc: \(value) \(calc.operand) \(calc.number)")
+
             let result = try perform(initialValue: value, operand: calc.operand, newValue: calc.number)
             value = result
         }
@@ -106,7 +102,6 @@ class Calculator: ObservableObject {
     }
     
     private func perform(initialValue: Double, operand: Operand, newValue: Double?) throws -> Double {
-        print("Performing \(initialValue) \(operand) \(String(describing: newValue))")
 
         switch operand {
         case .plus:
@@ -143,11 +138,9 @@ class Calculator: ObservableObject {
     
     private func publish(_ value: String) {
         publishedValue = value
-        print("Published: \(publishedValue)")
     }
     
     private func handle(_ error: Error) {
-        print("Error: \(error)")
         guard let calcError = error as? CalculatorError else {
             publish("Error")
             return

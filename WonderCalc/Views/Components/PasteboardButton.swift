@@ -20,7 +20,6 @@ struct PasteboardButton: View {
     let callback: (PasteboardOption) -> ()
 
     func returnOperand() {
-//        print(option.rawValue)
         callback(option)
     }
 
