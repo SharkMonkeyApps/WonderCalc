@@ -26,6 +26,8 @@ struct LoanView: View {
                     .font(.subHeading)
                 Text("Total Paid: \(loanCalc.payments.total)")
                     .font(.subHeading)
+                Text("Total Interest: \(loanCalc.payments.interest)")
+                    .font(.subHeading)
                 
                 Spacer()
             }
@@ -33,5 +35,6 @@ struct LoanView: View {
             .navigationTitle("Loan Calculator")
         }
         .dismissKeyboardOnTap()
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }

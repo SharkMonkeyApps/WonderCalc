@@ -73,6 +73,7 @@ struct CalculatorView: View {
 //                }
 //            }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     // MARK: - Private

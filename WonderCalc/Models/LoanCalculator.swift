@@ -10,13 +10,13 @@ import Combine
 
 class LoanCalculator: ObservableObject {
     fileprivate typealias InputValues = (amount: String, years: String, rate: String)
-    typealias Payments = (monthly: String, total: String)
+    typealias Payments = (monthly: String, total: String, interest: String)
     
     @Published var amount: String = ""
     @Published var years: String = ""
     @Published var rate: String = ""
     
-    @Published var payments: Payments = ("", "")
+    @Published var payments: Payments = ("", "", "")
     
     init() {
         Publishers.CombineLatest3($amount, $years, $rate)
@@ -28,7 +28,7 @@ class LoanCalculator: ObservableObject {
         guard let years = Double(values.years),
               let amount = Double(values.amount),
               let rate = Double(values.rate)
-        else { return ("", "") }
+        else { return ("", "", "") }
         
         let numberOfMonths = years * 12
         let monthlyRate = ((rate / 100) / 12)
@@ -39,8 +39,9 @@ class LoanCalculator: ObservableObject {
         let totalPaymentValue = monthlyPaymentValue * numberOfMonths
         let monthlyPayment = NumberFormatter.currencyString(monthlyPaymentValue)
         let totalPayment = NumberFormatter.currencyString(totalPaymentValue)
+        let interest = NumberFormatter.currencyString(totalPaymentValue - amount)
         print(monthlyPayment + totalPayment)
         
-        return (monthlyPayment, totalPayment)
+        return (monthlyPayment, totalPayment, interest)
     }
 }

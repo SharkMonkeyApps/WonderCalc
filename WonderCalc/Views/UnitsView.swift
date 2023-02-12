@@ -19,6 +19,10 @@ struct UnitsView: View {
                 HStack {
                     TextField("", text: $unitProvider.fromValue)
                         .keyboardType(.decimalPad)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(.gray, lineWidth: 1)
+                        )
                         .textFieldStyle(.roundedBorder)
                     
                     Picker("Unit", selection: $unitProvider.fromUnit, content: {
@@ -41,5 +45,6 @@ struct UnitsView: View {
             .navigationTitle("Unit Conversion")
         }
         .dismissKeyboardOnTap()
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }

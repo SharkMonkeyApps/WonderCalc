@@ -20,6 +20,10 @@ struct TextFieldRow: View {
                 .font(.subHeading)
             TextField(placeHolder, text: $input)
                 .keyboardType(keyboardType)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(.gray, lineWidth: 1)
+                )
                 .textFieldStyle(.roundedBorder)
             
         }
