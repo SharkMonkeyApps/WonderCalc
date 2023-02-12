@@ -42,25 +42,25 @@ struct CalculatorView: View {
                     numberButton(7)
                     numberButton(8)
                     numberButton(9)
-                    operatorButton(.plus)
+                    operatorButton(.divide)
                 }
                 LazyVGrid(columns: layout) {
                     numberButton(4)
                     numberButton(5)
                     numberButton(6)
-                    operatorButton(.minus)
+                    operatorButton(.multiply)
                 }
                 LazyVGrid(columns: layout) {
                     numberButton(1)
                     numberButton(2)
                     numberButton(3)
-                    operatorButton(.multiply)
+                    operatorButton(.minus)
                 }
                 LazyVGrid(columns: layout) {
                     numberButton(0)
                     numberButton(".")
                     operatorButton(.equal)
-                    operatorButton(.divide)
+                    operatorButton(.plus)
                 }
             }
             .padding()
