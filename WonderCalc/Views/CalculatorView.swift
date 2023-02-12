@@ -33,9 +33,9 @@ struct CalculatorView: View {
                 }
                 
                 LazyVGrid(columns: layout) {
-                    operatorButton(.squareRoot)
                     operatorButton(.negative)
                     operatorButton(.percent)
+                    operatorButton(.squareRoot)
                     operatorButton(.squared)
                 }
                 LazyVGrid(columns: layout) {
