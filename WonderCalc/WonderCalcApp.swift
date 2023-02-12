@@ -29,8 +29,8 @@ struct WonderCalcApp: App {
                     }
                 SettingsView()
                     .tabItem {
-                        Image(systemName: "gear")
-                        Text("Settings")
+                        Image(systemName: "info.circle")
+                        Text("About")
                     }
             }
         }

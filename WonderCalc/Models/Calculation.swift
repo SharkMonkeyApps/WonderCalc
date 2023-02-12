@@ -50,6 +50,10 @@ class Calculation: Identifiable, ObservableObject {
             stringValue = "-" + stringValue
         }
     }
+
+    func pasteValue(_ value: String) {
+        stringValue = value
+    }
     
     // MARK: - Private
     

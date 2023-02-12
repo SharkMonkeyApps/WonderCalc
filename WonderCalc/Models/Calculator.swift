@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import UniformTypeIdentifiers
+import UIKit
 
 /** Recieves user input to create or update calculations, and performs those calculations to publish a result */
 class Calculator: ObservableObject {
@@ -29,6 +31,19 @@ class Calculator: ObservableObject {
         calculations.append(currentCalculation)
         currentCalculation = Calculation(operand: operand)
         tryCalculations(finalOperand: operand)
+    }
+
+    func pasteboardTapped(_ option: PasteboardOption) {
+        switch option {
+        case .copy:
+            UIPasteboard.general.string = publishedValue
+        case .paste:
+            if let contents = UIPasteboard.general.string,
+               let value  = Double(contents) {
+                currentCalculation.pasteValue(format(value))
+                publish(currentCalculation.stringValue)
+            }
+        }
     }
     
     /** The numerical values and operands entered or updated by the user which can be iterated to produce result */
@@ -112,9 +127,13 @@ class Calculator: ObservableObject {
             throw CalculatorError.invalidOperation
         }
     }
+
+    private func format(_ number: Double) -> String {
+        NumberFormatter.calculatorDecimalAndZerosString(number, hasDecimal: false)
+    }
     
     private func publish(_ number: Double) {
-        publish(NumberFormatter.calculatorDecimalAndZerosString(number, hasDecimal: false))
+        publish(format(number))
     }
     
     private func publish(_ value: String) {

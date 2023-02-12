@@ -11,4 +11,5 @@ extension Font {
     
     static let heading = Font.system(size: 28, weight: .semibold)
     static let subHeading = Font.system(size: 22, weight: .semibold)
+    static let calculatorOutput = Font.system(size: 32, weight: .semibold)
 }
