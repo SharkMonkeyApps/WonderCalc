@@ -61,6 +61,12 @@ class Calculator: ObservableObject {
         case .clear:
             clear()
         case .negative:
+            guard currentCalculation.operand.performCalculationImmediately == false else {
+                currentCalculation.multiplier = currentCalculation.multiplier * -1
+                tryCalculations(includeCurrentValue: true)
+                return
+            }
+
             currentCalculation.toggleNegative()
             publish(currentCalculation.stringValue)
         case .equal:
@@ -94,14 +100,14 @@ class Calculator: ObservableObject {
                 continue
             }
 
-            let result = try perform(initialValue: value, operand: calc.operand, newValue: calc.number)
+            let result = try perform(initialValue: value, operand: calc.operand, newValue: calc.number, multiplier: calc.multiplier)
             value = result
         }
         
         return value
     }
     
-    private func perform(initialValue: Double, operand: Operand, newValue: Double?) throws -> Double {
+    private func perform(initialValue: Double, operand: Operand, newValue: Double?, multiplier: Int = 1) throws -> Double {
 
         switch operand {
         case .plus:
@@ -117,11 +123,11 @@ class Calculator: ObservableObject {
                 throw CalculatorError.divByZero
             }
         case .percent:
-            return initialValue / 100
+            return initialValue / 100 * Double(multiplier)
         case .squared:
-            return initialValue * initialValue
+            return initialValue * initialValue * Double(multiplier)
         case .squareRoot:
-            return sqrt(initialValue)
+            return sqrt(initialValue) * Double(multiplier)
         case .clear, .negative, .equal, .none:
             // Handled by nonCalculatingOperand
             throw CalculatorError.invalidOperation

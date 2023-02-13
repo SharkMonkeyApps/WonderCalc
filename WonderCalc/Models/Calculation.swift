@@ -11,6 +11,9 @@ class Calculation: Identifiable, ObservableObject {
     var id: UUID
     @Published var operand: Operand
     var stringValue: String
+
+    // For setting percents and exponents negative
+    var multiplier = 1
     
     init(operand: Operand = .none) {
         self.id = UUID()
