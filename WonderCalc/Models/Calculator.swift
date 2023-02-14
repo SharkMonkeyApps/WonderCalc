@@ -47,10 +47,15 @@ class Calculator: ObservableObject {
             decimalTapped()
         } else if currentStringValue == "0" {
             currentStringValue = option.rawValue
-            publishCurrentValue()
+            publishCurrentNumber()
         } else {
+            if option == .zero && hasDecimal {
+                zerosAfterDecimal += 1
+            } else {
+                zerosAfterDecimal = 0
+            }
             currentStringValue.append(option.rawValue)
-            publishCurrentValue()
+            publishCurrentNumber()
         }
     }
 
@@ -66,16 +71,16 @@ class Calculator: ObservableObject {
             calculateStack()
         case .negative:
             currentNumber = currentNumber * -1.0
-            publishCurrentValue()
+            publishCurrentNumber()
         case .percent:
             currentNumber = currentNumber / 100.0
-            publishCurrentValue()
+            publishCurrentNumber()
         case .squared:
             currentNumber = currentNumber * currentNumber
-            publishCurrentValue()
+            publishCurrentNumber()
         case .squareRoot:
             currentNumber = sqrt(currentNumber)
-            publishCurrentValue()
+            publishCurrentNumber()
         default: // Evaluate based on Stack:
             guard let currentOperator = Operator(option) else { return }
             calculatorStack.append(currentNumber)
@@ -90,14 +95,14 @@ class Calculator: ObservableObject {
         switch option {
         case .cut:
             UIPasteboard.general.string = publishedValue
-            clearCurrentValue()
+            clearCurrentValue(publish: true)
         case .copy:
             UIPasteboard.general.string = publishedValue
         case .paste:
             if let contents = UIPasteboard.general.string,
                let value  = Double(contents) {
                 currentNumber = value
-                publishCurrentValue()
+                publishCurrentNumber()
             }
         default:
             invalidOperation("Invalid Pasteboard option")
@@ -106,7 +111,7 @@ class Calculator: ObservableObject {
 
     private func clearButtonTapped() {
         // TODO: - Handle AC/C
-        clearCurrentValue()
+        clearCurrentValue(publish: true)
         calculatorStack.clear()
     }
 
@@ -114,12 +119,13 @@ class Calculator: ObservableObject {
         guard currentStringValue.contains(".") == false else { return }
 
         currentStringValue.append(".")
-        publishCurrentValue()
+        hasDecimal = true
+        publishCurrentNumber()
     }
 
     // MARK: - Publish Helpers
 
-    private func publishCurrentValue() {
+    private func publishCurrentNumber() {
         publish(currentNumber)
     }
 
@@ -138,7 +144,7 @@ class Calculator: ObservableObject {
 
         calculatorStack.append(result)
         publish(result)
-        currentNumber = 0
+        clearCurrentValue()
     }
 
     private func calculateAndAddToStack(_ currentOperator: Operator) {
@@ -147,9 +153,8 @@ class Calculator: ObservableObject {
             publish(result)
             calculatorStack.append(result)
             calculatorStack.append(currentOperator)
-            currentNumber = 0
+            clearCurrentValue()
         } else {
-            // TODO: - Validate
             calculatorStack.append(currentOperator)
         }
     }
@@ -157,14 +162,20 @@ class Calculator: ObservableObject {
     func popAndCalculateFromStack() -> Double? {
         guard let (first, op, second) = calculatorStack.popFinalCalculation() else { return nil }
 
-        return perform(first: first, currentOperator: op, second: second)
+        do {
+            return try perform(first: first, currentOperator: op, second: second)
+        } catch {
+            handle(error)
+            return nil
+        }
     }
 
-    private func perform(first: Double, currentOperator: Operator, second: Double) -> Double {
+    private func perform(first: Double, currentOperator: Operator, second: Double) throws -> Double {
         switch currentOperator {
         case .multiply:
             return first * second
         case .divide:
+            if second == 0 { throw CalculatorError.divByZero }
             return first / second
         case .plus:
             return first + second
@@ -175,15 +186,20 @@ class Calculator: ObservableObject {
 
     // MARK: - Clear Helpers
 
-    private func clearCurrentValue() {
+    private func clearCurrentValue(publish: Bool = false) {
         currentStringValue = "0"
-        publishCurrentValue()
+        hasDecimal = false
+        zerosAfterDecimal = 0
+        if publish { publishCurrentNumber() }
     }
 
     // MARK: - Formatting Helpers
 
+    private var hasDecimal = false
+    private var zerosAfterDecimal = 0
+
     private func format(_ number: Double) -> String {
-        NumberFormatter.calculatorDecimalAndZerosString(number, hasDecimal: false)
+        NumberFormatter.calculatorDecimalAndZerosString(number, hasDecimal: hasDecimal, zeros: zerosAfterDecimal)
     }
 
     // MARK: - Error Helpers
