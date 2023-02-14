@@ -26,41 +26,41 @@ struct CalculatorView: View {
                 )
 
                 LazyVGrid(columns: layout) {
-                    operatorButton(.clear)
-                    pasteboardButton(.cut)
-                    pasteboardButton(.copy)
-                    pasteboardButton(.paste)
+                    button(.clear)
+                    button(.cut)
+                    button(.copy)
+                    button(.paste)
                 }
                 
                 LazyVGrid(columns: layout) {
-                    operatorButton(.negative)
-                    operatorButton(.percent)
-                    operatorButton(.squareRoot)
-                    operatorButton(.squared)
+                    button(.negative)
+                    button(.percent)
+                    button(.squareRoot)
+                    button(.squared)
                 }
                 LazyVGrid(columns: layout) {
-                    numberButton(7)
-                    numberButton(8)
-                    numberButton(9)
-                    operatorButton(.divide)
+                    button(.seven)
+                    button(.eight)
+                    button(.nine)
+                    button(.divide)
                 }
                 LazyVGrid(columns: layout) {
-                    numberButton(4)
-                    numberButton(5)
-                    numberButton(6)
-                    operatorButton(.multiply)
+                    button(.four)
+                    button(.five)
+                    button(.six)
+                    button(.multiply)
                 }
                 LazyVGrid(columns: layout) {
-                    numberButton(1)
-                    numberButton(2)
-                    numberButton(3)
-                    operatorButton(.minus)
+                    button(.one)
+                    button(.two)
+                    button(.three)
+                    button(.minus)
                 }
                 LazyVGrid(columns: layout) {
-                    numberButton(0)
-                    numberButton(".")
-                    operatorButton(.equal)
-                    operatorButton(.plus)
+                    button(.zero)
+                    button(.decimal)
+                    button(.equal)
+                    button(.plus)
                 }
             }
             .padding()
@@ -85,22 +85,26 @@ struct CalculatorView: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    
-    private func numberButton(_ number: Int) -> NumberButton {
-        numberButton("\(number)")
-    }
-    
-    private func numberButton(_ char: String) -> NumberButton {
-        NumberButton(value: char, callback: calculator.numberTapped)
-    }
-    
-    private func operatorButton(_ operand: Operand) -> OperandButton {
-        OperandButton(operand: operand, callback: calculator.operandTapped)
-    }
 
-    private func pasteboardButton(_ option: PasteboardOption) -> PasteboardButton {
-        PasteboardButton(option: option, callback: calculator.pasteboardTapped)
+    private func button(_ option: CalculatorButtonOption) -> CalculatorButton {
+        CalculatorButton(option: option, callback: calculator.buttonTapped)
     }
+    
+//    private func numberButton(_ number: Int) -> NumberButton {
+//        numberButton("\(number)")
+//    }
+//
+//    private func numberButton(_ char: String) -> NumberButton {
+//        NumberButton(value: char, callback: calculator.numberTapped)
+//    }
+//
+//    private func operatorButton(_ operand: Operand) -> OperandButton {
+//        OperandButton(operand: operand, callback: calculator.operandTapped)
+//    }
+//
+//    private func pasteboardButton(_ option: PasteboardOption) -> PasteboardButton {
+//        PasteboardButton(option: option, callback: calculator.pasteboardTapped)
+//    }
 }
 
 struct CalcView_Previews: PreviewProvider {
