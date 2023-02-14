@@ -34,7 +34,7 @@ extension CalculatorButtonOption {
         switch self.type {
         case .number:
             return Text(rawValue)
-        case .operand, .pasteboard:
+        case .mathOperator, .pasteboard:
             if self == .squared { // No SF Symbol for squared
                 return Text(rawValue)
             }
@@ -49,7 +49,7 @@ extension CalculatorButtonOption {
         switch self.type {
         case .number:
             return .orange
-        case .operand:
+        case .mathOperator:
             return .green
         case .clear:
             return .red

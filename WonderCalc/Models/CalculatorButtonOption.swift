@@ -48,39 +48,14 @@ enum CalculatorButtonOption: String {
         case .cut, .copy, .paste:
             return .pasteboard
         default:
-            return .operand
+            return .mathOperator
         }
     }
-
-//    var operandType: OperandType {
-//        switch self {
-//        case .equal, .percent, .negative:
-//            return .immediate
-//        case .squared, .squareRoot:
-//            return .exponent
-//        case .multiply, .divide:
-//            return .multiplyDivide
-//        case .plus, .minus:
-//            return .addSubtract
-//        default:
-//            return .none
-//        }
-//    }
 }
 
 enum CalculatorButtonType {
     case number
-    case operand
+    case mathOperator
     case clear
     case pasteboard
-}
-
-/** Handles order of operation */
-//enum OperandType: Int, CaseIterable {
-//    case immediate = 0
-//    case parenthesis
-//    case exponent
-//    case multiplyDivide
-//    case addSubtract
-//    case none
 }
