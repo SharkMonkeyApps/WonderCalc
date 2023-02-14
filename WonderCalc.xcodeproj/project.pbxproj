@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41765D76299C182C00C66C30 /* CalculatorStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41765D75299C182C00C66C30 /* CalculatorStack.swift */; };
 		417C8C9B2997E27C0027507B /* UnitConversionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C8C9A2997E27C0027507B /* UnitConversionTests.swift */; };
 		417C8C9D2997F48D0027507B /* LoanCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C8C9C2997F48D0027507B /* LoanCalculatorTests.swift */; };
 		417C8CA3299BB85D0027507B /* CalculatorButtonOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C8CA2299BB85D0027507B /* CalculatorButtonOption.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		41765D75299C182C00C66C30 /* CalculatorStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorStack.swift; sourceTree = "<group>"; };
 		417C8C9A2997E27C0027507B /* UnitConversionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitConversionTests.swift; sourceTree = "<group>"; };
 		417C8C9C2997F48D0027507B /* LoanCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanCalculatorTests.swift; sourceTree = "<group>"; };
 		417C8CA2299BB85D0027507B /* CalculatorButtonOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorButtonOption.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				41C5F24829273CEB0079BD12 /* LoanCalculator.swift */,
 				417C8CA2299BB85D0027507B /* CalculatorButtonOption.swift */,
 				417C8CA6299BF66A0027507B /* Operator.swift */,
+				41765D75299C182C00C66C30 /* CalculatorStack.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				4187DBF52922AB7D0026ABB2 /* WonderCalcApp.swift in Sources */,
 				41C5F2592929B6B30079BD12 /* TextFieldRow.swift in Sources */,
 				41C5F24929273CEB0079BD12 /* LoanCalculator.swift in Sources */,
+				41765D76299C182C00C66C30 /* CalculatorStack.swift in Sources */,
 				41C5F24B2927EFBC0079BD12 /* SettingsView.swift in Sources */,
 				41E6980A292582F50024C00F /* UnitsView.swift in Sources */,
 				41E6980C292583860024C00F /* Unit.swift in Sources */,

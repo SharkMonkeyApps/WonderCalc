@@ -6,15 +6,7 @@
 //
 
 import Foundation
-import UniformTypeIdentifiers
-import UIKit
-
-protocol Calculable {
-
-}
-
-extension Double: Calculable { }
-extension Operator: Calculable { }
+import UIKit // TODO: - Remove
 
 /** Recieves user input to create or update calculations, and performs those calculations to publish a result */
 class Calculator: ObservableObject {
@@ -39,9 +31,7 @@ class Calculator: ObservableObject {
     // MARK: - Private
 
     private var currentStringValue: String = "0"
-
-
-    private var calculationStack: [Calculable] = []
+    private var calculatorStack = CalculatorStack()
 
     private var currentNumber: Double {
         get { Double(currentStringValue) ?? 0.0 }
@@ -72,7 +62,7 @@ class Calculator: ObservableObject {
         switch option {
             // Calculate Immediately:
         case .equal:
-            calculationStack.append(currentNumber)
+            calculatorStack.append(currentNumber)
             calculateStack()
         case .negative:
             currentNumber = currentNumber * -1.0
@@ -88,7 +78,7 @@ class Calculator: ObservableObject {
             publishCurrentValue()
         default: // Evaluate based on Stack:
             guard let currentOperator = Operator(option) else { return }
-            calculationStack.append(currentNumber)
+            calculatorStack.append(currentNumber)
             currentNumber = 0
             calculateAndAddToStack(currentOperator)
         }
@@ -117,7 +107,7 @@ class Calculator: ObservableObject {
     private func clearButtonTapped() {
         // TODO: - Handle AC/C
         clearCurrentValue()
-        calculationStack = []
+        calculatorStack.clear()
     }
 
     private func decimalTapped() {
@@ -146,31 +136,28 @@ class Calculator: ObservableObject {
     private func calculateStack() {
         guard let result = popAndCalculateFromStack() else { return }
 
-        calculationStack.append(result)
+        calculatorStack.append(result)
         publish(result)
         currentNumber = 0
     }
 
     private func calculateAndAddToStack(_ currentOperator: Operator) {
-        if currentOperator.precedence.rawValue <= lastOperator?.precedence.rawValue ?? 0,
+        if currentOperator.precedence.rawValue <= calculatorStack.lastOperator?.precedence.rawValue ?? 0,
            let result = popAndCalculateFromStack() {
             publish(result)
-            calculationStack.append(result)
-            calculationStack.append(currentOperator)
+            calculatorStack.append(result)
+            calculatorStack.append(currentOperator)
             currentNumber = 0
         } else {
             // TODO: - Validate
-            calculationStack.append(currentOperator)
+            calculatorStack.append(currentOperator)
         }
     }
 
     func popAndCalculateFromStack() -> Double? {
-        guard let lastNum = calculationStack.popLast() as? Double,
-              let lastOp = calculationStack.popLast() as? Operator,
-              let secondToLastNum = calculationStack.popLast() as? Double
-        else { return nil }
+        guard let (first, op, second) = calculatorStack.popFinalCalculation() else { return nil }
 
-        return perform(first: secondToLastNum, currentOperator: lastOp, second: lastNum)
+        return perform(first: first, currentOperator: op, second: second)
     }
 
     private func perform(first: Double, currentOperator: Operator, second: Double) -> Double {
@@ -184,16 +171,6 @@ class Calculator: ObservableObject {
         case .minus:
             return first - second
         }
-    }
-
-    // MARK: - Stack Helpers
-
-    private var lastOperator: Operator? {
-        calculationStack.last { valueOrOperand in
-            guard let _ = valueOrOperand as? Operator else { return false }
-
-            return true
-        } as? Operator
     }
 
     // MARK: - Clear Helpers
