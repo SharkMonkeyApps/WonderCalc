@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		41765D76299C182C00C66C30 /* CalculatorStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41765D75299C182C00C66C30 /* CalculatorStack.swift */; };
+		41765D78299C3E3A00C66C30 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41765D77299C3E3A00C66C30 /* Collection+Extension.swift */; };
 		417C8C9B2997E27C0027507B /* UnitConversionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C8C9A2997E27C0027507B /* UnitConversionTests.swift */; };
 		417C8C9D2997F48D0027507B /* LoanCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C8C9C2997F48D0027507B /* LoanCalculatorTests.swift */; };
 		417C8CA3299BB85D0027507B /* CalculatorButtonOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C8CA2299BB85D0027507B /* CalculatorButtonOption.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		41765D75299C182C00C66C30 /* CalculatorStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorStack.swift; sourceTree = "<group>"; };
+		41765D77299C3E3A00C66C30 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		417C8C9A2997E27C0027507B /* UnitConversionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitConversionTests.swift; sourceTree = "<group>"; };
 		417C8C9C2997F48D0027507B /* LoanCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanCalculatorTests.swift; sourceTree = "<group>"; };
 		417C8CA2299BB85D0027507B /* CalculatorButtonOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorButtonOption.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				4187DC292922E5420026ABB2 /* NumberFormatter+Extension.swift */,
 				41C5F24E292973510079BD12 /* Font+Extension.swift */,
 				41C5F252292995CE0079BD12 /* View+Extension.swift */,
+				41765D77299C3E3A00C66C30 /* Collection+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				417C8CA7299BF66A0027507B /* Operator.swift in Sources */,
 				41C5F24729273CB40079BD12 /* LoanView.swift in Sources */,
 				4187DC2A2922E5420026ABB2 /* NumberFormatter+Extension.swift in Sources */,
+				41765D78299C3E3A00C66C30 /* Collection+Extension.swift in Sources */,
 				4187DBF52922AB7D0026ABB2 /* WonderCalcApp.swift in Sources */,
 				41C5F2592929B6B30079BD12 /* TextFieldRow.swift in Sources */,
 				41C5F24929273CEB0079BD12 /* LoanCalculator.swift in Sources */,

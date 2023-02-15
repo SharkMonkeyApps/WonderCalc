@@ -9,6 +9,9 @@ import Foundation
 
 /** Math Operators which are evaluated on the calculation stack rather than immediately */
 enum Operator {
+    /** Note: Exponents are excluded because the app has no parenthesis.
+     Therefore exponents are the highest precedence and evaluate immediately.
+     Additionally, exponents operate on a single value, and have different behavior */
     case multiply
     case divide
     case plus
@@ -29,7 +32,7 @@ enum Operator {
         }
     }
 
-    var precedence: OperandPrecedence {
+    var precedence: OperatorPrecedence {
         switch self {
         case .multiply, .divide:
             return .multiplyDivide
@@ -40,7 +43,7 @@ enum Operator {
 }
 
 /** Handles order of operation exculding immediate execution (exponents...) */
-enum OperandPrecedence: Int, CaseIterable {
-    case multiplyDivide = 2
+enum OperatorPrecedence: Int, CaseIterable {
+    case multiplyDivide = 0
     case addSubtract = 1
 }

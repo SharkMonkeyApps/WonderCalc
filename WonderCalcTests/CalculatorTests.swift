@@ -266,12 +266,21 @@ final class CalculatorTests: XCTestCase {
         calculator.buttonTapped(.decimal)
         calculator.buttonTapped(.four)
         calculator.buttonTapped(.divide)
+
+        XCTAssertEqual(calculator.publishedValue, "3.4")
+
         calculator.buttonTapped(.three)
         calculator.buttonTapped(.negative)
+
+        XCTAssertEqual(calculator.publishedValue, "-3")
+
         calculator.buttonTapped(.squared)
+
+        XCTAssertEqual(calculator.publishedValue, "9")
+
         calculator.buttonTapped(.plus)
 
-        XCTAssertEqual(calculator.publishedValue, "50.622222222222")
+        XCTAssertEqual(calculator.publishedValue, "50.62222222222222")
 
         calculator.buttonTapped(.eight)
         calculator.buttonTapped(.multiply)
@@ -279,12 +288,12 @@ final class CalculatorTests: XCTestCase {
         calculator.buttonTapped(.squareRoot)
         calculator.buttonTapped(.plus)
 
-        XCTAssertEqual(calculator.publishedValue, "61.935930721206983")
+        XCTAssertEqual(calculator.publishedValue, "61.93593072120698")
 
         calculator.buttonTapped(.seven)
         calculator.buttonTapped(.two)
         calculator.buttonTapped(.equal)
 
-        XCTAssertEqual(calculator.publishedValue, "133.935930721206983")
+        XCTAssertEqual(calculator.publishedValue, "133.93593072120697")
     }
 }

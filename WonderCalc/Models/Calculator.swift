@@ -8,13 +8,13 @@
 import Foundation
 import UIKit // TODO: - Remove
 
-/** Recieves user input to create or update calculations, and performs those calculations to publish a result */
+/** Recieves user input from button taps to evaluate, calculate, and publish a result string. */
 class Calculator: ObservableObject {
 
-    /** Result value displayed on the calculator's output */
+    /** Result value which can be used to display on a calculator's output */
     @Published var publishedValue: String = "0"
 
-    /** Receives user input from the view */
+    /** Receives user input from the calculator view */
     func buttonTapped(_ option: CalculatorButtonOption) {
         switch option.type {
         case .number:
@@ -62,13 +62,11 @@ class Calculator: ObservableObject {
     private func operatorTapped(_ option: CalculatorButtonOption) {
         guard option.type == .mathOperator else { return invalidOperation("Invalid Operand") }
 
-        print("Op: \(option.rawValue)")
 
         switch option {
             // Calculate Immediately:
         case .equal:
-            calculatorStack.append(currentNumber)
-            calculateStack()
+            equalPressed()
         case .negative:
             currentNumber = currentNumber * -1.0
             publishCurrentNumber()
@@ -83,8 +81,9 @@ class Calculator: ObservableObject {
             publishCurrentNumber()
         default: // Evaluate based on Stack:
             guard let currentOperator = Operator(option) else { return }
+            print("Appending: \(currentNumber) Op: \(currentOperator)")
             calculatorStack.append(currentNumber)
-            currentNumber = 0
+            clearCurrentValue()
             calculateAndAddToStack(currentOperator)
         }
     }
@@ -106,6 +105,19 @@ class Calculator: ObservableObject {
             }
         default:
             invalidOperation("Invalid Pasteboard option")
+        }
+    }
+
+    private func equalPressed() {
+        print("Equal")
+        calculatorStack.append(currentNumber)
+        do {
+            if let result = try calculatorStack.calculate() {
+                currentNumber = result
+                publishCurrentNumber()
+            }
+        } catch {
+            handle(error)
         }
     }
 
@@ -134,22 +146,16 @@ class Calculator: ObservableObject {
     }
 
     private func publish(_ value: String) {
+        print("Publishing: \(value)")
         publishedValue = value
     }
 
     // MARK: - Calculations
 
-    private func calculateStack() {
-        guard let result = popAndCalculateFromStack() else { return }
-
-        calculatorStack.append(result)
-        publish(result)
-        clearCurrentValue()
-    }
-
     private func calculateAndAddToStack(_ currentOperator: Operator) {
-        if currentOperator.precedence.rawValue <= calculatorStack.lastOperator?.precedence.rawValue ?? 0,
-           let result = popAndCalculateFromStack() {
+        print("cAAS")
+        if let result = try? calculatorStack.calculate(currentOp: currentOperator) {
+            print(currentOperator)
             publish(result)
             calculatorStack.append(result)
             calculatorStack.append(currentOperator)
@@ -159,37 +165,12 @@ class Calculator: ObservableObject {
         }
     }
 
-    func popAndCalculateFromStack() -> Double? {
-        guard let (first, op, second) = calculatorStack.popFinalCalculation() else { return nil }
-
-        do {
-            return try perform(first: first, currentOperator: op, second: second)
-        } catch {
-            handle(error)
-            return nil
-        }
-    }
-
-    private func perform(first: Double, currentOperator: Operator, second: Double) throws -> Double {
-        switch currentOperator {
-        case .multiply:
-            return first * second
-        case .divide:
-            if second == 0 { throw CalculatorError.divByZero }
-            return first / second
-        case .plus:
-            return first + second
-        case .minus:
-            return first - second
-        }
-    }
-
     // MARK: - Clear Helpers
 
     private func clearCurrentValue(publish: Bool = false) {
-        currentStringValue = "0"
         hasDecimal = false
         zerosAfterDecimal = 0
+        currentNumber = 0
         if publish { publishCurrentNumber() }
     }
 
