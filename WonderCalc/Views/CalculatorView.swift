@@ -10,6 +10,7 @@ import SwiftUI
 struct CalculatorView: View {
     
     @ObservedObject var calculator: Calculator
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
         NavigationView {
@@ -26,53 +27,45 @@ struct CalculatorView: View {
                 )
 
                 LazyVGrid(columns: layout) {
-                    operatorButton(.clear)
-                    pasteboardButton(.cut)
-                    pasteboardButton(.copy)
-                    pasteboardButton(.paste)
+                    clearButton()
+                    button(.cut)
+                    button(.copy)
+                    button(.paste)
                 }
                 
                 LazyVGrid(columns: layout) {
-                    operatorButton(.negative)
-                    operatorButton(.percent)
-                    operatorButton(.squareRoot)
-                    operatorButton(.squared)
+                    button(.negative)
+                    button(.percent)
+                    button(.squareRoot)
+                    button(.squared)
                 }
                 LazyVGrid(columns: layout) {
-                    numberButton(7)
-                    numberButton(8)
-                    numberButton(9)
-                    operatorButton(.divide)
+                    button(.seven)
+                    button(.eight)
+                    button(.nine)
+                    button(.divide)
                 }
                 LazyVGrid(columns: layout) {
-                    numberButton(4)
-                    numberButton(5)
-                    numberButton(6)
-                    operatorButton(.multiply)
+                    button(.four)
+                    button(.five)
+                    button(.six)
+                    button(.multiply)
                 }
                 LazyVGrid(columns: layout) {
-                    numberButton(1)
-                    numberButton(2)
-                    numberButton(3)
-                    operatorButton(.minus)
+                    button(.one)
+                    button(.two)
+                    button(.three)
+                    button(.minus)
                 }
                 LazyVGrid(columns: layout) {
-                    numberButton(0)
-                    numberButton(".")
-                    operatorButton(.equal)
-                    operatorButton(.plus)
+                    button(.zero)
+                    button(.decimal)
+                    button(.equal)
+                    button(.plus)
                 }
             }
-            .padding()
+            .padding(horizontalSizeClass == .regular ? .wide : .standard)
             .navigationTitle("WonderCalc")
-            // TODO: - Support history + editing
-//            .toolbar {
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    NavigationLink("History") {
-//                        CalculationsListView(calculator: calculator)
-//                    }
-//                }
-//            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
@@ -85,21 +78,27 @@ struct CalculatorView: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    
-    private func numberButton(_ number: Int) -> NumberButton {
-        numberButton("\(number)")
-    }
-    
-    private func numberButton(_ char: String) -> NumberButton {
-        NumberButton(value: char, callback: calculator.numberTapped)
-    }
-    
-    private func operatorButton(_ operand: Operand) -> OperandButton {
-        OperandButton(operand: operand, callback: calculator.operandTapped)
+
+    private func button(_ option: CalculatorButtonOption) -> CalculatorButton {
+        CalculatorButton(option: option, callback: calculator.buttonTapped)
     }
 
-    private func pasteboardButton(_ option: PasteboardOption) -> PasteboardButton {
-        PasteboardButton(option: option, callback: calculator.pasteboardTapped)
+    private func clearButton() -> some View {
+        Button(action: clearButtonTapped) {
+            Text(calculator.clearButtonText)
+                .font(.subHeading)
+                .foregroundColor(.white)
+                .shadow(color: .black, radius: 3)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Capsule()
+                    .fill(.red)
+                    .frame(height: 56))
+        }
+    }
+
+    private func clearButtonTapped() {
+        calculator.buttonTapped(.clear)
     }
 }
 

@@ -22,13 +22,13 @@ final class UnitConversionTests: XCTestCase {
         unitProvider.fromUnit = LengthUnit.feet.unit
         unitProvider.toUnit = LengthUnit.meters.unit
         
-        XCTAssertEqual(unitProvider.result, "2.133599931724802 meters") // round?
+        XCTAssertEqual(unitProvider.result, "2.1336 meters") // round?
         
         unitProvider.fromValue = "563223.6"
         unitProvider.fromUnit = LengthUnit.centimeters.unit
         unitProvider.toUnit = LengthUnit.miles.unit
         
-        XCTAssertEqual(unitProvider.result, "3.4997093102727272 miles") // round?
+        XCTAssertEqual(unitProvider.result, "3.4997 miles") // round?
     }
     
     func test_itCanConvertTemperature() {
@@ -37,13 +37,13 @@ final class UnitConversionTests: XCTestCase {
         unitProvider.fromUnit = TemperatureUnit.fahrenheight.unit
         unitProvider.toUnit = TemperatureUnit.celcius.unit
         
-        XCTAssertEqual(unitProvider.result, "-13.88888888888889 celcius") // round?
+        XCTAssertEqual(unitProvider.result, "-13.8889 ℃") // round?
         
         unitProvider.fromValue = "435.5"
         unitProvider.fromUnit = TemperatureUnit.celcius.unit
         unitProvider.toUnit = TemperatureUnit.kelvin.unit
         
-        XCTAssertEqual(unitProvider.result, "708.65 kelvin")
+        XCTAssertEqual(unitProvider.result, "708.65 Kelvin")
     }
     
     func test_itCanConvertVolume() {
@@ -52,12 +52,12 @@ final class UnitConversionTests: XCTestCase {
         unitProvider.fromUnit = VolumeUnit.liters.unit
         unitProvider.toUnit = VolumeUnit.gallons.unit
         
-        XCTAssertEqual(unitProvider.result, "1.8492052380059225 gallons")
+        XCTAssertEqual(unitProvider.result, "1.8492 gallons")
         
         unitProvider.fromValue = "435.5"
         unitProvider.fromUnit = VolumeUnit.teaspoon.unit
         unitProvider.toUnit = VolumeUnit.milliliters.unit
         
-        XCTAssertEqual(unitProvider.result, "2146.544342447917 milliliters")
+        XCTAssertEqual(unitProvider.result, "2146.5443 milliliters")
     }
 }

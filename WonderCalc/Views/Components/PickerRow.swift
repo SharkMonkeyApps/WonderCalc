@@ -10,18 +10,26 @@ import SwiftUI
 struct PickerRow<Option: Pickable>: View {
     let title: String
     let options: [Option]
+    let layout: [GridItem]
     @Binding var selection: Option
     
     var body: some View {
-        HStack {
-            Text(title)
-                .font(.subHeading)
-            Spacer()
-            Picker(title, selection: $selection, content: {
-                ForEach(options, id: \.self) {
-                    Text($0.name)
-                }
-            }).pickerStyle(.menu)
+        LazyVGrid(columns: layout) {
+            HStack {
+                Spacer()
+                Text(title)
+                    .font(.subHeading)
+            }
+            HStack {
+                Picker(title, selection: $selection, content: {
+                    ForEach(options, id: \.self) {
+                        Text($0.name)
+                            .font(.subHeading)
+                    }
+                }).pickerStyle(.menu)
+                    .font(.subHeading)
+                Spacer()
+            }
         }
     }
 }

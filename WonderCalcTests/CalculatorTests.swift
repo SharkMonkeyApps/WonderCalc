@@ -18,212 +18,330 @@ final class CalculatorTests: XCTestCase {
 
     func test_itCanDisplayAndClearNumbers() {
         XCTAssertEqual(calculator.publishedValue, "0")
+        XCTAssertEqual(calculator.clearButtonText, "AC")
 
-        calculator.numberTapped("5")
+        calculator.buttonTapped(.five)
         XCTAssertEqual(calculator.publishedValue, "5")
+        XCTAssertEqual(calculator.clearButtonText, "C")
 
-        calculator.numberTapped("7")
+        calculator.buttonTapped(.seven)
         XCTAssertEqual(calculator.publishedValue, "57")
+        XCTAssertEqual(calculator.clearButtonText, "C")
 
-        calculator.operandTapped(.clear)
+        calculator.buttonTapped(.clear)
         XCTAssertEqual(calculator.publishedValue, "0")
+        XCTAssertEqual(calculator.clearButtonText, "AC")
 
-        calculator.numberTapped("2")
+        calculator.buttonTapped(.two)
         XCTAssertEqual(calculator.publishedValue, "2")
+        XCTAssertEqual(calculator.clearButtonText, "C")
     }
 
     func test_itDoesNotDisplayDoubleZero() {
-        calculator.numberTapped("0")
+        calculator.buttonTapped(.zero)
         XCTAssertEqual(calculator.publishedValue, "0")
 
-        calculator.numberTapped("0")
-        calculator.numberTapped("0")
+        calculator.buttonTapped(.zero)
+        calculator.buttonTapped(.zero)
 
         XCTAssertEqual(calculator.publishedValue, "0")
+    }
+
+    func test_itDoesNotDisplayDoubleDecimal() {
+        calculator.buttonTapped(.decimal)
+        XCTAssertEqual(calculator.publishedValue, "0.")
+
+        calculator.buttonTapped(.zero)
+
+        XCTAssertEqual(calculator.publishedValue, "0.0")
+
+        calculator.buttonTapped(.decimal)
+
+        XCTAssertEqual(calculator.publishedValue, "0.0")
+
+        calculator.buttonTapped(.three)
+
+        XCTAssertEqual(calculator.publishedValue, "0.03")
+
+        calculator.buttonTapped(.decimal)
+        calculator.buttonTapped(.five)
+
+        XCTAssertEqual(calculator.publishedValue, "0.035")
     }
     
     func test_itCanAddNumbers() {
-        calculator.numberTapped("2")
-        calculator.operandTapped(.plus)
-        calculator.numberTapped("2")
-        calculator.operandTapped(.equal)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.plus)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.equal)
         
         XCTAssertEqual(calculator.publishedValue, "4")
         
-        calculator.operandTapped(.clear)
+        clearAll()
         
-        calculator.numberTapped("1")
-        calculator.numberTapped("2")
-        calculator.operandTapped(.plus)
-        calculator.numberTapped("2")
-        calculator.numberTapped("3")
-        calculator.operandTapped(.equal)
+        calculator.buttonTapped(.one)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.plus)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.three)
+        calculator.buttonTapped(.equal)
         
         XCTAssertEqual(calculator.publishedValue, "35")
         
-        calculator.operandTapped(.plus)
-        calculator.numberTapped("2")
-        calculator.operandTapped(.equal)
+        calculator.buttonTapped(.plus)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.equal)
         
         XCTAssertEqual(calculator.publishedValue, "37")
         
-        calculator.operandTapped(.plus)
-        calculator.numberTapped("1")
-        calculator.numberTapped(".")
-        calculator.numberTapped("5")
-        calculator.operandTapped(.equal)
+        calculator.buttonTapped(.plus)
+        calculator.buttonTapped(.one)
+        calculator.buttonTapped(.decimal)
+        calculator.buttonTapped(.five)
+        calculator.buttonTapped(.equal)
         
         XCTAssertEqual(calculator.publishedValue, "38.5")
     }
+
+    func test_itCanClearJustCurrentValue() {
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.plus)
+        calculator.buttonTapped(.two)
+
+        XCTAssertEqual(calculator.publishedValue, "2")
+        XCTAssertEqual(calculator.clearButtonText, "C")
+
+        calculator.buttonTapped(.clear)
+
+        XCTAssertEqual(calculator.publishedValue, "0")
+        XCTAssertEqual(calculator.clearButtonText, "AC")
+
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.equal)
+
+        XCTAssertEqual(calculator.publishedValue, "4")
+    }
+
+    func test_itCanClearAll() {
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.plus)
+        calculator.buttonTapped(.two)
+
+        calculator.buttonTapped(.clear)
+
+        XCTAssertEqual(calculator.clearButtonText, "AC")
+
+        calculator.buttonTapped(.clear)
+
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.equal)
+
+        XCTAssertEqual(calculator.publishedValue, "2")
+    }
     
     func test_itCanSubtractNumbers() {
-        calculator.numberTapped("5")
-        calculator.operandTapped(.minus)
-        calculator.numberTapped("2")
-        calculator.operandTapped(.equal)
+        calculator.buttonTapped(.five)
+        calculator.buttonTapped(.minus)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.equal)
         
         XCTAssertEqual(calculator.publishedValue, "3")
         
-        calculator.operandTapped(.clear)
+        clearAll()
         
-        calculator.numberTapped("1")
-        calculator.numberTapped("2")
-        calculator.operandTapped(.minus)
-        calculator.numberTapped("2")
-        calculator.numberTapped("3")
-        calculator.operandTapped(.equal)
+        calculator.buttonTapped(.one)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.minus)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.three)
+        calculator.buttonTapped(.equal)
         
         XCTAssertEqual(calculator.publishedValue, "-11")
     }
     
     func test_itCanMultiplyNumbers() {
-        calculator.numberTapped("5")
-        calculator.operandTapped(.multiply)
-        calculator.numberTapped("2")
-        calculator.operandTapped(.equal)
+        calculator.buttonTapped(.five)
+        calculator.buttonTapped(.multiply)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.equal)
         
         XCTAssertEqual(calculator.publishedValue, "10")
         
-        calculator.operandTapped(.clear)
+        clearAll()
         
-        calculator.numberTapped("1")
-        calculator.numberTapped("2")
-        calculator.operandTapped(.multiply)
-        calculator.numberTapped("2")
-        calculator.numberTapped("3")
-        calculator.operandTapped(.equal)
+        calculator.buttonTapped(.one)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.multiply)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.three)
+        calculator.buttonTapped(.equal)
         
         XCTAssertEqual(calculator.publishedValue, "276")
     }
     
     func test_itCanDivideNumbers() {
-        calculator.numberTapped("6")
-        calculator.operandTapped(.divide)
-        calculator.numberTapped("2")
-        calculator.operandTapped(.equal)
+        calculator.buttonTapped(.six)
+        calculator.buttonTapped(.divide)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.equal)
         
         XCTAssertEqual(calculator.publishedValue, "3")
         
-        calculator.operandTapped(.clear)
+        clearAll()
         
-        calculator.numberTapped("1")
-        calculator.numberTapped("2")
-        calculator.operandTapped(.divide)
-        calculator.numberTapped("2")
-        calculator.operandTapped(.equal)
+        calculator.buttonTapped(.one)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.divide)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.equal)
         
         XCTAssertEqual(calculator.publishedValue, "6")
         
-        calculator.operandTapped(.divide)
-        calculator.numberTapped("4")
-        calculator.operandTapped(.equal)
+        calculator.buttonTapped(.divide)
+        calculator.buttonTapped(.four)
+        calculator.buttonTapped(.equal)
         
         XCTAssertEqual(calculator.publishedValue, "1.5")
     }
+
+    func test_itHandlesDivideByZero() {
+        calculator.buttonTapped(.five)
+        calculator.buttonTapped(.divide)
+        calculator.buttonTapped(.zero)
+        calculator.buttonTapped(.equal)
+
+        XCTAssertEqual(calculator.publishedValue, "Can't divide by zero")
+    }
     
     func test_itCanMakeANumberNegative() {
-        calculator.numberTapped("5")
-        calculator.operandTapped(.negative)
+        calculator.buttonTapped(.five)
+        calculator.buttonTapped(.negative)
         
         XCTAssertEqual(calculator.publishedValue, "-5")
         
-        calculator.operandTapped(.negative)
+        calculator.buttonTapped(.negative)
         
         XCTAssertEqual(calculator.publishedValue, "5")
         
-        calculator.operandTapped(.plus)
-        calculator.numberTapped("3")
-        calculator.operandTapped(.negative)
-        calculator.operandTapped(.equal)
+        calculator.buttonTapped(.plus)
+        calculator.buttonTapped(.three)
+        calculator.buttonTapped(.negative)
+        calculator.buttonTapped(.equal)
         
         XCTAssertEqual(calculator.publishedValue, "2")
     }
     
     func test_itCanSquareANumber() {
-        calculator.numberTapped("5")
-        calculator.operandTapped(.squared)
+        calculator.buttonTapped(.five)
+        calculator.buttonTapped(.squared)
         
         XCTAssertEqual(calculator.publishedValue, "25")
         
-        calculator.operandTapped(.squared)
+        calculator.buttonTapped(.squared)
         
         XCTAssertEqual(calculator.publishedValue, "625")
     }
 
     func test_itCanSquareRoot() {
-        calculator.numberTapped("9")
-        calculator.operandTapped(.squareRoot)
+        calculator.buttonTapped(.nine)
+        calculator.buttonTapped(.squareRoot)
 
         XCTAssertEqual(calculator.publishedValue, "3")
 
-        calculator.operandTapped(.clear)
+        calculator.buttonTapped(.clear)
 
-        calculator.numberTapped("6")
-        calculator.numberTapped("7")
-        calculator.numberTapped(".")
-        calculator.numberTapped("3")
-        calculator.operandTapped(.squareRoot)
+        calculator.buttonTapped(.six)
+        calculator.buttonTapped(.seven)
+        calculator.buttonTapped(.decimal)
+        calculator.buttonTapped(.three)
+        calculator.buttonTapped(.squareRoot)
 
         XCTAssertEqual(calculator.publishedValue, "8.203657720797473")
     }
 
     func test_itCanPercent() {
-        calculator.numberTapped("6")
-        calculator.operandTapped(.percent)
+        calculator.buttonTapped(.six)
+        calculator.buttonTapped(.percent)
 
         XCTAssertEqual(calculator.publishedValue, "0.06")
 
-        calculator.operandTapped(.clear)
+        calculator.buttonTapped(.clear)
 
-        calculator.numberTapped("1")
-        calculator.numberTapped("0")
-        calculator.numberTapped("0")
-        calculator.operandTapped(.percent)
+        calculator.buttonTapped(.one)
+        calculator.buttonTapped(.zero)
+        calculator.buttonTapped(.zero)
+        calculator.buttonTapped(.percent)
 
         XCTAssertEqual(calculator.publishedValue, "1")
     }
 
     func test_itCanMakeANumberNegativeAfterAnImmediatelyPerformedOperand() {
-        calculator.numberTapped("9")
-        calculator.operandTapped(.squareRoot)
-        calculator.operandTapped(.negative)
+        calculator.buttonTapped(.nine)
+        calculator.buttonTapped(.squareRoot)
+        calculator.buttonTapped(.negative)
 
         XCTAssertEqual(calculator.publishedValue, "-3")
 
-        calculator.operandTapped(.clear)
+        calculator.buttonTapped(.clear)
 
-        calculator.numberTapped("7")
-        calculator.operandTapped(.squared)
-        calculator.operandTapped(.negative)
+        calculator.buttonTapped(.seven)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.negative)
 
         XCTAssertEqual(calculator.publishedValue, "-49")
 
-        calculator.operandTapped(.clear)
+        calculator.buttonTapped(.clear)
 
-        calculator.numberTapped("5")
-        calculator.operandTapped(.percent)
-        calculator.operandTapped(.negative)
+        calculator.buttonTapped(.five)
+        calculator.buttonTapped(.percent)
+        calculator.buttonTapped(.negative)
 
         XCTAssertEqual(calculator.publishedValue, "-0.05")
+    }
+
+    func test_itFollowsTheOrderOfOperations() { // PEMDAS
+        calculator.buttonTapped(.five)
+        calculator.buttonTapped(.one)
+        calculator.buttonTapped(.minus)
+        calculator.buttonTapped(.three)
+        calculator.buttonTapped(.decimal)
+        calculator.buttonTapped(.four)
+        calculator.buttonTapped(.divide)
+
+        XCTAssertEqual(calculator.publishedValue, "3.4")
+
+        calculator.buttonTapped(.three)
+        calculator.buttonTapped(.negative)
+
+        XCTAssertEqual(calculator.publishedValue, "-3")
+
+        calculator.buttonTapped(.squared)
+
+        XCTAssertEqual(calculator.publishedValue, "9")
+
+        calculator.buttonTapped(.plus)
+
+        XCTAssertEqual(calculator.publishedValue, "50.62222222222222")
+
+        calculator.buttonTapped(.eight)
+        calculator.buttonTapped(.multiply)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.squareRoot)
+        calculator.buttonTapped(.plus)
+
+        XCTAssertEqual(calculator.publishedValue, "61.93593072120698")
+
+        calculator.buttonTapped(.seven)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.equal)
+
+        XCTAssertEqual(calculator.publishedValue, "133.93593072120697")
+    }
+
+    // MARK: - Helpers
+
+    private func clearAll() {
+        calculator.buttonTapped(.clear)
+        calculator.buttonTapped(.clear)
     }
 }

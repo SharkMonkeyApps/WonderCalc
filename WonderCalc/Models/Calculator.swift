@@ -6,144 +6,190 @@
 //
 
 import Foundation
-import UniformTypeIdentifiers
-import UIKit
+import UIKit // For Pasteboard
 
-/** Recieves user input to create or update calculations, and performs those calculations to publish a result */
+/** Recieves user input from button taps to evaluate, calculate, and publish a result string. */
 class Calculator: ObservableObject {
-    
-    /** Result value displayed on the calculator's output */
+
+    /** Result value which can be used to display on a calculator's output */
     @Published var publishedValue: String = "0"
-    
-    /** Received user input from button tapped for 0-9 or decimal point to construct a number value */
-    func numberTapped(_ number: String) {
-        currentCalculation.addDigit(number)
-        publish(currentCalculation.stringValue)
-    }
-    
-    /** Received user input requesting to perform an operand on the numerical values */
-    func operandTapped(_ operand: Operand) {
-        guard operand.generateCalculation else {
-            performNonCalculationOperand(operand)
-            return
+
+    /** Receives user input from the calculator view */
+    func buttonTapped(_ option: CalculatorButtonOption) {
+        switch option.type {
+        case .number:
+            numberTapped(option)
+        case .mathOperator:
+            operatorTapped(option)
+        case .clear:
+            clearButtonTapped()
+        case .pasteboard:
+            pasteboardOptionTapped(option)
         }
-        calculations.append(currentCalculation)
-        currentCalculation = Calculation(operand: operand)
-        tryCalculations(finalOperand: operand)
     }
 
-    func pasteboardTapped(_ option: PasteboardOption) {
+    /** Text to display on clear button: AC or C */
+    @Published var clearButtonText: String = "AC"
+
+    // MARK: - Private
+
+    private var currentStringValue: String = "0"
+    private var calculatorStack = CalculatorStack()
+
+    private var currentNumber: Double {
+        get { Double(currentStringValue) ?? 0.0 }
+        set { currentStringValue = format(newValue) }
+    }
+
+    // MARK: - Button Tap Handlers
+
+    private func numberTapped(_ option: CalculatorButtonOption) {
+        guard option.type == .number else { return invalidOperation("Invalid Number") }
+
+        if option == .decimal {
+            decimalTapped()
+        } else if currentStringValue == "0" {
+            currentStringValue = option.rawValue
+            publishCurrentNumber()
+        } else {
+            if option == .zero && hasDecimal {
+                zerosAfterDecimal += 1
+            } else {
+                zerosAfterDecimal = 0
+            }
+            currentStringValue.append(option.rawValue)
+            publishCurrentNumber()
+        }
+    }
+
+    private func operatorTapped(_ option: CalculatorButtonOption) {
+        guard option.type == .mathOperator else { return invalidOperation("Invalid Operand") }
+
+
+        switch option {
+            // Calculate Immediately:
+        case .equal:
+            equalPressed()
+        case .negative:
+            currentNumber = currentNumber * -1.0
+            publishCurrentNumber()
+        case .percent:
+            currentNumber = currentNumber / 100.0
+            publishCurrentNumber()
+        case .squared:
+            currentNumber = currentNumber * currentNumber
+            publishCurrentNumber()
+        case .squareRoot:
+            currentNumber = sqrt(currentNumber)
+            publishCurrentNumber()
+        default: // Evaluate based on Stack:
+            guard let currentOperator = Operator(option) else { return }
+            calculatorStack.append(currentNumber)
+            clearCurrentValue()
+            calculateAndAddToStack(currentOperator)
+        }
+    }
+
+    private func pasteboardOptionTapped(_ option: CalculatorButtonOption) {
         switch option {
         case .cut:
             UIPasteboard.general.string = publishedValue
-            clear()
+            clearCurrentValue(publish: true)
         case .copy:
             UIPasteboard.general.string = publishedValue
         case .paste:
             if let contents = UIPasteboard.general.string,
                let value  = Double(contents) {
-                currentCalculation.pasteValue(format(value))
-                publish(currentCalculation.stringValue)
+                currentNumber = value
+                publishCurrentNumber()
             }
-        }
-    }
-    
-    /** The numerical values and operands entered or updated by the user which can be iterated to produce result */
-    var calculations: [Calculation] = []
-    
-    // MARK: - Private
-    
-    /** Calculation holding the value the user has entered which has not been entered into the stored calculations */
-    private var currentCalculation = Calculation()
-    
-    private func performNonCalculationOperand(_ operand: Operand) {
-        switch operand {
-        case .clear:
-            clear()
-        case .negative:
-            guard currentCalculation.operand.performCalculationImmediately == false else {
-                currentCalculation.multiplier = currentCalculation.multiplier * -1
-                tryCalculations(includeCurrentValue: true)
-                return
-            }
-
-            currentCalculation.toggleNegative()
-            publish(currentCalculation.stringValue)
-        case .equal:
-            tryCalculations(includeCurrentValue: true)
         default:
-            break
+            invalidOperation("Invalid Pasteboard option")
         }
     }
-    
-    private func tryCalculations(includeCurrentValue: Bool = false, finalOperand: Operand? = nil) {
+
+    private func equalPressed() {
+        calculatorStack.append(currentNumber)
         do {
-            let result = try calculate(includeCurrentValue: includeCurrentValue)
-            if let finalOperand = finalOperand, finalOperand.performCalculationImmediately {
-                let newResult = try perform(initialValue: result, operand: finalOperand, newValue: nil)
-                publish(newResult)
-            } else {
-                publish(result)
+            if let result = try calculatorStack.calculate() {
+                currentNumber = result
+                publishCurrentNumber()
             }
         } catch {
             handle(error)
         }
     }
-    
-    private func calculate(includeCurrentValue: Bool) throws -> Double {
-        let calculationsToPerform = includeCurrentValue ? calculations + [currentCalculation] : calculations
-        var value: Double = 0 // result from previous calculation
-        
-        for calc in calculationsToPerform {
-            if calc.operand == .none {
-                value = calc.number
-                continue
-            }
 
-            let result = try perform(initialValue: value, operand: calc.operand, newValue: calc.number, multiplier: calc.multiplier)
-            value = result
+    private func clearButtonTapped() {
+        if shouldClearAll {
+            calculatorStack.clear()
         }
-        
-        return value
-    }
-    
-    private func perform(initialValue: Double, operand: Operand, newValue: Double?, multiplier: Int = 1) throws -> Double {
-
-        switch operand {
-        case .plus:
-            return initialValue + (newValue ?? 0)
-        case .minus:
-            return initialValue - (newValue ?? 0)
-        case .multiply:
-            return initialValue * (newValue ?? 1)
-        case .divide:
-            if newValue != 0 {
-                return initialValue / (newValue ?? 1)
-            } else {
-                throw CalculatorError.divByZero
-            }
-        case .percent:
-            return initialValue / 100 * Double(multiplier)
-        case .squared:
-            return initialValue * initialValue * Double(multiplier)
-        case .squareRoot:
-            return sqrt(initialValue) * Double(multiplier)
-        case .clear, .negative, .equal, .none:
-            // Handled by nonCalculatingOperand
-            throw CalculatorError.invalidOperation
-        }
+        clearCurrentValue(publish: true)
     }
 
-    private func format(_ number: Double) -> String {
-        NumberFormatter.calculatorDecimalAndZerosString(number, hasDecimal: false)
+    private func decimalTapped() {
+        guard currentStringValue.contains(".") == false else { return }
+
+        currentStringValue.append(".")
+        hasDecimal = true
+        publishCurrentNumber()
     }
-    
+
+    // MARK: - Publish Helpers
+
+    private func publishCurrentNumber() {
+        publish(currentNumber)
+    }
+
     private func publish(_ number: Double) {
         publish(format(number))
     }
-    
+
     private func publish(_ value: String) {
         publishedValue = value
+        clearButtonText = shouldClearAll ? "AC" : "C"
+    }
+
+    // MARK: - Calculations
+
+    private func calculateAndAddToStack(_ currentOperator: Operator) {
+        if let result = try? calculatorStack.calculate(currentOp: currentOperator) {
+            publish(result)
+            calculatorStack.append(result)
+            calculatorStack.append(currentOperator)
+            clearCurrentValue()
+        } else {
+            calculatorStack.append(currentOperator)
+        }
+    }
+
+    // MARK: - Clear Helpers
+
+    private var shouldClearAll: Bool {
+        publishedValue == "0"
+    }
+
+    private func clearCurrentValue(publish: Bool = false) {
+        hasDecimal = false
+        zerosAfterDecimal = 0
+        currentNumber = 0
+        if publish { publishCurrentNumber() }
+    }
+
+    // MARK: - Formatting Helpers
+
+    private var hasDecimal = false
+    private var zerosAfterDecimal = 0
+
+    private func format(_ number: Double) -> String {
+        NumberFormatter.calculatorDecimalAndZerosString(number, hasDecimal: hasDecimal, zeros: zerosAfterDecimal)
+    }
+
+    // MARK: - Error Helpers
+
+    private func invalidOperation(_ message: String, line: Int = #line) {
+        let error = CalculatorError.invalidOperation("\(message): \(line)")
+        handle(error)
     }
     
     private func handle(_ error: Error) {
@@ -155,20 +201,13 @@ class Calculator: ObservableObject {
         switch calcError {
         case .divByZero:
             publish("Can't divide by zero")
-        case .invalidOperation, .missingArgument:
+        case .invalidOperation:
             publish("Error")
         }
-    }
-    
-    private func clear() {
-        calculations = []
-        currentCalculation = Calculation()
-        publish(currentCalculation.stringValue)
     }
 }
 
 enum CalculatorError: Error {
     case divByZero
-    case invalidOperation
-    case missingArgument
+    case invalidOperation(_ message: String)
 }

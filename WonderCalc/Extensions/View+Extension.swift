@@ -8,11 +8,13 @@
 import SwiftUI
 
 public extension View {
+    /** Calls a view modifier that will dismiss a keyboard if the users taps elsewhere */
     func dismissKeyboardOnTap() -> some View {
         modifier(DismissKeyboardOnTap())
     }
 }
 
+/** A view modifier that will dismiss a keyboard if the users taps elsewhere */
 public struct DismissKeyboardOnTap: ViewModifier {
     public func body(content: Content) -> some View {
         #if os(macOS)
