@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SettingsView: View {
+struct AboutView: View {
     
     let url = URL(string: "https://www.sharkmonkeyapps.com/")
     let appStoreURL = URL(string: "https://apps.apple.com/us/app/wondercalc/id6444459924")
@@ -21,9 +21,11 @@ struct SettingsView: View {
                 if let url = url {
                     Link("SharkMonkey Apps", destination: url)
                         .padding(.bottom)
+                        .font(.subHeading)
                 } else {
                     Text("SkarkMonkey Apps")
                         .padding(.bottom)
+                        .font(.subHeading)
                 }
 
                 Text("Please visit our website to provide feedback, or discuss your software development needs")
@@ -33,8 +35,10 @@ struct SettingsView: View {
                 Text("Please visit the App Store to")
                 if let url = appStoreURL {
                     Link("Rate this app", destination: url)
+                        .font(.subHeading)
                 } else {
                     Text("Rate this app")
+                        .font(.subHeading)
                 }
                 
                 Spacer()

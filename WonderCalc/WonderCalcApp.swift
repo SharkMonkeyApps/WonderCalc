@@ -27,7 +27,7 @@ struct WonderCalcApp: App {
                         Image(systemName: "percent")
                         Text("Loans")
                     }
-                SettingsView()
+                AboutView()
                     .tabItem {
                         Image(systemName: "info.circle")
                         Text("About")

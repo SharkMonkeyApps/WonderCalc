@@ -24,6 +24,12 @@ extension NumberFormatter {
         }
         return numberString
     }
+
+    static func unitRoundedString(_ number: Double) -> String {
+        let rounded = Double(round(number * 10000) / 10000)
+
+        return "\(rounded)"
+    }
     
     static func currencyString(_ number: Double) -> String {
         let formatter = NumberFormatter()

@@ -10,6 +10,7 @@ import SwiftUI
 struct CalculatorView: View {
     
     @ObservedObject var calculator: Calculator
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
         NavigationView {
@@ -63,16 +64,8 @@ struct CalculatorView: View {
                     button(.plus)
                 }
             }
-            .padding()
+            .padding(horizontalSizeClass == .regular ? .wide : .standard)
             .navigationTitle("WonderCalc")
-            // TODO: - Support history + editing
-//            .toolbar {
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    NavigationLink("History") {
-//                        CalculationsListView(calculator: calculator)
-//                    }
-//                }
-//            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

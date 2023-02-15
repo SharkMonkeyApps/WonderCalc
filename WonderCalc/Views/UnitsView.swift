@@ -10,14 +10,15 @@ import SwiftUI
 struct UnitsView: View {
     
     @ObservedObject var unitProvider: UnitProvider
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
         NavigationView {
             VStack {
-                PickerRow(title: "Category", options: UnitType.allCases, selection: $unitProvider.category)
+                PickerRow(title: "Category:", options: UnitType.allCases, layout: layout, selection: $unitProvider.category)
                     .padding(.bottom)
                 
-                HStack {
+                LazyVGrid(columns: layout) {
                     TextField("", text: $unitProvider.fromValue)
                         .keyboardType(.decimalPad)
                         .overlay(
@@ -25,16 +26,18 @@ struct UnitsView: View {
                                 .stroke(.gray, lineWidth: 1)
                         )
                         .textFieldStyle(.roundedBorder)
-                    
-                    Picker("Unit", selection: $unitProvider.fromUnit, content: {
-                        ForEach(unitProvider.units, id: \.self) {
-                            Text($0.name)
-                        }
-                    }).pickerStyle(.menu)
+                    HStack {
+                        Picker("Unit", selection: $unitProvider.fromUnit, content: {
+                            ForEach(unitProvider.units, id: \.self) {
+                                Text($0.name)
+                            }
+                        }).pickerStyle(.menu)
+                        Spacer()
+                    }
                 }
                 .padding(.bottom)
                 
-                PickerRow(title: "To", options: unitProvider.units, selection: $unitProvider.toUnit)
+                PickerRow(title: "To:", options: unitProvider.units, layout: layout, selection: $unitProvider.toUnit)
                     .padding(.bottom)
                 
                 Spacer()
@@ -44,10 +47,16 @@ struct UnitsView: View {
                 
                 Spacer()
             }
-            .padding()
+            .padding(horizontalSizeClass == .regular ? .wide : .standard)
             .navigationTitle("Unit Conversion")
         }
         .dismissKeyboardOnTap()
         .navigationViewStyle(StackNavigationViewStyle())
     }
+    // MARK: - Private
+
+    private let layout = [
+        GridItem(.flexible()),
+        GridItem(.fixed(160))
+    ]
 }

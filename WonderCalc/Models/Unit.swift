@@ -40,7 +40,7 @@ class UnitProvider: ObservableObject {
         let standardQuantity: Double = values.fromUnit.toStandardUnit(fromQuantity)
         let resultQuantity: Double = values.toUnit.fromStandardUnit(standardQuantity)
         
-        return NumberFormatter.calculatorDecimalAndZerosString(resultQuantity, hasDecimal: false) + " \(values.toUnit.name)"
+        return NumberFormatter.unitRoundedString(resultQuantity) + " \(values.toUnit.convertedName)"
     }
 }
 
@@ -175,9 +175,9 @@ enum LengthUnit: String, Unitable {
 }
 
 enum TemperatureUnit: String, Unitable {
-    case celcius // Standard
-    case fahrenheight
-    case kelvin
+    case celcius = "Celcius" // Standard
+    case fahrenheight = "Fahrenheight"
+    case kelvin = "Kelvin"
     
     var multiplier: Double {
         switch self {
@@ -200,7 +200,17 @@ enum TemperatureUnit: String, Unitable {
             return 273.15
         }
     }
-    
+
+    var convertedName: String {
+        switch self {
+        case .celcius:
+            return "℃"
+        case .fahrenheight:
+            return "℉"
+        case .kelvin:
+            return "Kelvin"
+        }
+    }
     static var firstOption: TemperatureUnit { .celcius }
     static var secondOption: TemperatureUnit { .fahrenheight }
 }
@@ -213,12 +223,14 @@ protocol Unitable: CaseIterable {
     func fromStandardUnit(_ value: Double) -> Double
     var multiplier: Double { get }
     var adder: Double { get }
+    var convertedName: String { get }
     static var firstOption: Self { get }
     static var secondOption: Self { get }
 }
 
 extension Unitable {
     var unit: Unit { Unit(unit: self) }
+    var convertedName: String { rawValue }
     
     static var allUnits: [Unit] {
         allCases.map({ $0.unit })
@@ -236,6 +248,7 @@ extension Unitable {
 struct Unit: Pickable {
     let unit: any Unitable
     var name: String { unit.rawValue }
+    var convertedName: String { unit.convertedName }
     
     func toStandardUnit(_ value: Double) -> Double {
         unit.toStandardUnit(value)

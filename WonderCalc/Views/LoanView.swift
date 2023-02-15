@@ -10,6 +10,7 @@ import SwiftUI
 struct LoanView: View {
     
     @ObservedObject var loanCalc: LoanCalculator
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
         NavigationView {
@@ -31,7 +32,7 @@ struct LoanView: View {
                 
                 Spacer()
             }
-            .padding()
+            .padding(horizontalSizeClass == .regular ? .wide : .standard)
             .navigationTitle("Loan Calculator")
         }
         .dismissKeyboardOnTap()
