@@ -29,7 +29,6 @@ class CalculatorStack {
 
     /** Optionally append the item, forcing the stack to begin with a number and alternate */
     func append(_ item: Calculable) {
-        print("Append: \(item)")
         if let last = stack.last {
             if last.type != item.type { stack.append(item) }
         } else if item.type == .number { stack.append(item) }
@@ -108,7 +107,6 @@ class CalculatorStack {
 
     private func setFirstNumber(_ number: Double) {
         guard stack.first?.type == .mathOperator else { return }
-        print(number)
         stack.insert(number, at: 0)
     }
 }

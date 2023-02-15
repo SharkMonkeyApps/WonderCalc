@@ -81,7 +81,6 @@ class Calculator: ObservableObject {
             publishCurrentNumber()
         default: // Evaluate based on Stack:
             guard let currentOperator = Operator(option) else { return }
-            print("Appending: \(currentNumber) Op: \(currentOperator)")
             calculatorStack.append(currentNumber)
             clearCurrentValue()
             calculateAndAddToStack(currentOperator)
@@ -90,7 +89,6 @@ class Calculator: ObservableObject {
 
     private func pasteboardOptionTapped(_ option: CalculatorButtonOption) {
         // TODO: - Mock + Test pasteboard
-        print("Pb: \(option.rawValue)")
         switch option {
         case .cut:
             UIPasteboard.general.string = publishedValue
@@ -109,7 +107,6 @@ class Calculator: ObservableObject {
     }
 
     private func equalPressed() {
-        print("Equal")
         calculatorStack.append(currentNumber)
         do {
             if let result = try calculatorStack.calculate() {
@@ -146,16 +143,13 @@ class Calculator: ObservableObject {
     }
 
     private func publish(_ value: String) {
-        print("Publishing: \(value)")
         publishedValue = value
     }
 
     // MARK: - Calculations
 
     private func calculateAndAddToStack(_ currentOperator: Operator) {
-        print("cAAS")
         if let result = try? calculatorStack.calculate(currentOp: currentOperator) {
-            print(currentOperator)
             publish(result)
             calculatorStack.append(result)
             calculatorStack.append(currentOperator)
