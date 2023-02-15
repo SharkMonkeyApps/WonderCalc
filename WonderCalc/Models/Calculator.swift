@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import UIKit // TODO: - Remove
+import UIKit // For Pasteboard
 
 /** Recieves user input from button taps to evaluate, calculate, and publish a result string. */
 class Calculator: ObservableObject {
@@ -27,6 +27,9 @@ class Calculator: ObservableObject {
             pasteboardOptionTapped(option)
         }
     }
+
+    /** Text to display on clear button: AC or C */
+    @Published var clearButtonText: String = "AC"
 
     // MARK: - Private
 
@@ -88,7 +91,6 @@ class Calculator: ObservableObject {
     }
 
     private func pasteboardOptionTapped(_ option: CalculatorButtonOption) {
-        // TODO: - Mock + Test pasteboard
         switch option {
         case .cut:
             UIPasteboard.general.string = publishedValue
@@ -119,9 +121,10 @@ class Calculator: ObservableObject {
     }
 
     private func clearButtonTapped() {
-        // TODO: - Handle AC/C
+        if shouldClearAll {
+            calculatorStack.clear()
+        }
         clearCurrentValue(publish: true)
-        calculatorStack.clear()
     }
 
     private func decimalTapped() {
@@ -144,6 +147,7 @@ class Calculator: ObservableObject {
 
     private func publish(_ value: String) {
         publishedValue = value
+        clearButtonText = shouldClearAll ? "AC" : "C"
     }
 
     // MARK: - Calculations
@@ -160,6 +164,10 @@ class Calculator: ObservableObject {
     }
 
     // MARK: - Clear Helpers
+
+    private var shouldClearAll: Bool {
+        publishedValue == "0"
+    }
 
     private func clearCurrentValue(publish: Bool = false) {
         hasDecimal = false

@@ -41,8 +41,7 @@ extension CalculatorButtonOption {
             }
             return Text(Image(systemName: rawValue))
         case .clear:
-            // TODO: - Support AC
-            return Text("C")
+            return Text("C") // Not Used
         }
     }
 

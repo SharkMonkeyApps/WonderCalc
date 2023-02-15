@@ -35,7 +35,11 @@ class CalculatorStack {
     }
 
     /** Reset the stack to empty */
-    func clear() { stack = [] }
+    func clear() {
+        print("clear stack")
+        stack = []
+
+    }
 
     /** Calculate the value of the existing stack based on order of operation. */
     func calculate(currentOp: Operator? = nil, precedence: Int = 0) throws -> Double? {

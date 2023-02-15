@@ -27,7 +27,7 @@ struct CalculatorView: View {
                 )
 
                 LazyVGrid(columns: layout) {
-                    button(.clear)
+                    clearButton()
                     button(.cut)
                     button(.copy)
                     button(.paste)
@@ -82,22 +82,24 @@ struct CalculatorView: View {
     private func button(_ option: CalculatorButtonOption) -> CalculatorButton {
         CalculatorButton(option: option, callback: calculator.buttonTapped)
     }
-    
-//    private func numberButton(_ number: Int) -> NumberButton {
-//        numberButton("\(number)")
-//    }
-//
-//    private func numberButton(_ char: String) -> NumberButton {
-//        NumberButton(value: char, callback: calculator.numberTapped)
-//    }
-//
-//    private func operatorButton(_ operand: Operand) -> OperandButton {
-//        OperandButton(operand: operand, callback: calculator.operandTapped)
-//    }
-//
-//    private func pasteboardButton(_ option: PasteboardOption) -> PasteboardButton {
-//        PasteboardButton(option: option, callback: calculator.pasteboardTapped)
-//    }
+
+    private func clearButton() -> some View {
+        Button(action: clearButtonTapped) {
+            Text(calculator.clearButtonText)
+                .font(.subHeading)
+                .foregroundColor(.white)
+                .shadow(color: .black, radius: 3)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Capsule()
+                    .fill(.red)
+                    .frame(height: 56))
+        }
+    }
+
+    private func clearButtonTapped() {
+        calculator.buttonTapped(.clear)
+    }
 }
 
 struct CalcView_Previews: PreviewProvider {

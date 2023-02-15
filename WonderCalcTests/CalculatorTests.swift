@@ -18,18 +18,23 @@ final class CalculatorTests: XCTestCase {
 
     func test_itCanDisplayAndClearNumbers() {
         XCTAssertEqual(calculator.publishedValue, "0")
+        XCTAssertEqual(calculator.clearButtonText, "AC")
 
         calculator.buttonTapped(.five)
         XCTAssertEqual(calculator.publishedValue, "5")
+        XCTAssertEqual(calculator.clearButtonText, "C")
 
         calculator.buttonTapped(.seven)
         XCTAssertEqual(calculator.publishedValue, "57")
+        XCTAssertEqual(calculator.clearButtonText, "C")
 
         calculator.buttonTapped(.clear)
         XCTAssertEqual(calculator.publishedValue, "0")
+        XCTAssertEqual(calculator.clearButtonText, "AC")
 
         calculator.buttonTapped(.two)
         XCTAssertEqual(calculator.publishedValue, "2")
+        XCTAssertEqual(calculator.clearButtonText, "C")
     }
 
     func test_itDoesNotDisplayDoubleZero() {
@@ -72,7 +77,7 @@ final class CalculatorTests: XCTestCase {
         
         XCTAssertEqual(calculator.publishedValue, "4")
         
-        calculator.buttonTapped(.clear)
+        clearAll()
         
         calculator.buttonTapped(.one)
         calculator.buttonTapped(.two)
@@ -97,6 +102,42 @@ final class CalculatorTests: XCTestCase {
         
         XCTAssertEqual(calculator.publishedValue, "38.5")
     }
+
+    func test_itCanClearJustCurrentValue() {
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.plus)
+        calculator.buttonTapped(.two)
+
+        XCTAssertEqual(calculator.publishedValue, "2")
+        XCTAssertEqual(calculator.clearButtonText, "C")
+
+        calculator.buttonTapped(.clear)
+
+        XCTAssertEqual(calculator.publishedValue, "0")
+        XCTAssertEqual(calculator.clearButtonText, "AC")
+
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.equal)
+
+        XCTAssertEqual(calculator.publishedValue, "4")
+    }
+
+    func test_itCanClearAll() {
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.plus)
+        calculator.buttonTapped(.two)
+
+        calculator.buttonTapped(.clear)
+
+        XCTAssertEqual(calculator.clearButtonText, "AC")
+
+        calculator.buttonTapped(.clear)
+
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.equal)
+
+        XCTAssertEqual(calculator.publishedValue, "2")
+    }
     
     func test_itCanSubtractNumbers() {
         calculator.buttonTapped(.five)
@@ -106,7 +147,7 @@ final class CalculatorTests: XCTestCase {
         
         XCTAssertEqual(calculator.publishedValue, "3")
         
-        calculator.buttonTapped(.clear)
+        clearAll()
         
         calculator.buttonTapped(.one)
         calculator.buttonTapped(.two)
@@ -126,7 +167,7 @@ final class CalculatorTests: XCTestCase {
         
         XCTAssertEqual(calculator.publishedValue, "10")
         
-        calculator.buttonTapped(.clear)
+        clearAll()
         
         calculator.buttonTapped(.one)
         calculator.buttonTapped(.two)
@@ -146,7 +187,7 @@ final class CalculatorTests: XCTestCase {
         
         XCTAssertEqual(calculator.publishedValue, "3")
         
-        calculator.buttonTapped(.clear)
+        clearAll()
         
         calculator.buttonTapped(.one)
         calculator.buttonTapped(.two)
@@ -295,5 +336,12 @@ final class CalculatorTests: XCTestCase {
         calculator.buttonTapped(.equal)
 
         XCTAssertEqual(calculator.publishedValue, "133.93593072120697")
+    }
+
+    // MARK: - Helpers
+
+    private func clearAll() {
+        calculator.buttonTapped(.clear)
+        calculator.buttonTapped(.clear)
     }
 }
