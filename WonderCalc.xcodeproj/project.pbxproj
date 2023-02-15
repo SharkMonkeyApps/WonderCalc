@@ -10,6 +10,8 @@
 		41765D76299C182C00C66C30 /* CalculatorStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41765D75299C182C00C66C30 /* CalculatorStack.swift */; };
 		41765D78299C3E3A00C66C30 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41765D77299C3E3A00C66C30 /* Collection+Extension.swift */; };
 		41765D7A299D526000C66C30 /* EdgeInsets_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41765D79299D525F00C66C30 /* EdgeInsets_Extension.swift */; };
+		41765D7D299D5D1E00C66C30 /* Catamaran-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41765D7C299D5D1E00C66C30 /* Catamaran-VariableFont_wght.ttf */; };
+		41765D7F299D5FCF00C66C30 /* MainTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41765D7E299D5FCF00C66C30 /* MainTabBarView.swift */; };
 		417C8C9B2997E27C0027507B /* UnitConversionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C8C9A2997E27C0027507B /* UnitConversionTests.swift */; };
 		417C8C9D2997F48D0027507B /* LoanCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C8C9C2997F48D0027507B /* LoanCalculatorTests.swift */; };
 		417C8CA3299BB85D0027507B /* CalculatorButtonOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C8CA2299BB85D0027507B /* CalculatorButtonOption.swift */; };
@@ -47,6 +49,8 @@
 		41765D75299C182C00C66C30 /* CalculatorStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorStack.swift; sourceTree = "<group>"; };
 		41765D77299C3E3A00C66C30 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		41765D79299D525F00C66C30 /* EdgeInsets_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeInsets_Extension.swift; sourceTree = "<group>"; };
+		41765D7C299D5D1E00C66C30 /* Catamaran-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Catamaran-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		41765D7E299D5FCF00C66C30 /* MainTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarView.swift; sourceTree = "<group>"; };
 		417C8C9A2997E27C0027507B /* UnitConversionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitConversionTests.swift; sourceTree = "<group>"; };
 		417C8C9C2997F48D0027507B /* LoanCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanCalculatorTests.swift; sourceTree = "<group>"; };
 		417C8CA2299BB85D0027507B /* CalculatorButtonOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorButtonOption.swift; sourceTree = "<group>"; };
@@ -91,6 +95,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		41765D7B299D5D0E00C66C30 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				41765D7C299D5D1E00C66C30 /* Catamaran-VariableFont_wght.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		4187DBE82922AB7D0026ABB2 = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +130,7 @@
 				4187DC1E2922ABE30026ABB2 /* Views */,
 				4187DBF42922AB7D0026ABB2 /* WonderCalcApp.swift */,
 				4187DBF82922AB800026ABB2 /* Assets.xcassets */,
+				41765D7B299D5D0E00C66C30 /* Fonts */,
 				4187DBFA2922AB800026ABB2 /* Preview Content */,
 			);
 			path = WonderCalc;
@@ -149,6 +162,7 @@
 				41C5F24A2927EFBC0079BD12 /* AboutView.swift */,
 				41E69809292582F50024C00F /* UnitsView.swift */,
 				41C5F24629273CB40079BD12 /* LoanView.swift */,
+				41765D7E299D5FCF00C66C30 /* MainTabBarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -269,6 +283,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41765D7D299D5D1E00C66C30 /* Catamaran-VariableFont_wght.ttf in Resources */,
 				4187DBFC2922AB800026ABB2 /* Preview Assets.xcassets in Resources */,
 				4187DBF92922AB800026ABB2 /* Assets.xcassets in Resources */,
 			);
@@ -297,6 +312,7 @@
 				4187DC2A2922E5420026ABB2 /* NumberFormatter+Extension.swift in Sources */,
 				41765D78299C3E3A00C66C30 /* Collection+Extension.swift in Sources */,
 				4187DBF52922AB7D0026ABB2 /* WonderCalcApp.swift in Sources */,
+				41765D7F299D5FCF00C66C30 /* MainTabBarView.swift in Sources */,
 				41C5F2592929B6B30079BD12 /* TextFieldRow.swift in Sources */,
 				41C5F24929273CEB0079BD12 /* LoanCalculator.swift in Sources */,
 				41765D76299C182C00C66C30 /* CalculatorStack.swift in Sources */,

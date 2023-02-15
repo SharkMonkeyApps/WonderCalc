@@ -20,6 +20,7 @@ struct CalculatorButton: View {
             option.text
                 .font(.subHeading)
                 .foregroundColor(.white)
+                .shadow(color: .black, radius: 3)
                 .padding()
                 .frame(maxWidth: .infinity)
                 .background(Capsule()

@@ -11,28 +11,12 @@ import SwiftUI
 struct WonderCalcApp: App {
     var body: some Scene {
         WindowGroup {
-            TabView{
-                CalculatorView(calculator: Calculator())
-                    .tabItem {
-                        Image(systemName: "circle.grid.3x3")
-                        Text("Calculator")
-                    }
-                UnitsView(unitProvider: UnitProvider())
-                    .tabItem {
-                        Image(systemName: "ruler")
-                        Text("Units")
-                    }
-                LoanView(loanCalc: LoanCalculator())
-                    .tabItem {
-                        Image(systemName: "percent")
-                        Text("Loans")
-                    }
-                AboutView()
-                    .tabItem {
-                        Image(systemName: "info.circle")
-                        Text("About")
-                    }
-            }
+            MainTabBarView()
         }
+    }
+
+    init() {
+        let catamaran = UIFont(name: "CatamaranRoman-Bold", size: 32) ?? UIFont.systemFont(ofSize: 32, weight: .bold)
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font: catamaran]
     }
 }

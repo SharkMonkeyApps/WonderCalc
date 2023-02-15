@@ -21,11 +21,11 @@ struct AboutView: View {
                 if let url = url {
                     Link("SharkMonkey Apps", destination: url)
                         .padding(.bottom)
-                        .font(.subHeading)
+                        .font(.catamaran)
                 } else {
                     Text("SkarkMonkey Apps")
                         .padding(.bottom)
-                        .font(.subHeading)
+                        .font(.catamaran)
                 }
 
                 Text("Please visit our website to provide feedback, or discuss your software development needs")
