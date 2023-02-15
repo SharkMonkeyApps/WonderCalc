@@ -60,4 +60,19 @@ final class UnitConversionTests: XCTestCase {
         
         XCTAssertEqual(unitProvider.result, "2146.5443 milliliters")
     }
+
+    func test_itCanConvertWeight() {
+        unitProvider.category = .weight
+        unitProvider.fromValue = "7"
+        unitProvider.fromUnit = WeightUnit.kilograms.unit
+        unitProvider.toUnit = WeightUnit.ounces.unit
+
+        XCTAssertEqual(unitProvider.result, "246.9179 ounces")
+
+        unitProvider.fromValue = "435.5"
+        unitProvider.fromUnit = WeightUnit.grams.unit
+        unitProvider.toUnit = WeightUnit.pounds.unit
+
+        XCTAssertEqual(unitProvider.result, "0.9601 pounds")
+    }
 }

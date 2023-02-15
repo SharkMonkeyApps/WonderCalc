@@ -126,7 +126,7 @@ enum WeightUnit: String, Unitable {
         case .pounds:
             return gramToPounds
         case .ounces:
-            return gramToPounds / 16
+            return gramToPounds * 16
         }
     }
     
