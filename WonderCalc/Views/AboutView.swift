@@ -35,10 +35,10 @@ struct AboutView: View {
                 Text("Please visit the App Store to")
                 if let url = appStoreURL {
                     Link("Rate this app", destination: url)
-                        .font(.subHeading)
+                        .font(.catamaran)
                 } else {
                     Text("Rate this app")
-                        .font(.subHeading)
+                        .font(.catamaran)
                 }
                 
                 Spacer()

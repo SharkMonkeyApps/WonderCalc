@@ -10,6 +10,8 @@ import Combine
 
 class UnitProvider: ObservableObject {
     fileprivate typealias InputValues = (fromValue: String, fromUnit: Unit, toUnit: Unit)
+    typealias UnitResult = (value: String, unit: String)
+
     
     @Published var category: UnitType = .length {
         didSet {
@@ -26,7 +28,7 @@ class UnitProvider: ObservableObject {
     
     @Published var fromValue: String = ""
     
-    @Published var result: String = ""
+    @Published var result: UnitResult = ("", "")
     
     init() {
         Publishers.CombineLatest3($fromValue, $fromUnit, $toUnit)
@@ -34,13 +36,13 @@ class UnitProvider: ObservableObject {
             .assign(to: &$result)
     }
     
-    private func calculatedResult(_ values: InputValues) -> String {
-        guard let fromQuantity = Double(values.fromValue) else { return "" }
+    private func calculatedResult(_ values: InputValues) -> UnitResult {
+        guard let fromQuantity = Double(values.fromValue) else { return ("", "") }
         
         let standardQuantity: Double = values.fromUnit.toStandardUnit(fromQuantity)
         let resultQuantity: Double = values.toUnit.fromStandardUnit(standardQuantity)
         
-        return NumberFormatter.unitRoundedString(resultQuantity) + " \(values.toUnit.convertedName)"
+        return (NumberFormatter.unitRoundedString(resultQuantity), values.toUnit.convertedName)
     }
 }
 

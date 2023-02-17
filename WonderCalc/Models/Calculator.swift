@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit // For Pasteboard
 
 /** Recieves user input from button taps to evaluate, calculate, and publish a result string. */
 class Calculator: ObservableObject {
@@ -31,10 +30,15 @@ class Calculator: ObservableObject {
     /** Text to display on clear button: AC or C */
     @Published var clearButtonText: String = "AC"
 
+    init(pasteBoard: PasteBoardable) {
+        self.pasteBoard = pasteBoard
+    }
+
     // MARK: - Private
 
     private var currentStringValue: String = "0"
     private var calculatorStack = CalculatorStack()
+    private let pasteBoard: PasteBoardable
 
     private var currentNumber: Double {
         get { Double(currentStringValue) ?? 0.0 }
@@ -93,12 +97,12 @@ class Calculator: ObservableObject {
     private func pasteboardOptionTapped(_ option: CalculatorButtonOption) {
         switch option {
         case .cut:
-            UIPasteboard.general.string = publishedValue
+            pasteBoard.copy(publishedValue)
             clearCurrentValue(publish: true)
         case .copy:
-            UIPasteboard.general.string = publishedValue
+            pasteBoard.copy(publishedValue)
         case .paste:
-            if let contents = UIPasteboard.general.string,
+            if let contents = pasteBoard.paste(),
                let value  = Double(contents) {
                 currentNumber = value
                 publishCurrentNumber()
