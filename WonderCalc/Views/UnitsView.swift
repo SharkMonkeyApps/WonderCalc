@@ -35,7 +35,22 @@ struct UnitsView: View {
                         Spacer()
                     }
                 }
-                .padding(.bottom)
+
+                LazyVGrid(columns: layout) {
+                    Spacer()
+                    HStack {
+                        Button(action: swapUnits) {
+                            Text(Image(systemName: "rectangle.2.swap"))
+                                .font(.subHeading)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Capsule()
+                                    .fill(.indigo)
+                                    .frame(height: 56))
+                        }
+                        Spacer()
+                    }
+                }
                 
                 PickerRow(title: "To:", options: unitProvider.units, layout: layout, selection: $unitProvider.toUnit)
                     .padding(.bottom)
@@ -59,4 +74,10 @@ struct UnitsView: View {
         GridItem(.flexible()),
         GridItem(.fixed(160))
     ]
+
+    private func swapUnits() {
+        let newToUnit = unitProvider.fromUnit
+        unitProvider.fromUnit = unitProvider.toUnit
+        unitProvider.toUnit = newToUnit
+    }
 }
