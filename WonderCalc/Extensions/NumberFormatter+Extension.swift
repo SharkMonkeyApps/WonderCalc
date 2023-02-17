@@ -27,14 +27,25 @@ extension NumberFormatter {
 
     static func unitRoundedString(_ number: Double) -> String {
         let rounded = Double(round(number * 10000) / 10000)
-
-        return "\(rounded)"
+        if abs(rounded) > 0.0 {
+            return "\(rounded)"
+        } else {
+            return "\(number)"
+        }
     }
     
     static func currencyString(_ number: Double) -> String {
+        currencyFormatter.string(from: NSNumber(value: number)) ?? ""
+    }
+
+    static func currencyNumber(from string: String) -> Double? {
+        currencyFormatter.number(from: string) as? Double
+    }
+
+    private static let currencyFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        
-        return formatter.string(from: NSNumber(value: number)) ?? ""
-    }
+
+        return formatter
+    }()
 }

@@ -11,9 +11,11 @@ import XCTest
 final class CalculatorTests: XCTestCase {
     
     var calculator: Calculator!
+    var pasteBoard: PasteBoardable!
     
     override func setUp() {
-        calculator = Calculator()
+        pasteBoard = MockPasteboard()
+        calculator = Calculator(pasteBoard: pasteBoard)
     }
 
     func test_itCanDisplayAndClearNumbers() {
@@ -336,6 +338,42 @@ final class CalculatorTests: XCTestCase {
         calculator.buttonTapped(.equal)
 
         XCTAssertEqual(calculator.publishedValue, "133.93593072120697")
+    }
+
+    func test_itCanCut() {
+        calculator.buttonTapped(.five)
+        calculator.buttonTapped(.cut)
+
+        XCTAssertEqual(calculator.publishedValue, "0")
+        XCTAssertEqual(pasteBoard.paste(), "5")
+    }
+
+    func test_itCanCopy() {
+        calculator.buttonTapped(.five)
+        calculator.buttonTapped(.copy)
+
+        XCTAssertEqual(calculator.publishedValue, "5")
+        XCTAssertEqual(pasteBoard.paste(), "5")
+    }
+
+    func testItCanPaste() {
+        calculator.buttonTapped(.five)
+        calculator.buttonTapped(.cut)
+        calculator.buttonTapped(.paste)
+
+        XCTAssertEqual(calculator.publishedValue, "5")
+
+        clearAll()
+
+        calculator.buttonTapped(.seven)
+        calculator.buttonTapped(.plus)
+        calculator.buttonTapped(.paste)
+
+        XCTAssertEqual(calculator.publishedValue, "5")
+
+        calculator.buttonTapped(.equal)
+
+        XCTAssertEqual(calculator.publishedValue, "12")
     }
 
     // MARK: - Helpers

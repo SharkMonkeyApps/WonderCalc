@@ -10,6 +10,8 @@ import Combine
 
 class UnitProvider: ObservableObject {
     fileprivate typealias InputValues = (fromValue: String, fromUnit: Unit, toUnit: Unit)
+    typealias UnitResult = (value: String, unit: String)
+
     
     @Published var category: UnitType = .length {
         didSet {
@@ -26,7 +28,7 @@ class UnitProvider: ObservableObject {
     
     @Published var fromValue: String = ""
     
-    @Published var result: String = ""
+    @Published var result: UnitResult = ("", "")
     
     init() {
         Publishers.CombineLatest3($fromValue, $fromUnit, $toUnit)
@@ -34,21 +36,23 @@ class UnitProvider: ObservableObject {
             .assign(to: &$result)
     }
     
-    private func calculatedResult(_ values: InputValues) -> String {
-        guard let fromQuantity = Double(values.fromValue) else { return "" }
+    private func calculatedResult(_ values: InputValues) -> UnitResult {
+        guard let fromQuantity = Double(values.fromValue) else { return ("", "") }
         
         let standardQuantity: Double = values.fromUnit.toStandardUnit(fromQuantity)
         let resultQuantity: Double = values.toUnit.fromStandardUnit(standardQuantity)
         
-        return NumberFormatter.unitRoundedString(resultQuantity) + " \(values.toUnit.convertedName)"
+        return (NumberFormatter.unitRoundedString(resultQuantity), values.toUnit.convertedName)
     }
 }
 
 enum UnitType: String, Pickable, CaseIterable {
+    case area
     case length
     case temperature
-    case weight
+    case time
     case volume
+    case weight
     
     var units: [Unit] { type.allUnits }
     var firstOption: Unit { type.firstOption.unit }
@@ -60,12 +64,82 @@ enum UnitType: String, Pickable, CaseIterable {
             return LengthUnit.self
         case .temperature:
             return TemperatureUnit.self
+        case .time:
+            return TimeUnit.self
         case .weight:
             return WeightUnit.self
         case .volume:
             return VolumeUnit.self
+        case .area:
+            return AreaUnit.self
         }
     }
+}
+
+enum AreaUnit: String, Unitable {
+    case squareMeters = "square meters" // standard
+    case squareKilometers = "square kilometers"
+    case squareInches = "square inches"
+    case squareFeet = "square feet"
+    case squareMiles = "square miles"
+    case acres
+
+    var multiplier: Double {
+        switch self {
+        case .squareMeters:
+            return 1
+        case .squareKilometers:
+            return 1 / 1000000
+        case .squareInches:
+            return sqMeterToInch
+        case .squareFeet:
+            return sqMeterToInch / 144
+        case .squareMiles:
+            return sqMeterToInch / pow(5280 * 12, 2)
+        case .acres:
+            return sqMeterToInch / (pow(5280 * 12, 2) / 640)
+        }
+    }
+
+    var adder: Double { 0.0 }
+
+    static var firstOption: AreaUnit { .squareMeters }
+    static var secondOption: AreaUnit { .squareFeet }
+
+    private var sqMeterToInch: Double { 1550.0031 }
+}
+
+enum TimeUnit: String, Unitable {
+
+    case seconds // Standard
+    case minutes
+    case hours
+    case days
+    case weeks
+    case years
+
+    var multiplier: Double {
+        switch self {
+        case .seconds:
+            return 1
+        case .minutes:
+            return 1 / 60
+        case .hours:
+            return 1 / (60 * 60)
+        case .days:
+            return 1 / (60 * 60 * 24)
+        case .weeks:
+            return 1 / (60 * 60 * 24 * 7)
+        case .years:
+            return 1 / (60 * 60 * 24 * 7 * 365)
+        }
+
+    }
+
+    var adder: Double { 0 }
+
+    static var firstOption: TimeUnit { .seconds }
+    static var secondOption: TimeUnit { .hours }
 }
 
 enum VolumeUnit: String, Unitable {

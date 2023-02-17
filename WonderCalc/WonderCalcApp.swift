@@ -11,7 +11,7 @@ import SwiftUI
 struct WonderCalcApp: App {
     var body: some Scene {
         WindowGroup {
-            MainTabBarView()
+            MainTabBarView(pasteBoard: PasteBoard.standard)
         }
     }
 

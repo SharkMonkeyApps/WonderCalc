@@ -22,13 +22,13 @@ final class UnitConversionTests: XCTestCase {
         unitProvider.fromUnit = LengthUnit.feet.unit
         unitProvider.toUnit = LengthUnit.meters.unit
         
-        XCTAssertEqual(unitProvider.result, "2.1336 meters") // round?
+        XCTAssertEqual(unitProvider.resultString, "2.1336 meters") // round?
         
         unitProvider.fromValue = "563223.6"
         unitProvider.fromUnit = LengthUnit.centimeters.unit
         unitProvider.toUnit = LengthUnit.miles.unit
         
-        XCTAssertEqual(unitProvider.result, "3.4997 miles") // round?
+        XCTAssertEqual(unitProvider.resultString, "3.4997 miles") // round?
     }
     
     func test_itCanConvertTemperature() {
@@ -37,13 +37,13 @@ final class UnitConversionTests: XCTestCase {
         unitProvider.fromUnit = TemperatureUnit.fahrenheight.unit
         unitProvider.toUnit = TemperatureUnit.celcius.unit
         
-        XCTAssertEqual(unitProvider.result, "-13.8889 ℃") // round?
+        XCTAssertEqual(unitProvider.resultString, "-13.8889 ℃") // round?
         
         unitProvider.fromValue = "435.5"
         unitProvider.fromUnit = TemperatureUnit.celcius.unit
         unitProvider.toUnit = TemperatureUnit.kelvin.unit
         
-        XCTAssertEqual(unitProvider.result, "708.65 Kelvin")
+        XCTAssertEqual(unitProvider.resultString, "708.65 Kelvin")
     }
     
     func test_itCanConvertVolume() {
@@ -52,13 +52,13 @@ final class UnitConversionTests: XCTestCase {
         unitProvider.fromUnit = VolumeUnit.liters.unit
         unitProvider.toUnit = VolumeUnit.gallons.unit
         
-        XCTAssertEqual(unitProvider.result, "1.8492 gallons")
+        XCTAssertEqual(unitProvider.resultString, "1.8492 gallons")
         
         unitProvider.fromValue = "435.5"
         unitProvider.fromUnit = VolumeUnit.teaspoon.unit
         unitProvider.toUnit = VolumeUnit.milliliters.unit
         
-        XCTAssertEqual(unitProvider.result, "2146.5443 milliliters")
+        XCTAssertEqual(unitProvider.resultString, "2146.5443 milliliters")
     }
 
     func test_itCanConvertWeight() {
@@ -67,12 +67,19 @@ final class UnitConversionTests: XCTestCase {
         unitProvider.fromUnit = WeightUnit.kilograms.unit
         unitProvider.toUnit = WeightUnit.ounces.unit
 
-        XCTAssertEqual(unitProvider.result, "246.9179 ounces")
+        XCTAssertEqual(unitProvider.resultString, "246.9179 ounces")
 
         unitProvider.fromValue = "435.5"
         unitProvider.fromUnit = WeightUnit.grams.unit
         unitProvider.toUnit = WeightUnit.pounds.unit
 
-        XCTAssertEqual(unitProvider.result, "0.9601 pounds")
+        XCTAssertEqual(unitProvider.resultString, "0.9601 pounds")
     }
+}
+
+// MARK: - Helpers
+
+extension UnitProvider {
+    /** Convienience accessor for testing */
+    var resultString: String { "\(result.value) \(result.unit)" }
 }

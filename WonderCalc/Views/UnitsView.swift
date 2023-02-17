@@ -11,6 +11,7 @@ struct UnitsView: View {
     
     @ObservedObject var unitProvider: UnitProvider
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    let pasteBoard: PasteBoardable
     
     var body: some View {
         NavigationView {
@@ -35,15 +36,40 @@ struct UnitsView: View {
                         Spacer()
                     }
                 }
-                .padding(.bottom)
+
+                LazyVGrid(columns: layout) {
+                    Spacer()
+                    HStack {
+                        Button(action: swapUnits) {
+                            Text(Image(systemName: "rectangle.2.swap"))
+                                .font(.subHeading)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Capsule()
+                                    .fill(.indigo)
+                                    .frame(height: 56))
+                        }
+                        Spacer()
+                    }
+                }
                 
                 PickerRow(title: "To:", options: unitProvider.units, layout: layout, selection: $unitProvider.toUnit)
                     .padding(.bottom)
                 
                 Spacer()
                 
-                Text(unitProvider.result)
+                Text("\(unitProvider.result.value) \(unitProvider.result.unit)")
                     .font(.heading)
+                Button(action: copyResults) {
+                    Text(Image(systemName: "doc.on.doc"))
+                        .font(.subHeading)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Capsule()
+                            .fill(unitProvider.result.value == "" ? .gray : .blue)
+                            .frame(height: 56))
+                }
+                .disabled(unitProvider.result.value == "")
                 
                 Spacer()
             }
@@ -59,4 +85,14 @@ struct UnitsView: View {
         GridItem(.flexible()),
         GridItem(.fixed(160))
     ]
+
+    private func swapUnits() {
+        let newToUnit = unitProvider.fromUnit
+        unitProvider.fromUnit = unitProvider.toUnit
+        unitProvider.toUnit = newToUnit
+    }
+
+    private func copyResults() {
+        pasteBoard.copy(unitProvider.result.value)
+    }
 }
