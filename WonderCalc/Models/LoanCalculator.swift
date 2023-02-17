@@ -9,28 +9,29 @@ import Foundation
 import Combine
 
 class LoanCalculator: ObservableObject {
-    fileprivate typealias InputValues = (amount: String, years: String, rate: String)
+    fileprivate typealias InputValues = (amount: String, years: String, months: String, rate: String)
     typealias Payments = (monthly: String, total: String, interest: String)
     
     @Published var amount: String = ""
     @Published var years: String = ""
+    @Published var months: String = ""
     @Published var rate: String = ""
     
     @Published var payments: Payments = ("", "", "")
     
     init() {
-        Publishers.CombineLatest3($amount, $years, $rate)
+        Publishers.CombineLatest4($amount, $years, $months, $rate)
             .map { values in self.calculatedPaymemnt(values) }
             .assign(to: &$payments)
     }
     
     private func calculatedPaymemnt(_ values: InputValues) -> Payments {
-        guard let years = Double(values.years),
+        let numberOfMonths = (Double(values.years) ?? 0) * 12 + (Double(values.months) ?? 0)
+        guard numberOfMonths > 0,
               let amount = Double(values.amount),
               let rate = Double(values.rate)
         else { return ("", "", "") }
-        
-        let numberOfMonths = years * 12
+
         let monthlyRate = ((rate / 100) / 12)
         let topPartOfformula = monthlyRate * (pow((monthlyRate + 1), numberOfMonths))
         let bottomPartOfFormula = pow((monthlyRate + 1), numberOfMonths) - 1
