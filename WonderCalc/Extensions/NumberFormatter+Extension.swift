@@ -27,8 +27,11 @@ extension NumberFormatter {
 
     static func unitRoundedString(_ number: Double) -> String {
         let rounded = Double(round(number * 10000) / 10000)
-
-        return "\(rounded)"
+        if rounded > 0.0 {
+            return "\(rounded)"
+        } else {
+            return "\(number)"
+        }
     }
     
     static func currencyString(_ number: Double) -> String {

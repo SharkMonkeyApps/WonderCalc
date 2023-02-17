@@ -47,8 +47,9 @@ class UnitProvider: ObservableObject {
 enum UnitType: String, Pickable, CaseIterable {
     case length
     case temperature
-    case weight
+    case time
     case volume
+    case weight
     
     var units: [Unit] { type.allUnits }
     var firstOption: Unit { type.firstOption.unit }
@@ -60,12 +61,46 @@ enum UnitType: String, Pickable, CaseIterable {
             return LengthUnit.self
         case .temperature:
             return TemperatureUnit.self
+        case .time:
+            return TimeUnit.self
         case .weight:
             return WeightUnit.self
         case .volume:
             return VolumeUnit.self
         }
     }
+}
+
+enum TimeUnit: String, Unitable {
+
+    case seconds // Standard
+    case minutes
+    case hours
+    case days
+    case weeks
+    case years
+
+    var multiplier: Double {
+        switch self {
+        case .seconds:
+            return 1
+        case .minutes:
+            return 1 / 60
+        case .hours:
+            return 1 / (60 * 60)
+        case .days:
+            return 1 / (60 * 60 * 24)
+        case .weeks:
+            return 1 / (60 * 60 * 24 * 7)
+        case .years:
+            return 1 / (60 * 60 * 24 * 7 * 365)
+        }
+    }
+
+    var adder: Double { 0 }
+
+    static var firstOption: TimeUnit { .seconds }
+    static var secondOption: TimeUnit { .hours }
 }
 
 enum VolumeUnit: String, Unitable {
