@@ -29,6 +29,14 @@ struct LoanView: View {
                     .font(.subHeading)
                 Text("Total Interest: \(loanCalc.payments.interest)")
                     .font(.subHeading)
+                    .padding(.bottomPad)
+                Button("Clear") {
+                    loanCalc.amount = ""
+                    loanCalc.years = ""
+                    loanCalc.rate = ""
+                }
+                .font(.subHeading)
+                .disabled(loanCalc.payments.monthly == "")
                 
                 Spacer()
             }
