@@ -301,6 +301,23 @@ final class CalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.publishedValue, "-0.05")
     }
 
+    func test_itCanPerformMultipleEquals() {
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.plus)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.equal)
+
+        XCTAssertEqual(calculator.publishedValue, "4")
+
+        calculator.buttonTapped(.equal)
+
+        XCTAssertEqual(calculator.publishedValue, "6")
+
+        calculator.buttonTapped(.equal)
+
+        XCTAssertEqual(calculator.publishedValue, "8")
+    }
+
     func test_itFollowsTheOrderOfOperations() { // PEMDAS
         calculator.buttonTapped(.five)
         calculator.buttonTapped(.one)
