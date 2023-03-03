@@ -244,6 +244,17 @@ final class CalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.publishedValue, "625")
     }
 
+    func test_itCanMakeASquareNegative() {
+        calculator.buttonTapped(.five)
+        calculator.buttonTapped(.squared)
+
+        XCTAssertEqual(calculator.publishedValue, "25")
+
+        calculator.buttonTapped(.negative)
+
+        XCTAssertEqual(calculator.publishedValue, "-25")
+    }
+
     func test_itCanSquareRoot() {
         calculator.buttonTapped(.nine)
         calculator.buttonTapped(.squareRoot)
@@ -316,6 +327,30 @@ final class CalculatorTests: XCTestCase {
         calculator.buttonTapped(.equal)
 
         XCTAssertEqual(calculator.publishedValue, "8")
+    }
+
+    func test_itResetsTypingAfterEqual() {
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.plus)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.equal)
+
+        XCTAssertEqual(calculator.publishedValue, "4")
+
+        calculator.buttonTapped(.seven)
+
+        XCTAssertEqual(calculator.publishedValue, "7")
+    }
+
+    func test_itResetsTypingAfterSquare() {
+        calculator.buttonTapped(.nine)
+        calculator.buttonTapped(.squared)
+
+        XCTAssertEqual(calculator.publishedValue, "81")
+
+        calculator.buttonTapped(.seven)
+
+        XCTAssertEqual(calculator.publishedValue, "7")
     }
 
     func test_itFollowsTheOrderOfOperations() { // PEMDAS

@@ -43,6 +43,12 @@ class CalculatorStack {
 
     /** Calculate the value of the existing stack based on order of operation. */
     func calculate(currentOp: Operator? = nil, precedence: Int = 0) throws -> Double? {
+
+        if currentOp == nil && stack.count > 2 {
+            previousCalculation = stack.suffix(2)
+        } else if currentOp == nil && stack.count == 1 {
+            stack.append(contentsOf: previousCalculation)
+        }
         let maxPrecedence = currentOp?.precedence.rawValue ?? OperatorPrecedence.allCases.max(by: { $0.rawValue < $1.rawValue })?.rawValue ?? 1
         var finalResult: Double?
 
@@ -66,7 +72,11 @@ class CalculatorStack {
 
     // MARK: - Private
 
-    private var stack: [Calculable] = []
+    /** Numbers and operators to be performed */
+    private var stack: [Calculable] = [] // Numbers and operators to be performed
+
+    /** Performed on repeated tapping of equal */
+    private var previousCalculation: [Calculable] = []
 
     /** Evaluates if the operator should execute based on order of operation and if the stack has a number before and after the operator.
      If the criteria are met, the stack items are destructively removed from the stack and returned. */
@@ -112,5 +122,9 @@ class CalculatorStack {
     private func setFirstNumber(_ number: Double) {
         guard stack.first?.type == .mathOperator else { return }
         stack.insert(number, at: 0)
+    }
+
+    private func appendRepeatedPreviousCalculation() {
+
     }
 }
