@@ -37,8 +37,10 @@ class Calculator: ObservableObject {
     // MARK: - Private
 
     private var currentStringValue: String = "0"
+    private var shouldAppend = false
     private var calculatorStack = CalculatorStack()
     private let pasteBoard: PasteBoardable
+    private var lastInstantCalculation: CalculatorButtonOption?
 
     private var currentNumber: Double {
         get { Double(currentStringValue) ?? 0.0 }
@@ -50,9 +52,16 @@ class Calculator: ObservableObject {
     private func numberTapped(_ option: CalculatorButtonOption) {
         guard option.type == .number else { return invalidOperation("Invalid Number") }
 
+        lastInstantCalculation = nil
+
+        if shouldAppend == false {
+            currentStringValue = "0"
+            shouldAppend = true
+        }
+
         if option == .decimal {
             decimalTapped()
-        } else if currentStringValue == "0" {
+        } else if shouldAppend == false {
             currentStringValue = option.rawValue
             publishCurrentNumber()
         } else {
@@ -78,20 +87,27 @@ class Calculator: ObservableObject {
             currentNumber = currentNumber * -1.0
             publishCurrentNumber()
         case .percent:
-            currentNumber = currentNumber / 100.0
-            publishCurrentNumber()
+            lastInstantCalculation = .percent
+            handleInstantCalculation(result: currentNumber / 100.0)
         case .squared:
-            currentNumber = currentNumber * currentNumber
-            publishCurrentNumber()
+            lastInstantCalculation = .squared
+            handleInstantCalculation(result: currentNumber * currentNumber)
         case .squareRoot:
-            currentNumber = sqrt(currentNumber)
-            publishCurrentNumber()
+            lastInstantCalculation = .squareRoot
+            handleInstantCalculation(result: sqrt(currentNumber))
         default: // Evaluate based on Stack:
             guard let currentOperator = Operator(option) else { return }
+            lastInstantCalculation = nil
             calculatorStack.append(currentNumber)
             clearCurrentValue()
             calculateAndAddToStack(currentOperator)
         }
+    }
+
+    private func handleInstantCalculation(result: Double) {
+        currentNumber = result
+        shouldAppend = false
+        publishCurrentNumber()
     }
 
     private func pasteboardOptionTapped(_ option: CalculatorButtonOption) {
@@ -113,10 +129,17 @@ class Calculator: ObservableObject {
     }
 
     private func equalPressed() {
-        calculatorStack.append(currentNumber)
+        if shouldAppend {
+            calculatorStack.append(currentNumber)
+        } else if let lastOp = lastInstantCalculation {
+            operatorTapped(lastOp)
+        }
+
         do {
             if let result = try calculatorStack.calculate() {
                 currentNumber = result
+                shouldAppend = false
+
                 publishCurrentNumber()
             }
         } catch {

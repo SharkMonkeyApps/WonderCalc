@@ -6,7 +6,7 @@ WonderCalc is and easy to use calculator for iOS. It features cut, copy and past
 
 ## Setup
 
-After cloning down the repo, open the project in Xcode
+After cloning down the repo, open WonderCalc.xccodeproj in Xcode.
 
 To run the app on the selected simulator, press command + R
 
