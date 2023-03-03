@@ -353,6 +353,17 @@ final class CalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.publishedValue, "7")
     }
 
+    func test_itCanPerformRepeatedExponent() {
+        calculator.buttonTapped(.three)
+        calculator.buttonTapped(.squared)
+
+        XCTAssertEqual(calculator.publishedValue, "9")
+
+        calculator.buttonTapped(.equal)
+
+        XCTAssertEqual(calculator.publishedValue, "81")
+    }
+
     func test_itFollowsTheOrderOfOperations() { // PEMDAS
         calculator.buttonTapped(.five)
         calculator.buttonTapped(.one)
