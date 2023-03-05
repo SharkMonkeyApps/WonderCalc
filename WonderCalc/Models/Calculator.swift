@@ -90,6 +90,7 @@ class Calculator: ObservableObject {
             lastInstantCalculation = .percent
             handleInstantCalculation(result: currentNumber / 100.0)
         case .squared:
+            guard currentNumber < largestSquarableNumber else { return resultTooLarge() }
             lastInstantCalculation = .squared
             handleInstantCalculation(result: currentNumber * currentNumber)
         case .squareRoot:
@@ -218,6 +219,11 @@ class Calculator: ObservableObject {
         let error = CalculatorError.invalidOperation("\(message): \(line)")
         handle(error)
     }
+
+    private func resultTooLarge() {
+        let error = CalculatorError.tooLarge
+        handle(error)
+    }
     
     private func handle(_ error: Error) {
         guard let calcError = error as? CalculatorError else {
@@ -228,13 +234,22 @@ class Calculator: ObservableObject {
         switch calcError {
         case .divByZero:
             publish("Can't divide by zero")
+        case .tooLarge:
+            publish("Too large to calculate")
         case .invalidOperation:
             publish("Error")
         }
     }
+
+    // MARK: - Constant halpers
+
+    private lazy var largestSquarableNumber: Double = {
+        sqrt(Double.greatestFiniteMagnitude)
+    }()
 }
 
 enum CalculatorError: Error {
     case divByZero
+    case tooLarge
     case invalidOperation(_ message: String)
 }

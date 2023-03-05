@@ -364,6 +364,43 @@ final class CalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.publishedValue, "81")
     }
 
+    func test_itCanHandleScientificNotation() {
+        calculator.buttonTapped(.three)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+
+        XCTAssertEqual(calculator.publishedValue, "43046721")
+
+        calculator.buttonTapped(.squared)
+
+        XCTAssertEqual(calculator.publishedValue, "1853020188851841")
+
+        calculator.buttonTapped(.squared)
+
+        XCTAssertEqual(calculator.publishedValue, "3.433683820293e30")
+    }
+
+    func test_itCanHandleAnOverload() {
+        calculator.buttonTapped(.three)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+
+        XCTAssertEqual(calculator.publishedValue, "1.93233498323e244")
+
+        calculator.buttonTapped(.squared)
+
+        XCTAssertEqual(calculator.publishedValue, "Too large to calculate")
+    }
+
     func test_itFollowsTheOrderOfOperations() { // PEMDAS
         calculator.buttonTapped(.five)
         calculator.buttonTapped(.one)
