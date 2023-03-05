@@ -36,7 +36,6 @@ class CalculatorStack {
 
     /** Reset the stack to empty */
     func clear() {
-        print("clear stack")
         stack = []
 
     }
