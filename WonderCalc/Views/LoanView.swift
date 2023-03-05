@@ -11,6 +11,7 @@ struct LoanView: View {
     
     @ObservedObject var loanCalc: LoanCalculator
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @FocusState private var keyboardVisible: Bool
     let pasteBoard: PasteBoardable
     
     var body: some View {
@@ -25,21 +26,25 @@ struct LoanView: View {
                 }
                 
                 TextFieldRow(input: $loanCalc.years, title: "    Years:", placeHolder: "0", keyboardType: .numberPad)
+                    .focused($keyboardVisible)
 
                 TextFieldRow(input: $loanCalc.months, title: "    Months:", placeHolder: "0", keyboardType: .numberPad)
                     .padding(.bottomPad)
-                
+                    .focused($keyboardVisible)
+
                 TextFieldRow(input: $loanCalc.rate, title: "Interest Rate (%):", placeHolder: "0", keyboardType: .decimalPad)
                     .padding(.bottomPad)
+                    .focused($keyboardVisible)
 
                 swapButton
                 resultsView
                 clearButton
-                
+
                 Spacer()
             }
             .padding(horizontalSizeClass == .regular ? .wide : .standard)
             .navigationTitle("Loan Calculator")
+            .navigationBarHidden(shouldHideToolbar || keyboardVisible)
         }
         .dismissKeyboardOnTap()
         .navigationViewStyle(StackNavigationViewStyle())
@@ -51,9 +56,11 @@ struct LoanView: View {
         if loanCalc.amountToPayment {
             return TextFieldRow(input: $loanCalc.amount, title: "Amount:", placeHolder: "0", keyboardType: .decimalPad)
                 .padding(.bottom)
+                .focused($keyboardVisible)
         } else {
             return TextFieldRow(input: $loanCalc.monthlyPayment, title: "Payment:", placeHolder: "0", keyboardType: .decimalPad)
                 .padding(.bottom)
+                .focused($keyboardVisible)
         }
     }
 
@@ -140,4 +147,6 @@ struct LoanView: View {
     private func swapLoan() {
         loanCalc.amountToPayment.toggle()
     }
+
+    private let shouldHideToolbar = UIScreen.main.bounds.size.height < 800
 }
