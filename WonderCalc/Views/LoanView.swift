@@ -38,9 +38,9 @@ struct LoanView: View {
 
                 swapButton
                 resultsView
-                clearButton
 
-                Spacer()
+                keyboardVisible ? nil : clearButton
+                keyboardVisible ? nil : Spacer()
             }
             .padding(horizontalSizeClass == .regular ? .wide : .standard)
             .navigationTitle("Loan Calculator")
