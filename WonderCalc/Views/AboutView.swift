@@ -11,6 +11,7 @@ struct AboutView: View {
     
     let url = URL(string: "https://www.sharkmonkeyapps.com/")
     let appStoreURL = URL(string: "https://apps.apple.com/us/app/wondercalc/id6444459924")
+    let config: AppConfig
     
     var body: some View {
         NavigationView {
@@ -22,6 +23,12 @@ struct AboutView: View {
                     Link("SharkMonkey Apps", destination: url)
                         .padding(.bottom)
                         .font(.catamaran)
+                        .environment(\.openURL, OpenURLAction { url in
+                            config.analytics.log("websiteLinkTapped", options: [
+                                "url": url
+                            ])
+                            return .systemAction
+                        })
                 } else {
                     Text("SkarkMonkey Apps")
                         .padding(.bottom)
@@ -36,6 +43,12 @@ struct AboutView: View {
                 if let url = appStoreURL {
                     Link("Rate this app", destination: url)
                         .font(.catamaran)
+                        .environment(\.openURL, OpenURLAction { url in
+                            config.analytics.log("rateAppLinkTapped", options: [
+                                "url": url
+                            ])
+                            return .systemAction
+                        })
                 } else {
                     Text("Rate this app")
                         .font(.catamaran)

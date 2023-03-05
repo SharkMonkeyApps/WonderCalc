@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41239C7029B2B5AA008AAE70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41239C6F29B2B5AA008AAE70 /* GoogleService-Info.plist */; };
+		41239C7329B2B67C008AAE70 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 41239C7229B2B67C008AAE70 /* FirebaseAnalytics */; };
+		41239C7529B2B67C008AAE70 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 41239C7429B2B67C008AAE70 /* FirebaseCrashlytics */; };
+		41239C7729B2B6CE008AAE70 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41239C7629B2B6CE008AAE70 /* Analytics.swift */; };
+		41239C7A29B353FB008AAE70 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41239C7929B353FB008AAE70 /* PageView.swift */; };
 		41765D76299C182C00C66C30 /* CalculatorStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41765D75299C182C00C66C30 /* CalculatorStack.swift */; };
 		41765D78299C3E3A00C66C30 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41765D77299C3E3A00C66C30 /* Collection+Extension.swift */; };
 		41765D7A299D526000C66C30 /* EdgeInsets_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41765D79299D525F00C66C30 /* EdgeInsets_Extension.swift */; };
@@ -48,6 +53,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		41239C6F29B2B5AA008AAE70 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		41239C7629B2B6CE008AAE70 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
+		41239C7929B353FB008AAE70 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		41765D75299C182C00C66C30 /* CalculatorStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorStack.swift; sourceTree = "<group>"; };
 		41765D77299C3E3A00C66C30 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		41765D79299D525F00C66C30 /* EdgeInsets_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeInsets_Extension.swift; sourceTree = "<group>"; };
@@ -86,6 +94,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41239C7329B2B67C008AAE70 /* FirebaseAnalytics in Frameworks */,
+				41239C7529B2B67C008AAE70 /* FirebaseCrashlytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +109,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		41239C7829B353EA008AAE70 /* ViewHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				41239C7929B353FB008AAE70 /* PageView.swift */,
+			);
+			path = ViewHelpers;
+			sourceTree = "<group>";
+		};
 		41765D7B299D5D0E00C66C30 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				41765D81299FFC0900C66C30 /* PasteBoard.swift */,
+				41239C7629B2B6CE008AAE70 /* Analytics.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -145,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				41C5F24D29284C230079BD12 /* Info.plist */,
+				41239C6F29B2B5AA008AAE70 /* GoogleService-Info.plist */,
 				4187DC282922E5310026ABB2 /* Extensions */,
 				4187DC1F2922BE740026ABB2 /* Models */,
 				4187DC1E2922ABE30026ABB2 /* Views */,
@@ -179,6 +199,7 @@
 		4187DC1E2922ABE30026ABB2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				41239C7829B353EA008AAE70 /* ViewHelpers */,
 				41C5F2572929B67F0079BD12 /* Components */,
 				4187DBF62922AB7D0026ABB2 /* CalculatorView.swift */,
 				41C5F24A2927EFBC0079BD12 /* AboutView.swift */,
@@ -240,6 +261,10 @@
 			dependencies = (
 			);
 			name = WonderCalc;
+			packageProductDependencies = (
+				41239C7229B2B67C008AAE70 /* FirebaseAnalytics */,
+				41239C7429B2B67C008AAE70 /* FirebaseCrashlytics */,
+			);
 			productName = WonderCalc;
 			productReference = 4187DBF12922AB7D0026ABB2 /* WonderCalc.app */;
 			productType = "com.apple.product-type.application";
@@ -290,6 +315,9 @@
 				Base,
 			);
 			mainGroup = 4187DBE82922AB7D0026ABB2;
+			packageReferences = (
+				41239C7129B2B67C008AAE70 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 4187DBF22922AB7D0026ABB2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -308,6 +336,7 @@
 				41765D7D299D5D1E00C66C30 /* Catamaran-VariableFont_wght.ttf in Resources */,
 				4187DBFC2922AB800026ABB2 /* Preview Assets.xcassets in Resources */,
 				4187DBF92922AB800026ABB2 /* Assets.xcassets in Resources */,
+				41239C7029B2B5AA008AAE70 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,7 +358,9 @@
 				417C8CA5299BB9820027507B /* CalculatorButton.swift in Sources */,
 				4187DBF72922AB7D0026ABB2 /* CalculatorView.swift in Sources */,
 				41C5F253292995CE0079BD12 /* View+Extension.swift in Sources */,
+				41239C7729B2B6CE008AAE70 /* Analytics.swift in Sources */,
 				417C8CA7299BF66A0027507B /* Operator.swift in Sources */,
+				41239C7A29B353FB008AAE70 /* PageView.swift in Sources */,
 				41C5F24729273CB40079BD12 /* LoanView.swift in Sources */,
 				4187DC2A2922E5420026ABB2 /* NumberFormatter+Extension.swift in Sources */,
 				41765D78299C3E3A00C66C30 /* Collection+Extension.swift in Sources */,
@@ -620,6 +651,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		41239C7129B2B67C008AAE70 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		41239C7229B2B67C008AAE70 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 41239C7129B2B67C008AAE70 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		41239C7429B2B67C008AAE70 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 41239C7129B2B67C008AAE70 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4187DBE92922AB7D0026ABB2 /* Project object */;
 }

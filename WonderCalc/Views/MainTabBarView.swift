@@ -8,26 +8,26 @@
 import SwiftUI
 
 struct MainTabBarView: View {
-    let pasteBoard: PasteBoardable
+    let config: AppConfig
 
     var body: some View {
         TabView{
-            CalculatorView(calculator: Calculator(pasteBoard: pasteBoard))
+            PageView(analytics: config.analytics) { CalculatorView(calculator: Calculator(config: config)) }
                 .tabItem {
                     Image(systemName: "circle.grid.3x3")
                     Text("Calculator")
                 }
-            UnitsView(unitProvider: UnitProvider(), pasteBoard: pasteBoard)
+            PageView(analytics: config.analytics) { UnitsView(unitProvider: UnitProvider(), config: config) }
                 .tabItem {
                     Image(systemName: "ruler")
                     Text("Units")
                 }
-            LoanView(loanCalc: LoanCalculator(), pasteBoard: pasteBoard)
+            PageView(analytics: config.analytics) { LoanView(loanCalc: LoanCalculator(), config: config) }
                 .tabItem {
                     Image(systemName: "percent")
                     Text("Loans")
                 }
-            AboutView()
+            PageView(analytics: config.analytics) { AboutView(config: config) }
                 .tabItem {
                     Image(systemName: "info.circle")
                     Text("About")

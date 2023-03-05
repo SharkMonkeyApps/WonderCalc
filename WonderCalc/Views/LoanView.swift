@@ -11,7 +11,7 @@ struct LoanView: View {
     
     @ObservedObject var loanCalc: LoanCalculator
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    let pasteBoard: PasteBoardable
+    let config: AppConfig
     
     var body: some View {
         NavigationView {
@@ -91,7 +91,7 @@ struct LoanView: View {
 
     private func copyResults(_ result: String) {
         if let number = NumberFormatter.currencyNumber(from: result) {
-            pasteBoard.copy("\(number)")
+            config.pasteboard.copy("\(number)")
         }
     }
 }

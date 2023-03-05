@@ -104,6 +104,6 @@ struct CalculatorView: View {
 
 struct CalcView_Previews: PreviewProvider {
     static var previews: some View {
-        CalculatorView(calculator: Calculator(pasteBoard: PasteBoard.standard))
+        CalculatorView(calculator: Calculator(config: AppConfig.empty))
     }
 }
