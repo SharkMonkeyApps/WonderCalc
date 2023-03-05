@@ -11,6 +11,9 @@ extension NumberFormatter {
     
     static func calculatorDecimalAndZerosString(_ number: Double, hasDecimal: Bool, zeros: Int = 0) -> String {
         let numberString = String(number)
+        if number > 9999999999999000 {
+            return scientificFormatter.string(from: NSNumber(value: number)) ?? ""
+        }
         if numberString.suffix(2) == ".0" && hasDecimal == false {
             return String(numberString.dropLast(2))
         } else if numberString.last == "0" {
@@ -45,6 +48,15 @@ extension NumberFormatter {
     private static let currencyFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
+
+        return formatter
+    }()
+
+    private static let scientificFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .scientific
+        formatter.maximumFractionDigits = 12
+        formatter.exponentSymbol = "e"
 
         return formatter
     }()
