@@ -43,8 +43,12 @@ class Calculator: ObservableObject {
     private var lastInstantCalculation: CalculatorButtonOption?
 
     private var currentNumber: Double {
-        get { Double(currentStringValue) ?? 0.0 }
+        get { Double(currentStringValue.replacingOccurrences(of: ",", with: "")) ?? 0.0 }
         set { currentStringValue = format(newValue) }
+    }
+
+    private var currentPublishedNumber: Double {
+        Double(publishedValue.replacingOccurrences(of: ",", with: "")) ?? 0.0
     }
 
     // MARK: - Button Tap Handlers
@@ -88,14 +92,14 @@ class Calculator: ObservableObject {
             publishCurrentNumber()
         case .percent:
             lastInstantCalculation = .percent
-            handleInstantCalculation(result: currentNumber / 100.0)
+            handleInstantCalculation(result: currentPublishedNumber / 100.0)
         case .squared:
-            guard currentNumber < largestSquarableNumber else { return resultTooLarge() }
+            guard currentPublishedNumber < largestSquarableNumber else { return resultTooLarge() }
             lastInstantCalculation = .squared
-            handleInstantCalculation(result: currentNumber * currentNumber)
+            handleInstantCalculation(result: currentPublishedNumber * currentPublishedNumber)
         case .squareRoot:
             lastInstantCalculation = .squareRoot
-            handleInstantCalculation(result: sqrt(currentNumber))
+            handleInstantCalculation(result: sqrt(currentPublishedNumber))
         default: // Evaluate based on Stack:
             guard let currentOperator = Operator(option) else { return }
             lastInstantCalculation = nil
