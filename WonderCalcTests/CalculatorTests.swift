@@ -70,6 +70,24 @@ final class CalculatorTests: XCTestCase {
 
         XCTAssertEqual(calculator.publishedValue, "0.035")
     }
+
+    func test_itCanDisplayCommas() {
+        calculator.buttonTapped(.five)
+        calculator.buttonTapped(.five)
+        calculator.buttonTapped(.five)
+        calculator.buttonTapped(.five)
+
+        XCTAssertEqual(calculator.publishedValue, "5,555")
+
+        calculator.buttonTapped(.five)
+
+        XCTAssertEqual(calculator.publishedValue, "55,555")
+
+        calculator.buttonTapped(.decimal)
+        calculator.buttonTapped(.five)
+
+        XCTAssertEqual(calculator.publishedValue, "55,555.5")
+    }
     
     func test_itCanAddNumbers() {
         calculator.buttonTapped(.two)
@@ -353,6 +371,15 @@ final class CalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.publishedValue, "7")
     }
 
+
+    func test_itCanSquareAfterOperator() {
+        calculator.buttonTapped(.three)
+        calculator.buttonTapped(.multiply)
+        calculator.buttonTapped(.squared)
+
+        XCTAssertEqual(calculator.publishedValue, "9")
+    }
+
     func test_itCanPerformRepeatedExponent() {
         calculator.buttonTapped(.three)
         calculator.buttonTapped(.squared)
@@ -371,11 +398,11 @@ final class CalculatorTests: XCTestCase {
         calculator.buttonTapped(.squared)
         calculator.buttonTapped(.squared)
 
-        XCTAssertEqual(calculator.publishedValue, "43046721")
+        XCTAssertEqual(calculator.publishedValue, "43,046,721")
 
         calculator.buttonTapped(.squared)
 
-        XCTAssertEqual(calculator.publishedValue, "1853020188851841")
+        XCTAssertEqual(calculator.publishedValue, "1,853,020,188,851,841")
 
         calculator.buttonTapped(.squared)
 

@@ -149,6 +149,7 @@ enum VolumeUnit: String, Unitable {
     case quarts
     case pints
     case cups
+    case ounces
     case tablespoon
     case teaspoon
     
@@ -166,6 +167,8 @@ enum VolumeUnit: String, Unitable {
             return 8 * literToGallon
         case .cups:
             return 16 * literToGallon
+        case .ounces:
+            return 128 * literToGallon
         case .tablespoon:
             return 256 * literToGallon
         case .teaspoon:
@@ -187,6 +190,7 @@ enum WeightUnit: String, Unitable {
     case kilograms
     case pounds
     case ounces
+    case tons
     
     var multiplier: Double {
         switch self {
@@ -201,6 +205,8 @@ enum WeightUnit: String, Unitable {
             return gramToPounds
         case .ounces:
             return gramToPounds * 16
+        case .tons:
+            return gramToPounds / 2000
         }
     }
     
@@ -219,6 +225,7 @@ enum LengthUnit: String, Unitable {
     case kilometers
     case feet
     case inches
+    case yards
     case miles
     
     var multiplier: Double {
@@ -235,6 +242,8 @@ enum LengthUnit: String, Unitable {
             return 1 / 1000
         case .inches:
             return metersToFeet * 12
+        case .yards:
+            return metersToFeet / 3
         case .miles:
             return metersToFeet / 5280
         }
