@@ -31,6 +31,12 @@
 		4187DC212922BE810026ABB2 /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC202922BE810026ABB2 /* Calculator.swift */; };
 		4187DC272922D10F0026ABB2 /* CalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC262922D10F0026ABB2 /* CalculatorTests.swift */; };
 		4187DC2A2922E5420026ABB2 /* NumberFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4187DC292922E5420026ABB2 /* NumberFormatter+Extension.swift */; };
+		41A827B229BB9BD300C77BAD /* LengthUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A827B129BB9BD300C77BAD /* LengthUnit.swift */; };
+		41A827B429BB9BF000C77BAD /* WeightUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A827B329BB9BF000C77BAD /* WeightUnit.swift */; };
+		41A827B629BB9C0A00C77BAD /* TemperatureUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A827B529BB9C0A00C77BAD /* TemperatureUnit.swift */; };
+		41A827B829BB9C2900C77BAD /* TimeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A827B729BB9C2900C77BAD /* TimeUnit.swift */; };
+		41A827BA29BB9C3A00C77BAD /* VolumeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A827B929BB9C3A00C77BAD /* VolumeUnit.swift */; };
+		41A827BC29BB9C5000C77BAD /* AreaUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A827BB29BB9C5000C77BAD /* AreaUnit.swift */; };
 		41C5F24729273CB40079BD12 /* LoanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C5F24629273CB40079BD12 /* LoanView.swift */; };
 		41C5F24929273CEB0079BD12 /* LoanCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C5F24829273CEB0079BD12 /* LoanCalculator.swift */; };
 		41C5F24B2927EFBC0079BD12 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C5F24A2927EFBC0079BD12 /* AboutView.swift */; };
@@ -77,6 +83,12 @@
 		4187DC202922BE810026ABB2 /* Calculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
 		4187DC262922D10F0026ABB2 /* CalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorTests.swift; sourceTree = "<group>"; };
 		4187DC292922E5420026ABB2 /* NumberFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Extension.swift"; sourceTree = "<group>"; };
+		41A827B129BB9BD300C77BAD /* LengthUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LengthUnit.swift; sourceTree = "<group>"; };
+		41A827B329BB9BF000C77BAD /* WeightUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightUnit.swift; sourceTree = "<group>"; };
+		41A827B529BB9C0A00C77BAD /* TemperatureUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureUnit.swift; sourceTree = "<group>"; };
+		41A827B729BB9C2900C77BAD /* TimeUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUnit.swift; sourceTree = "<group>"; };
+		41A827B929BB9C3A00C77BAD /* VolumeUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeUnit.swift; sourceTree = "<group>"; };
+		41A827BB29BB9C5000C77BAD /* AreaUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaUnit.swift; sourceTree = "<group>"; };
 		41C5F24629273CB40079BD12 /* LoanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanView.swift; sourceTree = "<group>"; };
 		41C5F24829273CEB0079BD12 /* LoanCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanCalculator.swift; sourceTree = "<group>"; };
 		41C5F24A2927EFBC0079BD12 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
@@ -213,6 +225,7 @@
 		4187DC1F2922BE740026ABB2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				41A827B029BB9BC100C77BAD /* Units */,
 				4187DC202922BE810026ABB2 /* Calculator.swift */,
 				41E6980B292583860024C00F /* Unit.swift */,
 				41C5F24829273CEB0079BD12 /* LoanCalculator.swift */,
@@ -233,6 +246,19 @@
 				41765D79299D525F00C66C30 /* EdgeInsets_Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		41A827B029BB9BC100C77BAD /* Units */ = {
+			isa = PBXGroup;
+			children = (
+				41A827B129BB9BD300C77BAD /* LengthUnit.swift */,
+				41A827B329BB9BF000C77BAD /* WeightUnit.swift */,
+				41A827B529BB9C0A00C77BAD /* TemperatureUnit.swift */,
+				41A827B729BB9C2900C77BAD /* TimeUnit.swift */,
+				41A827B929BB9C3A00C77BAD /* VolumeUnit.swift */,
+				41A827BB29BB9C5000C77BAD /* AreaUnit.swift */,
+			);
+			path = Units;
 			sourceTree = "<group>";
 		};
 		41C5F2572929B67F0079BD12 /* Components */ = {
@@ -357,22 +383,28 @@
 				41C5F251292975250079BD12 /* PickerRow.swift in Sources */,
 				417C8CA5299BB9820027507B /* CalculatorButton.swift in Sources */,
 				4187DBF72922AB7D0026ABB2 /* CalculatorView.swift in Sources */,
+				41A827B829BB9C2900C77BAD /* TimeUnit.swift in Sources */,
 				41C5F253292995CE0079BD12 /* View+Extension.swift in Sources */,
 				41239C7729B2B6CE008AAE70 /* Analytics.swift in Sources */,
 				417C8CA7299BF66A0027507B /* Operator.swift in Sources */,
 				41239C7A29B353FB008AAE70 /* PageView.swift in Sources */,
+				41A827B229BB9BD300C77BAD /* LengthUnit.swift in Sources */,
+				41A827B629BB9C0A00C77BAD /* TemperatureUnit.swift in Sources */,
 				41C5F24729273CB40079BD12 /* LoanView.swift in Sources */,
+				41A827B429BB9BF000C77BAD /* WeightUnit.swift in Sources */,
 				4187DC2A2922E5420026ABB2 /* NumberFormatter+Extension.swift in Sources */,
 				41765D78299C3E3A00C66C30 /* Collection+Extension.swift in Sources */,
 				4187DBF52922AB7D0026ABB2 /* WonderCalcApp.swift in Sources */,
 				41765D7F299D5FCF00C66C30 /* MainTabBarView.swift in Sources */,
 				41C5F2592929B6B30079BD12 /* TextFieldRow.swift in Sources */,
+				41A827BA29BB9C3A00C77BAD /* VolumeUnit.swift in Sources */,
 				41C5F24929273CEB0079BD12 /* LoanCalculator.swift in Sources */,
 				41765D76299C182C00C66C30 /* CalculatorStack.swift in Sources */,
 				41C5F24B2927EFBC0079BD12 /* AboutView.swift in Sources */,
 				41E6980A292582F50024C00F /* UnitsView.swift in Sources */,
 				41E6980C292583860024C00F /* Unit.swift in Sources */,
 				41C5F24F292973510079BD12 /* Font+Extension.swift in Sources */,
+				41A827BC29BB9C5000C77BAD /* AreaUnit.swift in Sources */,
 				4187DC212922BE810026ABB2 /* Calculator.swift in Sources */,
 				41765D7A299D526000C66C30 /* EdgeInsets_Extension.swift in Sources */,
 				417C8CA3299BB85D0027507B /* CalculatorButtonOption.swift in Sources */,
@@ -539,7 +571,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sharkmonkeyapps.wondercalc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -571,7 +603,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sharkmonkeyapps.wondercalc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

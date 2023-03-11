@@ -10,7 +10,7 @@ import SwiftUI
 extension EdgeInsets {
 
     static var bottomPad: EdgeInsets {
-        EdgeInsets(top: 0, leading: 0, bottom: 24, trailing: 0)
+        EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0)
     }
 
     static var none: EdgeInsets {

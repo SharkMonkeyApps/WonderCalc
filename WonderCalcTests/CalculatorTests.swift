@@ -70,6 +70,24 @@ final class CalculatorTests: XCTestCase {
 
         XCTAssertEqual(calculator.publishedValue, "0.035")
     }
+
+    func test_itCanDisplayCommas() {
+        calculator.buttonTapped(.five)
+        calculator.buttonTapped(.five)
+        calculator.buttonTapped(.five)
+        calculator.buttonTapped(.five)
+
+        XCTAssertEqual(calculator.publishedValue, "5,555")
+
+        calculator.buttonTapped(.five)
+
+        XCTAssertEqual(calculator.publishedValue, "55,555")
+
+        calculator.buttonTapped(.decimal)
+        calculator.buttonTapped(.five)
+
+        XCTAssertEqual(calculator.publishedValue, "55,555.5")
+    }
     
     func test_itCanAddNumbers() {
         calculator.buttonTapped(.two)
@@ -353,6 +371,15 @@ final class CalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.publishedValue, "7")
     }
 
+
+    func test_itCanSquareAfterOperator() {
+        calculator.buttonTapped(.three)
+        calculator.buttonTapped(.multiply)
+        calculator.buttonTapped(.squared)
+
+        XCTAssertEqual(calculator.publishedValue, "9")
+    }
+
     func test_itCanPerformRepeatedExponent() {
         calculator.buttonTapped(.three)
         calculator.buttonTapped(.squared)
@@ -362,6 +389,43 @@ final class CalculatorTests: XCTestCase {
         calculator.buttonTapped(.equal)
 
         XCTAssertEqual(calculator.publishedValue, "81")
+    }
+
+    func test_itCanHandleScientificNotation() {
+        calculator.buttonTapped(.three)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+
+        XCTAssertEqual(calculator.publishedValue, "43,046,721")
+
+        calculator.buttonTapped(.squared)
+
+        XCTAssertEqual(calculator.publishedValue, "1,853,020,188,851,841")
+
+        calculator.buttonTapped(.squared)
+
+        XCTAssertEqual(calculator.publishedValue, "3.433683820293e30")
+    }
+
+    func test_itCanHandleAnOverload() {
+        calculator.buttonTapped(.three)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+        calculator.buttonTapped(.squared)
+
+        XCTAssertEqual(calculator.publishedValue, "1.93233498323e244")
+
+        calculator.buttonTapped(.squared)
+
+        XCTAssertEqual(calculator.publishedValue, "Too large to calculate")
     }
 
     func test_itFollowsTheOrderOfOperations() { // PEMDAS

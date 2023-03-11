@@ -11,13 +11,14 @@ struct LoanView: View {
     
     @ObservedObject var loanCalc: LoanCalculator
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @FocusState private var keyboardVisible: Bool
+    let pasteBoard: PasteBoardable
     let config: AppConfig
     
     var body: some View {
         NavigationView {
             VStack {
-                TextFieldRow(input: $loanCalc.amount, title: "Amount:", placeHolder: "0", keyboardType: .decimalPad)
-                    .padding(.bottom)
+                firstFieldRow
 
                 HStack {
                     Text("- Term -")
@@ -26,19 +27,25 @@ struct LoanView: View {
                 }
                 
                 TextFieldRow(input: $loanCalc.years, title: "    Years:", placeHolder: "0", keyboardType: .numberPad)
+                    .focused($keyboardVisible)
 
                 TextFieldRow(input: $loanCalc.months, title: "    Months:", placeHolder: "0", keyboardType: .numberPad)
                     .padding(.bottomPad)
-                
+                    .focused($keyboardVisible)
+
                 TextFieldRow(input: $loanCalc.rate, title: "Interest Rate (%):", placeHolder: "0", keyboardType: .decimalPad)
                     .padding(.bottomPad)
-                
+                    .focused($keyboardVisible)
+
+                swapButton
                 resultsView
-                
-                Spacer()
+
+                keyboardVisible ? nil : clearButton
+                keyboardVisible ? nil : Spacer()
             }
             .padding(horizontalSizeClass == .regular ? .wide : .standard)
             .navigationTitle("Loan Calculator")
+            .navigationBarHidden(shouldHideToolbar || keyboardVisible)
         }
         .dismissKeyboardOnTap()
         .navigationViewStyle(StackNavigationViewStyle())
@@ -46,7 +53,27 @@ struct LoanView: View {
 
     // MARK: - Private
 
-    var resultsView: some View {
+    private var firstFieldRow: some View {
+        if loanCalc.amountToPayment {
+            return TextFieldRow(input: $loanCalc.amount, title: "Amount:", placeHolder: "0", keyboardType: .decimalPad)
+                .padding(.bottom)
+                .focused($keyboardVisible)
+        } else {
+            return TextFieldRow(input: $loanCalc.monthlyPayment, title: "Payment:", placeHolder: "0", keyboardType: .decimalPad)
+                .padding(.bottom)
+                .focused($keyboardVisible)
+        }
+    }
+
+    private var resultsView: some View {
+        if loanCalc.amountToPayment {
+            return AnyView(paymentResultsView)
+        } else {
+            return AnyView(amountResultView)
+        }
+    }
+
+    private var paymentResultsView: some View {
         VStack {
             HStack(alignment: .center) {
                 Text("Monthly Payment: \(loanCalc.payments.monthly)")
@@ -64,17 +91,28 @@ struct LoanView: View {
                 copyButton(loanCalc.payments.interest)
             }
             .padding(.bottomPad)
-
-            Button("Clear") {
-                loanCalc.amount = ""
-                loanCalc.years = ""
-                loanCalc.rate = ""
-            }
-            .font(.subHeading)
-            .disabled(loanCalc.payments.monthly == "")
         }
     }
 
+    private var amountResultView: some View {
+        HStack(alignment: .center) {
+            Text("Amount: \(loanCalc.amountResult)")
+                .font(.subHeading)
+            copyButton(loanCalc.amount)
+        }
+    }
+
+    private var swapButton: some View {
+        Button(action: swapLoan) {
+            Text(Image(systemName: "rectangle.2.swap"))
+                .font(.subHeading)
+                .foregroundColor(.white)
+                .padding()
+                .background(Capsule()
+                    .fill(.indigo)
+                    .frame(height: 56))
+        }
+    }
 
     private func copyButton(_ value: String) -> some View {
         Button(action: { copyResults(value) }) {
@@ -89,9 +127,27 @@ struct LoanView: View {
         .disabled(value == "")
     }
 
+    private var clearButton: some View {
+        Button("Clear") {
+            loanCalc.amount = ""
+            loanCalc.years = ""
+            loanCalc.rate = ""
+            loanCalc.monthlyPayment = ""
+            loanCalc.amountResult = ""
+        }
+        .font(.subHeading)
+        .disabled(loanCalc.payments.monthly == "")
+    }
+
     private func copyResults(_ result: String) {
         if let number = NumberFormatter.currencyNumber(from: result) {
             config.pasteboard.copy("\(number)")
         }
     }
+
+    private func swapLoan() {
+        loanCalc.amountToPayment.toggle()
+    }
+
+    private let shouldHideToolbar = UIScreen.main.bounds.size.height < 800
 }

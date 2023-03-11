@@ -43,8 +43,12 @@ class Calculator: ObservableObject {
     private var lastInstantCalculation: CalculatorButtonOption?
 
     private var currentNumber: Double {
-        get { Double(currentStringValue) ?? 0.0 }
+        get { Double(currentStringValue.replacingOccurrences(of: ",", with: "")) ?? 0.0 }
         set { currentStringValue = format(newValue) }
+    }
+
+    private var currentPublishedNumber: Double {
+        Double(publishedValue.replacingOccurrences(of: ",", with: "")) ?? 0.0
     }
 
     // MARK: - Button Tap Handlers
@@ -87,13 +91,14 @@ class Calculator: ObservableObject {
             publishCurrentNumber()
         case .percent:
             lastInstantCalculation = .percent
-            handleInstantCalculation(result: currentNumber / 100.0)
+            handleInstantCalculation(result: currentPublishedNumber / 100.0)
         case .squared:
+            guard currentPublishedNumber < largestSquarableNumber else { return resultTooLarge() }
             lastInstantCalculation = .squared
-            handleInstantCalculation(result: currentNumber * currentNumber)
+            handleInstantCalculation(result: currentPublishedNumber * currentPublishedNumber)
         case .squareRoot:
             lastInstantCalculation = .squareRoot
-            handleInstantCalculation(result: sqrt(currentNumber))
+            handleInstantCalculation(result: sqrt(currentPublishedNumber))
         default: // Evaluate based on Stack:
             guard let currentOperator = Operator(option) else { return }
             lastInstantCalculation = nil
@@ -217,6 +222,11 @@ class Calculator: ObservableObject {
         let error = CalculatorError.invalidOperation("\(message): \(line)")
         handle(error)
     }
+
+    private func resultTooLarge() {
+        let error = CalculatorError.tooLarge
+        handle(error)
+    }
     
     private func handle(_ error: Error, line: Int = #line) {
         guard let calcError = error as? CalculatorError else {
@@ -231,6 +241,8 @@ class Calculator: ObservableObject {
         switch calcError {
         case .divByZero:
             publish("Can't divide by zero")
+        case .tooLarge:
+            publish("Too large to calculate")
         case .invalidOperation(let message):
             publish("Error")
             config.analytics.log("invalidCalculatorOperation", options: [
@@ -238,9 +250,16 @@ class Calculator: ObservableObject {
             ])
         }
     }
+
+    // MARK: - Constant halpers
+
+    private lazy var largestSquarableNumber: Double = {
+        sqrt(Double.greatestFiniteMagnitude)
+    }()
 }
 
 enum CalculatorError: Error {
     case divByZero
+    case tooLarge
     case invalidOperation(_ message: String)
 }
