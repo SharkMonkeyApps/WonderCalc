@@ -54,6 +54,12 @@ struct AboutView: View {
                         .font(.catamaran)
                 }
                 
+                #if !RELEASE
+                Button("Crash") {
+                  fatalError("Crash was triggered")
+                }
+                #endif
+                
                 Spacer()
                 Text("© 2023 SharkMonkey Apps LLC")
             }

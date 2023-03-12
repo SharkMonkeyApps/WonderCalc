@@ -12,7 +12,6 @@ struct LoanView: View {
     @ObservedObject var loanCalc: LoanCalculator
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @FocusState private var keyboardVisible: Bool
-    let pasteBoard: PasteBoardable
     let config: AppConfig
     
     var body: some View {

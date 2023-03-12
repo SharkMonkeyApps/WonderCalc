@@ -20,9 +20,9 @@ This project uses a modified MVC architecture with testable model objects handli
 
 
 
-## Analytics
+## Analytics and Crash Reporting
 
-This project is using Firebase Analytics. To enable debugging, tap the WonderCalc target at the top, go to edit scheme, and add the following to arguments passed on launch:
+This project is using Firebase Analytics and Crashlytics. To enable debugging, tap the WonderCalc target at the top, go to edit scheme, and add the following to arguments passed on launch:
 ```
 -FIRDebugEnabled
 ```
@@ -30,7 +30,9 @@ This behavior persists until you explicitly disable debug mode by specifying the
 ```
 -FIRDebugDisabled
 ```
-See https://firebase.google.com/docs/analytics/debugview, https://firebase.google.com/docs/ios/setup, and 
+See https://firebase.google.com/docs/analytics/debugview, https://firebase.google.com/docs/ios/setup.
+
+When running the app outside of release mode, there is a button to simulate a crash on the about screen.
 
 ## Additional Info
 
