@@ -54,7 +54,7 @@ struct AboutView: View {
                         .font(.catamaran)
                 }
                 
-                #if !RELEASE
+                #if DEBUG
                 Button("Crash") {
                   fatalError("Crash was triggered")
                 }
