@@ -11,7 +11,7 @@ struct UnitsView: View {
     
     @ObservedObject var unitProvider: UnitProvider
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    let pasteBoard: PasteBoardable
+    let config: AppConfig
     
     var body: some View {
         NavigationView {
@@ -93,6 +93,6 @@ struct UnitsView: View {
     }
 
     private func copyResults() {
-        pasteBoard.copy(unitProvider.result.value)
+        config.pasteboard.copy(unitProvider.result.value)
     }
 }

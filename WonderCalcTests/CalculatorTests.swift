@@ -15,7 +15,7 @@ final class CalculatorTests: XCTestCase {
     
     override func setUp() {
         pasteBoard = MockPasteboard()
-        calculator = Calculator(pasteBoard: pasteBoard)
+        calculator = Calculator(config: AppConfig(analytics: NoAnalytics(), pasteboard: pasteBoard))
     }
 
     func test_itCanDisplayAndClearNumbers() {

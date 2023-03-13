@@ -30,8 +30,8 @@ class Calculator: ObservableObject {
     /** Text to display on clear button: AC or C */
     @Published var clearButtonText: String = "AC"
 
-    init(pasteBoard: PasteBoardable) {
-        self.pasteBoard = pasteBoard
+    init(config: AppConfig) {
+        self.config = config
     }
 
     // MARK: - Private
@@ -39,7 +39,7 @@ class Calculator: ObservableObject {
     private var currentStringValue: String = "0"
     private var shouldAppend = false
     private var calculatorStack = CalculatorStack()
-    private let pasteBoard: PasteBoardable
+    private let config: AppConfig
     private var lastInstantCalculation: CalculatorButtonOption?
 
     private var currentNumber: Double {
@@ -82,7 +82,6 @@ class Calculator: ObservableObject {
     private func operatorTapped(_ option: CalculatorButtonOption) {
         guard option.type == .mathOperator else { return invalidOperation("Invalid Operand") }
 
-
         switch option {
             // Calculate Immediately:
         case .equal:
@@ -118,12 +117,12 @@ class Calculator: ObservableObject {
     private func pasteboardOptionTapped(_ option: CalculatorButtonOption) {
         switch option {
         case .cut:
-            pasteBoard.copy(publishedValue)
+            config.pasteboard.copy(publishedValue)
             clearCurrentValue(publish: true)
         case .copy:
-            pasteBoard.copy(publishedValue)
+            config.pasteboard.copy(publishedValue)
         case .paste:
-            if let contents = pasteBoard.paste(),
+            if let contents = config.pasteboard.paste(),
                let value  = Double(contents) {
                 currentNumber = value
                 publishCurrentNumber()
@@ -229,9 +228,13 @@ class Calculator: ObservableObject {
         handle(error)
     }
     
-    private func handle(_ error: Error) {
+    private func handle(_ error: Error, line: Int = #line) {
         guard let calcError = error as? CalculatorError else {
             publish("Error")
+            config.analytics.log("undeterminedCalculatorError", options: [
+                "line": line,
+                "description": error.localizedDescription
+            ])
             return
         }
         
@@ -240,8 +243,11 @@ class Calculator: ObservableObject {
             publish("Can't divide by zero")
         case .tooLarge:
             publish("Too large to calculate")
-        case .invalidOperation:
+        case .invalidOperation(let message):
             publish("Error")
+            config.analytics.log("invalidCalculatorOperation", options: [
+                "message": message
+            ])
         }
     }
 
