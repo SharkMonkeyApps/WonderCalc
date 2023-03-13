@@ -12,6 +12,7 @@
 		41239C7529B2B67C008AAE70 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 41239C7429B2B67C008AAE70 /* FirebaseCrashlytics */; };
 		41239C7729B2B6CE008AAE70 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41239C7629B2B6CE008AAE70 /* Analytics.swift */; };
 		41239C7A29B353FB008AAE70 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41239C7929B353FB008AAE70 /* PageView.swift */; };
+		4126336829BEAF990012A475 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4126336729BEAF990012A475 /* FirebaseAnalytics */; };
 		41765D76299C182C00C66C30 /* CalculatorStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41765D75299C182C00C66C30 /* CalculatorStack.swift */; };
 		41765D78299C3E3A00C66C30 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41765D77299C3E3A00C66C30 /* Collection+Extension.swift */; };
 		41765D7A299D526000C66C30 /* EdgeInsets_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41765D79299D525F00C66C30 /* EdgeInsets_Extension.swift */; };
@@ -115,6 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4126336829BEAF990012A475 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +129,13 @@
 				41239C7929B353FB008AAE70 /* PageView.swift */,
 			);
 			path = ViewHelpers;
+			sourceTree = "<group>";
+		};
+		4126336629BEAF990012A475 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		41765D7B299D5D0E00C66C30 /* Fonts */ = {
@@ -160,6 +169,7 @@
 				4187DBF32922AB7D0026ABB2 /* WonderCalc */,
 				4187DC042922AB800026ABB2 /* WonderCalcTests */,
 				4187DBF22922AB7D0026ABB2 /* Products */,
+				4126336629BEAF990012A475 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -310,6 +320,9 @@
 				4187DC032922AB800026ABB2 /* PBXTargetDependency */,
 			);
 			name = WonderCalcTests;
+			packageProductDependencies = (
+				4126336729BEAF990012A475 /* FirebaseAnalytics */,
+			);
 			productName = WonderCalcTests;
 			productReference = 4187DC012922AB800026ABB2 /* WonderCalcTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -595,7 +608,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sharkmonkeyapps.wondercalc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -627,7 +640,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sharkmonkeyapps.wondercalc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -729,6 +742,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 41239C7129B2B67C008AAE70 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		4126336729BEAF990012A475 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 41239C7129B2B67C008AAE70 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
