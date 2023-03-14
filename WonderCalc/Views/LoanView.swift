@@ -133,6 +133,7 @@ struct LoanView: View {
             loanCalc.rate = ""
             loanCalc.monthlyPayment = ""
             loanCalc.amountResult = ""
+            config.analytics.log("clearLoan")
         }
         .font(.subHeading)
         .disabled(loanCalc.payments.monthly == "")
@@ -141,11 +142,13 @@ struct LoanView: View {
     private func copyResults(_ result: String) {
         if let number = NumberFormatter.currencyNumber(from: result) {
             config.pasteboard.copy("\(number)")
+            config.analytics.log("copyLoan")
         }
     }
 
     private func swapLoan() {
         loanCalc.amountToPayment.toggle()
+        config.analytics.log("swapLoan")
     }
 
     private let shouldHideToolbar = UIScreen.main.bounds.size.height < 800

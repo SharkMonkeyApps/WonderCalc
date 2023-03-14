@@ -112,21 +112,25 @@ class Calculator: ObservableObject {
         currentNumber = result
         shouldAppend = false
         publishCurrentNumber()
+        config.analytics.log("instantOperation")
     }
 
     private func pasteboardOptionTapped(_ option: CalculatorButtonOption) {
         switch option {
         case .cut:
             config.pasteboard.copy(publishedValue)
+            config.analytics.log("cutCalc")
             clearCurrentValue(publish: true)
         case .copy:
             config.pasteboard.copy(publishedValue)
+            config.analytics.log("copyCalc")
         case .paste:
             if let contents = config.pasteboard.paste(),
                let value  = Double(contents) {
                 currentNumber = value
                 publishCurrentNumber()
             }
+            config.analytics.log("pasteCalc")
         default:
             invalidOperation("Invalid Pasteboard option")
         }
@@ -145,6 +149,7 @@ class Calculator: ObservableObject {
                 shouldAppend = false
 
                 publishCurrentNumber()
+                config.analytics.log("calculatedFromEqual")
             }
         } catch {
             handle(error)
@@ -189,6 +194,7 @@ class Calculator: ObservableObject {
             calculatorStack.append(result)
             calculatorStack.append(currentOperator)
             clearCurrentValue()
+            config.analytics.log("calculatedToStack")
         } else {
             calculatorStack.append(currentOperator)
         }

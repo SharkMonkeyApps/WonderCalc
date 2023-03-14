@@ -90,9 +90,11 @@ struct UnitsView: View {
         let newToUnit = unitProvider.fromUnit
         unitProvider.fromUnit = unitProvider.toUnit
         unitProvider.toUnit = newToUnit
+        config.analytics.log("swapUnit")
     }
 
     private func copyResults() {
         config.pasteboard.copy(unitProvider.result.value)
+        config.analytics.log("copyUnit")
     }
 }
