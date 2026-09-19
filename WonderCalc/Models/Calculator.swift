@@ -126,7 +126,9 @@ class Calculator: ObservableObject {
             config.analytics.log("copyCalc")
         case .paste:
             if let contents = config.pasteboard.paste(),
-               let value  = Double(contents) {
+               let value = Double(contents
+                    .replacingOccurrences(of: ",", with: "")
+                    .trimmingCharacters(in: .whitespacesAndNewlines)) {
                 currentNumber = value
                 publishCurrentNumber()
             }

@@ -39,10 +39,8 @@ struct FirebaseAnalytics: AnalyticsProviding {
 }
 
 struct NoAnalytics: AnalyticsProviding {
-    func pageView(_ name: String) {
-
-    }
-
+    func log(_ message: String, options: [String: Any]?) { }
+    func pageView(_ name: String) { }
     func configure() { }
 }
 

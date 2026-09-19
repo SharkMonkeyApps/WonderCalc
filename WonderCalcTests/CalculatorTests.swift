@@ -503,6 +503,36 @@ final class CalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.publishedValue, "12")
     }
 
+    func test_itCanPasteNumbersWithCommas() {
+        calculator.buttonTapped(.one)
+        calculator.buttonTapped(.two)
+        calculator.buttonTapped(.three)
+        calculator.buttonTapped(.four)
+        calculator.buttonTapped(.copy)
+        clearAll()
+        calculator.buttonTapped(.paste)
+
+        XCTAssertEqual(calculator.publishedValue, "1,234")
+
+        calculator.buttonTapped(.plus)
+        calculator.buttonTapped(.one)
+        calculator.buttonTapped(.equal)
+
+        XCTAssertEqual(calculator.publishedValue, "1,235")
+
+        clearAll()
+        pasteBoard.copy("1,234,567.5")
+        calculator.buttonTapped(.paste)
+
+        XCTAssertEqual(calculator.publishedValue, "1,234,567.5")
+
+        clearAll()
+        pasteBoard.copy(" 42\n")
+        calculator.buttonTapped(.paste)
+
+        XCTAssertEqual(calculator.publishedValue, "42")
+    }
+
     // MARK: - Helpers
 
     private func clearAll() {
